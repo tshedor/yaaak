@@ -4,6 +4,8 @@ YakApp::Application.routes.draw do
   #Homepage
   root 'splash#index'
 
+  get '/grunts' => 'grunt#index'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
