@@ -2,7 +2,9 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-jQuery(document).ready ($) ->
+
+
+jQuery(document).load ($) ->
 	evtSource = new EventSource('/herds/1/stream')
 	console.log evtSource
 	isEmpty = (str) ->
@@ -13,3 +15,11 @@ jQuery(document).ready ($) ->
 		console.log resp.message
 		if !isEmpty
 			$('.chat-list').append('<li>'+resp.message+'</li>')
+
+  evtSource.onopen(e) ->
+    console.log 'open'
+
+  evtSource.onerror(e) ->
+    console.log 'error'
+
+

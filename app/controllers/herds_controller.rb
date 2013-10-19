@@ -31,11 +31,13 @@ class HerdsController < ApplicationController
       sse.write({message: 'testEvent', data: {name: name }})
     end
 
+    while true
+    end
 
     rescue IOError
     ensure
       sse.close
-      ActiveSupport::Notifications.unsubscribe("herd#{@herd.id}")
+      #ActiveSupport::Notifications.unsubscribe("herd#{@herd.id}")
     end
   end
 
