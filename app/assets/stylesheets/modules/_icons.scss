@@ -1,0 +1,134 @@
+
+@charset "UTF-8";
+
+@font-face {
+  font-family: "yaaak";
+  src:url("fonts/yaaak.eot");
+  src:url("fonts/yaaak.eot?#iefix") format("embedded-opentype"),
+    url("fonts/yaaak.ttf") format("truetype"),
+    url("fonts/yaaak.svg#yaaak") format("svg"),
+    url("fonts/yaaak.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+[data-icon]:before {
+  font-family: "yaaak" !important;
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[class^="i-"]:before,
+[class*=" i-"]:before {
+  font-family: "yaaak" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+.i-fontawesome-webfont:before {
+  content: "a";
+}
+
+.i-fontawesome-webfont-1:before {
+  content: "b";
+}
+
+.i-fontawesome-webfont-3:before {
+  content: "d";
+}
+
+.i-fontawesome-webfont-4:before {
+  content: "e";
+}
+
+.i-fontawesome-webfont-5:before {
+  content: "f";
+}
+
+.i-fontawesome-webfont-6:before {
+  content: "g";
+}
+
+.i-fontawesome-webfont-7:before {
+  content: "h";
+}
+
+.i-fontawesome-webfont-8:before {
+  content: "i";
+}
+
+.i-fontawesome-webfont-9:before {
+  content: "j";
+}
+
+.i-fontawesome-webfont-10:before {
+  content: "k";
+}
+
+.i-fontawesome-webfont-11:before {
+  content: "l";
+}
+
+.i-fontawesome-webfont-12:before {
+  content: "m";
+}
+
+.i-fontawesome-webfont-13:before {
+  content: "n";
+}
+
+.i-fontawesome-webfont-14:before {
+  content: "o";
+}
+
+.i-fontawesome-webfont-15:before {
+  content: "p";
+}
+
+.i-fontawesome-webfont-16:before {
+  content: "q";
+}
+
+.i-fontawesome-webfont-17:before {
+  content: "r";
+}
+
+.i-fontawesome-webfont-18:before {
+  content: "s";
+}
+
+.i-fontawesome-webfont-19:before {
+  content: "t";
+}
+
+.i-fontawesome-webfont-2:before {
+  content: "c";
+}
+
+.i-fontawesome-webfont-20:before {
+  content: "u";
+}
+
+.i-fontawesome-webfont-21:before {
+  content: "v";
+}
+
+.i-fontawesome-webfont-22:before {
+  content: "w";
+}
+
