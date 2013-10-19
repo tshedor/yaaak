@@ -1,7 +1,7 @@
 Yak::Application.routes.draw do
 
   #Homepage
-  root :to => "range/index"
+  root :to => 'range#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
