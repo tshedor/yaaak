@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  hash: MyString
+  geo_lat: 1.5
+  geo_long: 1.5
+
+two:
+  name: MyString
+  hash: MyString
+  geo_lat: 1.5
+  geo_long: 1.5
