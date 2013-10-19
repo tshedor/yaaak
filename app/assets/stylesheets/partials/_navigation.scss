@@ -6,8 +6,6 @@
 	.hdr-controls { display: none; position: absolute; left: 250px; top: 20px; transition: all .5s ease-in;
 		form {
 			.gin-select { float: left; }
-			input { float: left; padding: 2%; border: 1px solid $light_gray; margin: 0 0 0 30px; }
-			button { @ }
 		}
 	}
 	.nav { position: absolute; right: 20px; transition: all .5s ease-in;

@@ -1,0 +1,4 @@
+form {
+	input { float: left; padding: 2%; border: 1px solid $light_gray; margin: 0 0 0 30px; }
+	button { @include btn($linkColor); }
+}
