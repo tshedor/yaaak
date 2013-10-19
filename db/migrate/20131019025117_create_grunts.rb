@@ -2,8 +2,8 @@ class CreateGrunts < ActiveRecord::Migration
 
   def change
     create_table :grunts do |t|
-      t.integer :user_id
-      t.integer :heard_id
+      t.integer :yak_id
+      t.integer :herd_id
       t.text :message
       t.timestamps
     end

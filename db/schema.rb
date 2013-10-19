@@ -14,8 +14,8 @@
 ActiveRecord::Schema.define(version: 20131019031139) do
 
   create_table "grunts", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "heard_id"
+    t.integer  "yak_id"
+    t.integer  "herd_id"
     t.text     "message"
     t.datetime "created_at"
     t.datetime "updated_at"
