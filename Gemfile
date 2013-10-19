@@ -54,4 +54,5 @@ end
 group :production do
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem 'therubyracer', platforms: :ruby
+  gem 'mysql2'
 end
