@@ -7,6 +7,10 @@ $serif: Georgia, serif;
 $script:Brush Script MT, Trebuchet MS, 'Helvetica Neue', Helvetica, Arial, script;
 $monospace:'Bitstream Vera Sans Mono', Consolas, Monaco, Menlo, 'Andale Mono', monospace;
 
+@mixin font-size($n) {
+	font-size: $n + px; font-size: ($n / 10) + rem;
+}
+
 @mixin color-scheme($text_color:#3d3d3d,$scheme:$scheme){
 
 	@if ($scheme == 'light') {
