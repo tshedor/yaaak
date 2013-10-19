@@ -1,0 +1,22 @@
+
+$sans: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$serif: Georgia, serif;
+$scheme:'light' !default;
+
+$gray: #8d8f92;
+$lightest_gray: lighten($gray, 37%);
+$light_gray: lighten($gray, 28%);
+$dark_gray: darken($gray, 20%);
+
+$domColor: blue;
+$subColor: purple;
+$terColor: green;
+$linkColor: red;
+
+@mixin display {
+	font-family:'Open Sans', $sans;
+}
+
+@mixin sub {
+	font-family:'Open Sans Condensed', $sans;
+}

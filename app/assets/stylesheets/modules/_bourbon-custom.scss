@@ -1,0 +1,474 @@
+// Slimmed-down Bourbon library
+
+$georgia: Georgia, Cambria, "Times New Roman", Times, serif;
+$helvetica: "Helvetica Neue", Helvetica, Arial, sans-serif;
+$lucida-grande: "Lucida Grande", Tahoma, Verdana, Arial, sans-serif;
+$monospace: "Bitstream Vera Sans Mono", Consolas, Courier, monospace;
+$verdana: Verdana, Geneva, sans-serif;
+$inputs-list: 'input[type="email"]',
+              'input[type="number"]',
+              'input[type="password"]',
+              'input[type="search"]',
+              'input[type="tel"]',
+              'input[type="text"]',
+              'input[type="url"]',
+
+              'input[type="color"]',
+              'input[type="date"]',
+              'input[type="datetime"]',
+              'input[type="datetime-local"]',
+              'input[type="month"]',
+              'input[type="time"]',
+              'input[type="week"]';
+
+$unquoted-inputs-list: ();
+@each $input-type in $inputs-list {
+  $unquoted-inputs-list: append($unquoted-inputs-list, unquote($input-type), comma);
+}
+
+$all-text-inputs: $unquoted-inputs-list;
+
+$all-text-inputs-hover: ();
+@each $input-type in $unquoted-inputs-list {
+      $input-type-hover: $input-type + ":hover";
+      $all-text-inputs-hover: append($all-text-inputs-hover, $input-type-hover, comma);
+}
+
+$all-text-inputs-focus: ();
+@each $input-type in $unquoted-inputs-list {
+      $input-type-focus: $input-type + ":focus";
+      $all-text-inputs-focus: append($all-text-inputs-focus, $input-type-focus, comma);
+}
+
+$prefix-for-webkit:    true !default;
+$prefix-for-mozilla:   true !default;
+$prefix-for-microsoft: true !default;
+$prefix-for-opera:     true !default;
+$prefix-for-spec:      true !default;
+
+@mixin prefixer ($property, $value, $prefixes) {
+  @each $prefix in $prefixes {
+    @if $prefix == webkit {
+      @if $prefix-for-webkit {
+        -webkit-#{$property}: $value;
+      }
+    }
+    @else if $prefix == moz {
+      @if $prefix-for-mozilla {
+        -moz-#{$property}: $value;
+      }
+    }
+    @else if $prefix == ms {
+      @if $prefix-for-microsoft {
+        -ms-#{$property}: $value;
+      }
+    }
+    @else if $prefix == o {
+      @if $prefix-for-opera {
+        -o-#{$property}: $value;
+      }
+    }
+    @else if $prefix == spec {
+      @if $prefix-for-spec {
+        #{$property}: $value;
+      }
+    }
+    @else  {
+      @warn "Unrecognized prefix: #{$prefix}";
+    }
+  }
+}
+
+@mixin disable-prefix-for-all() {
+	$experimental-support-for-mozilla : false;
+	$experimental-support-for-webkit : false;
+	$support-for-original-webkit-gradients : false;
+	$experimental-support-for-opera : false;
+	$experimental-support-for-microsoft : false;
+	$experimental-support-for-khtml : false;
+}
+
+@mixin animation ($animations...) {
+  @include prefixer(animation, $animations, webkit moz spec);
+}
+
+@mixin animation-name ($names...) {
+  @include prefixer(animation-name, $names, webkit moz spec);
+}
+
+
+@mixin animation-duration ($times...) {
+  @include prefixer(animation-duration, $times, webkit moz spec);
+}
+
+
+@mixin animation-timing-function ($motions...) {
+// ease | linear | ease-in | ease-out | ease-in-out
+  @include prefixer(animation-timing-function, $motions, webkit moz spec);
+}
+
+
+@mixin animation-iteration-count ($values...) {
+// infinite | <number>
+  @include prefixer(animation-iteration-count, $values, webkit moz spec);
+}
+
+
+@mixin animation-direction ($directions...) {
+// normal | alternate
+  @include prefixer(animation-direction, $directions, webkit moz spec);
+}
+
+
+@mixin animation-play-state ($states...) {
+// running | paused
+  @include prefixer(animation-play-state, $states, webkit moz spec);
+}
+
+
+@mixin animation-delay ($times...) {
+  @include prefixer(animation-delay, $times, webkit moz spec);
+}
+
+
+@mixin animation-fill-mode ($modes...) {
+// none | forwards | backwards | both
+  @include prefixer(animation-fill-mode, $modes, webkit moz spec);
+}
+@mixin image-rendering ($mode:optimizeQuality) {
+
+  @if ($mode == optimize-contrast) {
+      image-rendering: -moz-crisp-edges;
+      image-rendering: -o-crisp-edges;
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: optimize-contrast;
+  }
+
+  @else {
+      image-rendering: $mode;
+  }
+}
+// Adds keyframes blocks for supported prefixes, removing redundant prefixes in the block's content
+@mixin keyframes($name) {
+  $original-prefix-for-webkit:    $prefix-for-webkit;
+  $original-prefix-for-mozilla:   $prefix-for-mozilla;
+  $original-prefix-for-microsoft: $prefix-for-microsoft;
+  $original-prefix-for-opera:     $prefix-for-opera;
+  $original-prefix-for-spec:      $prefix-for-spec;
+
+  @if $original-prefix-for-webkit {
+    @include disable-prefix-for-all();
+	$experimental-support-for-webkit : true;
+    @-webkit-keyframes #{$name} {
+      @content;
+    }
+  }
+  @if $original-prefix-for-mozilla {
+    @include disable-prefix-for-all();
+	$experimental-support-for-mozilla : true;
+    @-moz-keyframes #{$name} {
+      @content;
+    }
+  }
+  @if $original-prefix-for-opera {
+    @include disable-prefix-for-all();
+	$experimental-support-for-opera : true;
+    @-o-keyframes #{$name} {
+      @content;
+    }
+  }
+  @if $original-prefix-for-spec {
+    @include disable-prefix-for-all();
+    @keyframes #{$name} {
+      @content;
+    }
+  }
+
+  $prefix-for-webkit:    $original-prefix-for-webkit;
+  $prefix-for-mozilla:   $original-prefix-for-mozilla;
+  $prefix-for-microsoft: $original-prefix-for-microsoft;
+  $prefix-for-opera:     $original-prefix-for-opera;
+  $prefix-for-spec:      $original-prefix-for-spec;
+}
+$placeholders: '-webkit-input-placeholder',
+               '-moz-placeholder',
+               '-ms-input-placeholder';
+
+@mixin placeholder {
+  @each $placeholder in $placeholders {
+    @if $placeholder == "-webkit-input-placeholder" {
+      &::#{$placeholder} {
+        @content;
+      }
+    }
+    @else if $placeholder == "-moz-placeholder" {
+      // FF 18-
+      &:#{$placeholder} {
+        @content;
+      }
+
+      // FF 19+
+      &::#{$placeholder} {
+        @content;
+      }
+    }
+    @else {
+      &:#{$placeholder} {
+        @content;
+      }
+    }
+  }
+}
+// Scaling Varaibles
+$golden:           1.618;
+$minor-second:     1.067;
+$major-second:     1.125;
+$minor-third:      1.2;
+$major-third:      1.25;
+$perfect-fourth:   1.333;
+$augmented-fourth: 1.414;
+$perfect-fifth:    1.5;
+$minor-sixth:      1.6;
+$major-sixth:      1.667;
+$minor-seventh:    1.778;
+$major-seventh:    1.875;
+$octave:           2;
+$major-tenth:      2.5;
+$major-eleventh:   2.667;
+$major-twelfth:    3;
+$double-octave:    4;
+
+@function modular-scale($value, $increment, $ratio) {
+  $v1: nth($value, 1);
+  $v2: nth($value, length($value));
+  $value: $v1;
+
+  // scale $v2 to just above $v1
+  @while $v2 > $v1 {
+    $v2: ($v2 / $ratio); // will be off-by-1
+  }
+  @while $v2 < $v1 {
+    $v2: ($v2 * $ratio); // will fix off-by-1
+  }
+
+  // check AFTER scaling $v2 to prevent double-counting corner-case
+  $double-stranded: $v2 > $v1;
+
+  @if $increment > 0 {
+    @for $i from 1 through $increment {
+      @if $double-stranded and ($v1 * $ratio) > $v2 {
+        $value: $v2;
+        $v2: ($v2 * $ratio);
+      } @else {
+        $v1: ($v1 * $ratio);
+        $value: $v1;
+      }
+    }
+  }
+
+  @if $increment < 0 {
+    // adjust $v2 to just below $v1
+    @if $double-stranded {
+      $v2: ($v2 / $ratio);
+    }
+
+    @for $i from $increment through -1 {
+      @if $double-stranded and ($v1 / $ratio) < $v2 {
+        $value: $v2;
+        $v2: ($v2 / $ratio);
+      } @else {
+        $v1: ($v1 / $ratio);
+        $value: $v1;
+      }
+    }
+  }
+
+  @return $value;
+}
+// Add percentage of white to a color
+@function tint($color, $percent){
+  @return mix(white, $color, $percent);
+}
+
+// Add percentage of black to a color
+@function shade($color, $percent){
+  @return mix(black, $color, $percent);
+}
+@mixin hide-text-bourbon {
+  color:            transparent;
+  font:             0/0 a;
+  text-shadow:      none;
+}
+@mixin triangle ($size, $color, $direction) {
+  height: 0;
+  width: 0;
+
+  @if ($direction == up) or ($direction == down) or ($direction == right) or ($direction == left) {
+    border-color: transparent;
+    border-style: solid;
+    border-width: $size / 2;
+
+    @if $direction == up {
+      border-bottom-color: $color;
+
+    } @else if $direction == right {
+      border-left-color:   $color;
+
+    } @else if $direction == down {
+      border-top-color:    $color;
+
+    } @else if $direction == left {
+      border-right-color:  $color;
+    }
+  }
+
+  @else if ($direction == up-right) or ($direction == up-left) {
+    border-top: $size solid $color;
+
+    @if $direction == up-right {
+      border-left:  $size solid transparent;
+
+    } @else if $direction == up-left {
+      border-right: $size solid transparent;
+    }
+  }
+
+  @else if ($direction == down-right) or ($direction == down-left) {
+    border-bottom: $size solid $color;
+
+    @if $direction == down-right {
+      border-left:  $size solid transparent;
+
+    } @else if $direction == down-left {
+      border-right: $size solid transparent;
+    }
+  }
+}
+@mixin triangle ($size, $color, $direction) {
+  height: 0;
+  width: 0;
+
+  @if ($direction == up) or ($direction == down) or ($direction == right) or ($direction == left) {
+    border-color: transparent;
+    border-style: solid;
+    border-width: $size / 2;
+
+    @if $direction == up {
+      border-bottom-color: $color;
+
+    } @else if $direction == right {
+      border-left-color:   $color;
+
+    } @else if $direction == down {
+      border-top-color:    $color;
+
+    } @else if $direction == left {
+      border-right-color:  $color;
+    }
+  }
+
+  @else if ($direction == up-right) or ($direction == up-left) {
+    border-top: $size solid $color;
+
+    @if $direction == up-right {
+      border-left:  $size solid transparent;
+
+    } @else if $direction == up-left {
+      border-right: $size solid transparent;
+    }
+  }
+
+  @else if ($direction == down-right) or ($direction == down-left) {
+    border-bottom: $size solid $color;
+
+    @if $direction == down-right {
+      border-left:  $size solid transparent;
+
+    } @else if $direction == down-left {
+      border-right: $size solid transparent;
+    }
+  }
+}
+@mixin media($query:$feature $value $columns, $total-columns: $grid-columns) {
+
+  @if length($query) == 1 {
+    @media screen and ($default-feature: nth($query, 1)) {
+      $default-grid-columns: $grid-columns;
+      $grid-columns: $total-columns;
+      @content;
+      $grid-columns: $default-grid-columns;
+    }
+  }
+
+  @else if length($query) == 2 {
+    @media screen and (nth($query, 1): nth($query, 2)) {
+      $default-grid-columns: $grid-columns;
+      $grid-columns: $total-columns;
+      @content;
+      $grid-columns: $default-grid-columns;
+    }
+  }
+
+  @else if length($query) == 3 {
+    @media screen and (nth($query, 1): nth($query, 2)) {
+      $default-grid-columns: $grid-columns;
+      $grid-columns: nth($query, 3);
+      @content;
+      $grid-columns: $default-grid-columns;
+    }
+  }
+
+  @else if length($query) == 4 {
+    @media screen and (nth($query, 1): nth($query, 2)) and (nth($query, 3): nth($query, 4)) {
+      $default-grid-columns: $grid-columns;
+      $grid-columns: $total-columns;
+      @content;
+      $grid-columns: $default-grid-columns;
+    }
+  }
+
+  @else if length($query) == 5 {
+    @media screen and (nth($query, 1): nth($query, 2)) and (nth($query, 3): nth($query, 4)) {
+      $default-grid-columns: $grid-columns;
+      $grid-columns: nth($query, 5);
+      @content;
+      $grid-columns: $default-grid-columns;
+    }
+  }
+
+  @else {
+    @warn "Wrong number of arguments for breakpoint(). Read the documentation for more details.";
+  }
+}
+// CSS cubic-bezier timing functions. Timing functions courtesy of jquery.easie (github.com/jaukia/easie)
+// Timing functions are the same as demo'ed here: http://jqueryui.com/demos/effect/easing.html
+
+// EASE IN
+$ease-in-quad:      cubic-bezier(0.550,  0.085, 0.680, 0.530);
+$ease-in-cubic:     cubic-bezier(0.550,  0.055, 0.675, 0.190);
+$ease-in-quart:     cubic-bezier(0.895,  0.030, 0.685, 0.220);
+$ease-in-quint:     cubic-bezier(0.755,  0.050, 0.855, 0.060);
+$ease-in-sine:      cubic-bezier(0.470,  0.000, 0.745, 0.715);
+$ease-in-expo:      cubic-bezier(0.950,  0.050, 0.795, 0.035);
+$ease-in-circ:      cubic-bezier(0.600,  0.040, 0.980, 0.335);
+$ease-in-back:      cubic-bezier(0.600, -0.280, 0.735, 0.045);
+
+// EASE OUT
+$ease-out-quad:     cubic-bezier(0.250,  0.460, 0.450, 0.940);
+$ease-out-cubic:    cubic-bezier(0.215,  0.610, 0.355, 1.000);
+$ease-out-quart:    cubic-bezier(0.165,  0.840, 0.440, 1.000);
+$ease-out-quint:    cubic-bezier(0.230,  1.000, 0.320, 1.000);
+$ease-out-sine:     cubic-bezier(0.390,  0.575, 0.565, 1.000);
+$ease-out-expo:     cubic-bezier(0.190,  1.000, 0.220, 1.000);
+$ease-out-circ:     cubic-bezier(0.075,  0.820, 0.165, 1.000);
+$ease-out-back:     cubic-bezier(0.175,  0.885, 0.320, 1.275);
+
+// EASE IN OUT
+$ease-in-out-quad:  cubic-bezier(0.455,  0.030, 0.515, 0.955);
+$ease-in-out-cubic: cubic-bezier(0.645,  0.045, 0.355, 1.000);
+$ease-in-out-quart: cubic-bezier(0.770,  0.000, 0.175, 1.000);
+$ease-in-out-quint: cubic-bezier(0.860,  0.000, 0.070, 1.000);
+$ease-in-out-sine:  cubic-bezier(0.445,  0.050, 0.550, 0.950);
+$ease-in-out-expo:  cubic-bezier(1.000,  0.000, 0.000, 1.000);
+$ease-in-out-circ:  cubic-bezier(0.785,  0.135, 0.150, 0.860);
+$ease-in-out-back:  cubic-bezier(0.680, -0.550, 0.265, 1.550); 
