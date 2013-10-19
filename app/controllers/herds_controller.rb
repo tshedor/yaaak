@@ -2,7 +2,7 @@ require 'serverside/sse'
 
 class HerdsController < ApplicationController
 
-  before_action :set_herd, only: [:show, :edit, :update, :destroy]
+  before_action :set_herd, only: [:show, :destroy]
 
   include ActionController::Live
 
@@ -13,18 +13,6 @@ class HerdsController < ApplicationController
   def stream
     response.headers['Content-Type'] = 'text/event-stream'
     sse = ServerSide::SSE.new(response.stream)
-    herd.notify_herd do |grunt|
-      logger.debug 'ENTERING STREAM'
-      sse.write({:message => grunt })
-    end
-    rescue IOError
-    ensure
-      sse.close
-  end
-
-  def show
-    response.headers['Content-Type'] = 'text/event-stream'
-    sse = ServerSide::SSE.new(response.stream)
 
     #@herd.notify_herd do |grunt|
     #  logger.debug 'ENTERING STREAM'
@@ -32,6 +20,11 @@ class HerdsController < ApplicationController
     #end
 
     ActiveSupport::Notifications.subscribe("herd#{@herd.id}") do |name, start, finish, id, payload|
+      logger.debug name
+      logger.debug start
+      logger.debug finish
+      logger.debug id
+      logger.debug payload
       sse.write({:message => name })
     end
 
@@ -40,11 +33,11 @@ class HerdsController < ApplicationController
       sse.close
   end
 
-  def new
-    @herd = Herd.new
+  def show
   end
 
-  def edit
+  def new
+    @herd = Herd.new
   end
 
   def create
@@ -56,18 +49,6 @@ class HerdsController < ApplicationController
         format.json { render action: 'show', status: :created, location: @herd }
       else
         format.html { render action: 'new' }
-        format.json { render json: @herd.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  def update
-    respond_to do |format|
-      if @herd.update(herd_params)
-        format.html { redirect_to @herd, notice: 'Herd was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
         format.json { render json: @herd.errors, status: :unprocessable_entity }
       end
     end

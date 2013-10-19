@@ -3,7 +3,7 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 jQuery(document).ready ($) ->
-	evtSource = new EventSource('/herds/1')
+	evtSource = new EventSource('/herds/1/stream')
 	console.log evtSource
 	isEmpty = (str) ->
 		!str || 0 is str.length
