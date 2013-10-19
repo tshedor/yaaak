@@ -1,9 +1,24 @@
-<header class="header">
+<header class="hdr">
 	<div class="logo">
 		<%= image_tag 'yaaak-logo.svg' %>
 	</div><!-- /logo -->
+	<div class="hdr-controls">
+		<form>
+			<select>
+				<option>3 miles</option>
+				<option>4 miles</option>
+				<option>5 miles</option>
+				<option>6 miles</option>
+				<option>7 miles</option>
+			</select>
+			<div class="field-group">
+				<input type="text" placeholder="Random Rhinoceros" />
+			</div><!-- /field group -->
+			<button class="btn">Save</button>
+		</form>
+	</div><!-- /hdr-controls -->
 	<ul class="nav">
 		<li><a class="i-location" href=""></a></li>
-		<li><a class="i-settings" href="#"></a></li>
+		<li><a id="show-hdr" class="i-settings" href=""></a></li>
 	</ul>
 </header>
