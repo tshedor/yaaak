@@ -25,13 +25,13 @@
 	p { color: white; font-weight: 700; }
 }
 
-.alert-error { background: $red; }
-.alert-success { background: $orange }
-.alert-alert { background: $blue; }
+.alert-error { background: red; }
+.alert-success { background: orange }
+.alert-alert { background: blue; }
 
 #error_explanation { overflow: hidden; padding: 10px; background: white; border-radius: 4px; margin: 0 0 5px;
 	h2 { font-size: 14px; font-size: 1.4rem; }
 	ul { margin: 0; padding: 0;
-		li { padding: 3px 5px; background: $blue; color: white; display: inline; float: left; margin: 0 5px 5px 0; }
+		li { padding: 3px 5px; background: blue; color: white; display: inline; float: left; margin: 0 5px 5px 0; }
 	}
 }

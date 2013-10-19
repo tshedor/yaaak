@@ -19,7 +19,7 @@ h1, h1 a { font-weight: 500; @include font-size(38); text-decoration: none; }
 h2, h2 a { line-height: 35px; @include font-size(20); text-decoration: none; }
 h3, h3 a { @include font-size(18); text-decoration: none; }
 
-p { color: #272727; line-height: 1.6em; margin: 5px 0; }
+p { color: $gray; line-height: 1.6em; margin: 5px 0; }
 
 a { color: #272727;
 	&:hover { text-decoration: none; }

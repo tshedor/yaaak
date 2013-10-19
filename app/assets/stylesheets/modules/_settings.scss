@@ -3,20 +3,14 @@ $sans: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 $serif: Georgia, serif;
 $scheme:'light' !default;
 
-$gray: #8d8f92;
-$lightest_gray: lighten($gray, 37%);
-$light_gray: lighten($gray, 28%);
-$dark_gray: darken($gray, 20%);
+$gray: #272727;
+$lightest_gray: lighten($gray, 80%);
+$light_gray: lighten($gray, 30%);
 
-$domColor: blue;
-$subColor: purple;
-$terColor: green;
-$linkColor: red;
-
-$red: red;
-$blue: blue;
-$green: green;
-$orange: orange;
+$domColor: #02253E;
+$subColor: #0177A8;
+$terColor: #575501;
+$linkColor: #356B83;
 
 @mixin display {
 	font-family:'Open Sans', $sans;
