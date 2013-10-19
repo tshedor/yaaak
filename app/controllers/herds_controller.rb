@@ -2,7 +2,7 @@ require 'serverside/sse'
 
 class HerdsController < ApplicationController
 
-  before_action :set_herd, only: [:show, :destroy]
+  before_action :set_herd, only: [:show, :destroy, :stream]
 
   include ActionController::Live
 
@@ -14,10 +14,13 @@ class HerdsController < ApplicationController
     response.headers['Content-Type'] = 'text/event-stream'
     sse = ServerSide::SSE.new(response.stream)
 
-    #@herd.notify_herd do |grunt|
-    #  logger.debug 'ENTERING STREAM'
-    #  sse.write({:message => grunt })
+    begin
+
+    #(0..10).each do
+    #  sse.write({message: 'testEvent'})
+    #  sleep(1)
     #end
+
 
     ActiveSupport::Notifications.subscribe("herd#{@herd.id}") do |name, start, finish, id, payload|
       logger.debug name
@@ -25,12 +28,15 @@ class HerdsController < ApplicationController
       logger.debug finish
       logger.debug id
       logger.debug payload
-      sse.write({:message => name })
+      sse.write({message: 'testEvent', data: {name: name }})
     end
+
 
     rescue IOError
     ensure
       sse.close
+      ActiveSupport::Notifications.unsubscribe("herd#{@herd.id}")
+    end
   end
 
   def show
