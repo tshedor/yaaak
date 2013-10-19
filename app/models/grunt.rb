@@ -10,7 +10,7 @@ class Grunt < ActiveRecord::Base
   def notify_herd
     if herd
       ActiveSupport::Notifications.instrument("herd#{herd.id}", extra: :information) do
-        render message: message
+
       end
     end
   end
