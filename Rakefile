@@ -3,4 +3,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Yak::Application.load_tasks
+YakApp::Application.load_tasks

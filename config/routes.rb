@@ -1,4 +1,4 @@
-Yak::Application.routes.draw do
+YakApp::Application.routes.draw do
 
   #Homepage
   root :to => 'range#index'
