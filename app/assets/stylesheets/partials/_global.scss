@@ -6,11 +6,15 @@ html, body, #map_canvas {
 	padding:0;
 }
 
+html { font-size: 62.5%; }
+
 body {
 	width:100%;
 	margin:0 auto;
-	font-size:62.5%;
+	@include paragraph; font-size: 14px; font-size: 1.4rem; -webkit-backface-visibility: hidden;
 }
+
+#map_canvas { position: relative; z-index: 10; }
 
 // Type
 h1, h2, h3, h4 { @include display; margin: 0; }

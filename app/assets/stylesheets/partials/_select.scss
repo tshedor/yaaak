@@ -5,7 +5,7 @@
 }
 
 .gin-select { width: 100%; position: relative; position: relative; vertical-align: middle; white-space: nowrap;
-    .gin-btn { position: relative; width: 100%; padding: 6px; margin: 4px 0; font-size: 1em;border: 1px solid #c3c3c3; color: #272727; cursor: pointer; border-radius: 4px;
+    .gin-btn { position: relative; background: white; width: 100%; padding: 6px; margin: 4px 0; font-size: 1em;border: 1px solid #c3c3c3; color: #272727; cursor: pointer; border-radius: 4px;
         &:focus { outline: thin dotted #333333 !important; outline: 5px auto -webkit-focus-ring-color !important; outline-offset: -2px; }
         &:hover { background: white; color: #272727; }
         span { background: transparent !important; padding: 0 !important; margin: 0 !important; }

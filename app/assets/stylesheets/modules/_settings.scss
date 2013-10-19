@@ -12,10 +12,12 @@ $subColor: #0177A8;
 $terColor: #575501;
 $linkColor: #356B83;
 
+$red: #b02934;
+
 @mixin display {
 	font-family:'Open Sans', $sans;
 }
 
-@mixin sub {
+@mixin paragraph {
 	font-family:'Open Sans Condensed', $sans;
 }
