@@ -1,3 +1,5 @@
+require 'serverside/sse'
+
 class HerdsController < ApplicationController
   before_action :set_herd, only: [:show, :edit, :update, :destroy]
 
@@ -10,16 +12,16 @@ class HerdsController < ApplicationController
   end
 
   def stream
-  	response.headers['Content-Type'] = 'text/event-stream'
-    100.times {
-      response.stream.write "hello world\n"
-      sleep 1
-    }
+    response.headers['Content-Type'] = 'text/event-stream'
+    sse = ServerSide::SSE.new(response.stream)
+    begin
+        sse.write({ :message => "#{params[:message]}" })
     rescue IOError
-      # Client Disconnected
     ensure
-      response.stream.close
+      sse.close
+    end
   end
+
 
   # GET /herds/1
   # GET /herds/1.json
@@ -84,6 +86,6 @@ class HerdsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def herd_params
-      params.require(:herd).permit(:display_name, :genre, :synopsis, :thumb, :seats_available, :seats_sold, :seats_filled, :cost, locations_attributes: [:id, :_destroy, :loc_date_field, :loc_time_field, :herd_time, :venue_id])
+      params.require(:herd).permit(:message)
     end
 end

@@ -1,2 +1,9 @@
-<h1>Herds#show</h1>
-<p>Find me in app/views/herds/show.html.erb</p>
+<%- title "New Herd" %>
+<ul class="chat-list"></ul>
+<form action="/stream" method="get">
+<%= form_tag stream_path, :method => 'get' do  %>
+
+    <%= text_field_tag :message, params[:message] %>
+    <%= submit_tag "Post Message" %>
+
+<% end %>
