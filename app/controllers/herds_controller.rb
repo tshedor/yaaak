@@ -1,12 +1,11 @@
 require 'serverside/sse'
 
 class HerdsController < ApplicationController
+
   before_action :set_herd, only: [:show, :edit, :update, :destroy]
 
   include ActionController::Live
 
-  # GET /herds
-  # GET /herds.json
   def index
   	@herds = Herd.all
   end
@@ -23,31 +22,28 @@ class HerdsController < ApplicationController
       sse.close
   end
 
-  # GET /herds/1
-  # GET /herds/1.json
   def show
     response.headers['Content-Type'] = 'text/event-stream'
     sse = ServerSide::SSE.new(response.stream)
-    @herd.notify_herd do |grunt|
-      logger.debug 'ENTERING STREAM'
-      sse.write({:message => grunt })
+    #@herd.notify_herd do |grunt|
+    #  logger.debug 'ENTERING STREAM'
+    #  sse.write({:message => grunt })
+    #end
+    ActiveSupport::Notifications.subscribe("herd#{herd.id}") do |name, start, finish, id, payload|
+      sse.write({:message => name })
     end
     rescue IOError
     ensure
       sse.close
   end
 
-  # GET /herds/new
   def new
     @herd = Herd.new
   end
 
-  # GET /herds/1/edit
   def edit
   end
 
-  # POST /herds
-  # POST /herds.json
   def create
     @herd = Herd.new(herd_params)
 
@@ -62,8 +58,6 @@ class HerdsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /herds/1
-  # PATCH/PUT /herds/1.json
   def update
     respond_to do |format|
       if @herd.update(herd_params)
@@ -76,8 +70,6 @@ class HerdsController < ApplicationController
     end
   end
 
-  # DELETE /herds/1
-  # DELETE /herds/1.json
   def destroy
     @herd.destroy
     respond_to do |format|

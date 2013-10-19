@@ -8,10 +8,10 @@ class Grunt < ActiveRecord::Base
   private
 
   def notify_herd
-  	if herd
-    	herd.notify_herd(self)
-    else
-    	logger.info 'Herd Not Found'
+    if herd
+      ActiveSupport::Notifications.instrument("herd#{herd.id}", extra: :information) do
+        render message: message
+      end
     end
   end
 
