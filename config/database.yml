@@ -24,5 +24,5 @@ production:
   username: root
   password: Basement7
   host: localhost
-  pool: 5
+  pool: 16
   timeout: 5000
