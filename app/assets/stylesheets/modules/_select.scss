@@ -1,0 +1,37 @@
+.gin-select, .gin-select[class*="span"] {
+    float:none; 
+    display: inline-block;
+    margin-left:0;
+}
+
+.gin-select { width: 100%; position: relative; position: relative; vertical-align: middle; white-space: nowrap;
+    .gin-btn { position: relative; width: 100%; @include linear-gradient(#fff, #eaeaea, null); padding: 6px; margin: 4px 0; font-size: 1em;border: 1px solid #c3c3c3; color: #272727; cursor: pointer; border-radius: 4px;
+        &:focus { outline: thin dotted #333333 !important; outline: 5px auto -webkit-focus-ring-color !important; outline-offset: -2px; }
+        &:hover { background: white; color: #272727; }
+        span { background: transparent !important; padding: 0 !important; margin: 0 !important; }
+        .filter-option { position:absolute; left:12px; text-align:left; width: 90%; overflow: hidden; }
+        .caret { position:absolute; right:12px; border-left: 4px solid transparent; top: 14px; border-right: 4px solid transparent; border-top: 4px solid #716e56; content: ""; display: inline-block; height: 0; vertical-align: top; width: 0; }
+    }
+
+    .div-contain { overflow:hidden; }
+    .dropdown-menu { position: relative; display: none; float: left; left: 0; list-style: none outside none; margin: 2px 0 0; min-width: 160px; padding: 5px 0; z-index: 9999;
+    position: absolute; top: 100%; z-index: 1000; min-width:100%; @include box-sizing(border-box); @include box-shadow(rgba(black, 0.2) 0 0 4px 2px); border-radius: 3px;
+    background: white;
+        li { float: none !important;
+            a { clear: both; color: #333333; display: block; font-size: 1.1em;line-height: 20px; padding: 3px 20px; white-space: nowrap; text-decoration: none; overflow:hidden;
+                &:hover { background: #f2f2f2; }
+                span { background: none !important; }
+            }
+            small { padding-left:0.5em; }
+            a i.check-mark { display: none; }
+            a .pull-left { margin-right: 34px; }
+        }
+    }
+}
+.open > .dropdown-menu {
+    display: block;
+}
+
+.gin-select > .disabled, .gin-select .dropdown-menu li.disabled > a {
+    cursor: not-allowed;
+}
