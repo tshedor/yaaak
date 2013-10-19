@@ -53,8 +53,30 @@ updateLocation = ->
 	), (error) ->
 		alert 'Lone ranger, get back on the beaten trail. We can\'t locate you.'
 		return
+#GLOBALS
+
+if Notification && Notification isnt "granted"
+	Notification.requestPermission (status) ->
+		Notification.permission = status  if Notification.permission isnt status
+
+callNotification = (content) ->
+	if Notification && Notification.permission is "granted"
+		n = new Notification(content)
+		n.onshow = ->
+			setTimeout(n.close, 5000);
+
+	Notification.requestPermission (status) ->
+		if Notification.permission isnt status
+			Notification.permission = status
+		if status is "granted"
+			n = new Notification(content)
+			n.onshow = ->
+				setTimeout(n.close, 5000);
+
+
 
 jQuery(document).ready ($) ->
+
 	if $('body').hasClass 'range'
 		yakapp.rangeOptions =
 			zoom:8
