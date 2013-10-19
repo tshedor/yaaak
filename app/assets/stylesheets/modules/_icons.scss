@@ -1,13 +1,10 @@
-
-@charset "UTF-8";
-
 @font-face {
   font-family: "yaaak";
-  src:url("fonts/yaaak.eot");
-  src:url("fonts/yaaak.eot?#iefix") format("embedded-opentype"),
-    url("fonts/yaaak.ttf") format("truetype"),
-    url("fonts/yaaak.svg#yaaak") format("svg"),
-    url("fonts/yaaak.woff") format("woff");
+  src:font-url("yaaak.eot");
+  src:font-url("yaaak.eot?#iefix") format("embedded-opentype"),
+    font-url("yaaak.ttf") format("truetype"),
+    font-url("yaaak.svg#yaaak") format("svg"),
+    font-url("yaaak.woff") format("woff");
   font-weight: normal;
   font-style: normal;
 
@@ -40,95 +37,95 @@
 }
 
 
-.i-fontawesome-webfont:before {
+.i-github-active:before {
   content: "a";
 }
 
-.i-fontawesome-webfont-1:before {
+.i-shrink:before {
   content: "b";
 }
 
-.i-fontawesome-webfont-3:before {
+.i-check:before {
   content: "d";
 }
 
-.i-fontawesome-webfont-4:before {
+.i-thumbup-active:before {
   content: "e";
 }
 
-.i-fontawesome-webfont-5:before {
+.i-thumbdown-active:before {
   content: "f";
 }
 
-.i-fontawesome-webfont-6:before {
+.i-thumbup:before {
   content: "g";
 }
 
-.i-fontawesome-webfont-7:before {
+.i-thumbdown:before {
   content: "h";
 }
 
-.i-fontawesome-webfont-8:before {
+.i-arrowup:before {
   content: "i";
 }
 
-.i-fontawesome-webfont-9:before {
+.i-location:before {
   content: "j";
 }
 
-.i-fontawesome-webfont-10:before {
+.i-leftarrow:before {
   content: "k";
 }
 
-.i-fontawesome-webfont-11:before {
+.i-refresh:before {
   content: "l";
 }
 
-.i-fontawesome-webfont-12:before {
+.i-github:before {
   content: "m";
 }
 
-.i-fontawesome-webfont-13:before {
+.i-delete:before {
   content: "n";
 }
 
-.i-fontawesome-webfont-14:before {
+.i-downarrow:before {
   content: "o";
 }
 
-.i-fontawesome-webfont-15:before {
+.i-close:before {
   content: "p";
 }
 
-.i-fontawesome-webfont-16:before {
+.i-pin:before {
   content: "q";
 }
 
-.i-fontawesome-webfont-17:before {
+.i-close-active:before {
   content: "r";
 }
 
-.i-fontawesome-webfont-18:before {
+.i-info:before {
   content: "s";
 }
 
-.i-fontawesome-webfont-19:before {
+.i-add:before {
   content: "t";
 }
 
-.i-fontawesome-webfont-2:before {
+.i-alert:before {
   content: "c";
 }
 
-.i-fontawesome-webfont-20:before {
+.i-globe:before {
   content: "u";
 }
 
-.i-fontawesome-webfont-21:before {
+.i-settings:before {
   content: "v";
 }
 
-.i-fontawesome-webfont-22:before {
+.i-time:before {
   content: "w";
 }
 
