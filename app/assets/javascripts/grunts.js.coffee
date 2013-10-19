@@ -4,7 +4,7 @@
 
 jQuery(document).ready ($) ->
 
-	$("form").submit ->
+	$("#new_grunt").submit ->
 		formData = $(this).serialize();
 		$.ajax
 			url: $(this).attr('action')
@@ -14,5 +14,5 @@ jQuery(document).ready ($) ->
 			success: (msg) ->
 				alert msg
 			error: (xhr, status) ->
-				console.log xhr.responseText
+				$('body').html(xhr.responseText)
 		return false
