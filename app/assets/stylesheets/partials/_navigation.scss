@@ -1,9 +1,9 @@
-.hdr { position: relative; height: 40px; overflow: hidden; transition: all .5s ease-in; z-index: 9999;
+.hdr { position: relative; height: 40px; min-width: 768px; overflow: hidden; transition: all .5s ease-in; z-index: 9999;
 	.logo { position: absolute; left: 0; bottom: -46px; opacity: .4; transition: all .5s ease-in; }
 	.toggle-hdr { position: absolute; left: 235px; padding: 0 15px; line-height: 40px; text-decoration: none; 
 		&:hover { background: $subColor; box-shadow: inset 0 0 1px 2px rgba($domColor,.3); color: white; }
 	}
-	.hdr-controls { display: none; position: absolute; left: 250px; top: 20px; transition: all .5s ease-in;
+	.hdr-controls { display: none; position: absolute; left: 250px; top: 20px; width: 60%; transition: all .5s ease-in;
 		form {
 			.gin-select { float: left; }
 		}
