@@ -21,8 +21,10 @@ ActiveRecord::Schema.define(version: 20131019031139) do
     t.datetime "updated_at"
   end
 
+  add_index "grunts", ["herd_id"], name: "index_grunts_on_herd_id"
+  add_index "grunts", ["yak_id"], name: "index_grunts_on_yak_id"
+
   create_table "herds", force: true do |t|
-    t.integer  "parent_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

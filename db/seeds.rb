@@ -7,3 +7,9 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 Herd.create()
+Yak.create()
+Yak.create()
+Grunt.create('message': 'Test Message', 'herd_id': 1, 'yak_id': 1)
+Grunt.create('message': 'Test Message Second', 'herd_id': 1, 'yak_id': 2)
+Grunt.create('message': 'Test Message Third', 'herd_id': 1, 'yak_id': 1)
+Grunt.create('message': 'Test Message Fourth', 'herd_id': 1, 'yak_id': 2)

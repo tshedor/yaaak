@@ -4,21 +4,15 @@
 
 jQuery(document).ready ($) ->
 
-	#console.log $('form').html()
 	$("form").submit ->
 		formData = $(this).serialize();
-		console.log formData
 		$.ajax
 			url: $(this).attr('action')
 			type: "POST"
 			dataType: "JSON"
 			data: formData
 			success: (msg) ->
-				console.log formData
 				alert msg
 			error: (xhr, status) ->
-				console.error 'errrr'
-				console.log formData
-				$('body').html(xhr.responseText)
-				#alert xhr.error
+				console.log xhr.responseText
 		return false
