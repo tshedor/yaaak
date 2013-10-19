@@ -1,0 +1,11 @@
+
+$sans: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$serif: Georgia, serif;
+
+@mixin display {
+	font-family:'Open Sans', $sans;
+}
+
+@mixin sub {
+	font-family:'Open Sans Condensed', $sans;
+}
