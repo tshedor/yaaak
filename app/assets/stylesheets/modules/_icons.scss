@@ -1,8 +1,8 @@
 @font-face {
   font-family: "yaaak";
-  src:font-url("yaaak.eot");
-  src:font-url("yaaak.eot?#iefix") format("embedded-opentype"),
-    font-url("yaaak.ttf") format("truetype"),
+  src: url(font-path("yaaak.eot"));
+  src: font-url("yaaak.eot?#iefix") format("embedded-opentype"),
+    url(font-path("yaaak.ttf")) format("truetype"),
     font-url("yaaak.svg#yaaak") format("svg"),
     font-url("yaaak.woff") format("woff");
   font-weight: normal;
