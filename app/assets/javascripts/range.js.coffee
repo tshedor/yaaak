@@ -56,21 +56,22 @@ updateLocation = ->
 		return
 
 jQuery(document).ready ($) ->
-	yakapp.rangeOptions =
-		zoom:8
-		streetViewControl:false
-		mapTypeControl: false
-		zoomControlOptions:
-			style: google.maps.ZoomControlStyle.SMALL
-		styles: yakapp.mapStyles
-		mapTypeId: google.maps.MapTypeId.ROADMAP
-	yakapp.rangemap = new google.maps.Map($('#map_canvas')[0], yakapp.rangeOptions)
+	if $('body').hasClass 'range'
+		yakapp.rangeOptions =
+			zoom:8
+			streetViewControl:false
+			mapTypeControl: false
+			zoomControlOptions:
+				style: google.maps.ZoomControlStyle.SMALL
+			styles: yakapp.mapStyles
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+		yakapp.rangemap = new google.maps.Map($('#map_canvas')[0], yakapp.rangeOptions)
 
-	if navigator.geolocation
-		updateLocation()
-		setInterval(->
+		if navigator.geolocation
 			updateLocation()
-		, 25000)
-	else
-		alert 'Find your herd and turn on your geolocation.'
+			setInterval(->
+				updateLocation()
+			, 25000)
+		else
+			alert 'Find your herd and turn on your geolocation.'
 
