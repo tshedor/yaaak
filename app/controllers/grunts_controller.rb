@@ -16,7 +16,6 @@ class GruntsController < ApplicationController
 
   def create
     @grunt = Grunt.new(grunt_params)
-
     respond_to do |format|
       if !@grunt.save
         format.html { render action: 'new' }
