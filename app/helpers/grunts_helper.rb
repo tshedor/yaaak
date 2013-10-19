@@ -1,0 +1,2 @@
+module GruntsHelper
+end
