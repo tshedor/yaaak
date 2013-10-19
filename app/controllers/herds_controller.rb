@@ -14,8 +14,9 @@ class HerdsController < ApplicationController
   def stream
     response.headers['Content-Type'] = 'text/event-stream'
     sse = ServerSide::SSE.new(response.stream)
-    begin
-        sse.write({ :message => "#{params[:message]}" })
+    herd.notify_herd do |grunt|
+      sse.write({:message => grunt })
+    end
     rescue IOError
     ensure
       sse.close

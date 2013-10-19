@@ -1,19 +1,19 @@
-require 'serverside/sse'
-
 class GruntsController < ApplicationController
-  include ActionController::Live
 
   def index
   end
+  def create
+    @grunt = Grunt.new(grunt_params)
 
-  def stream
-    response.headers['Content-Type'] = 'text/event-stream'
-    sse = ServerSide::SSE.new(response.stream)
-    begin
-        sse.write({ :message => "#{params[:message]}" })
-    rescue IOError
-    ensure
-      sse.close
+    respond_to do |format|
+      if @grunt.save
+        format.html { redirect_to @grunt, notice: 'Grunt was successfully created.' }
+        format.json { render action: 'show', status: :created, location: @grunt }
+      else
+        format.html { render action: 'new' }
+        format.json { render json: @grunt.errors, status: :unprocessable_entity }
+      end
     end
   end
+
 end
