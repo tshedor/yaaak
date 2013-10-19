@@ -2,7 +2,7 @@ require 'serverside/sse'
 
 class HerdsController < ApplicationController
 
-  before_action :set_herd, only: [:show, :destroy]
+  before_action :set_herd, only: [:show, :stream, :destroy]
 
   include ActionController::Live
 
@@ -34,6 +34,7 @@ class HerdsController < ApplicationController
   end
 
   def show
+  	@grunt = Grunt.new
   end
 
   def new

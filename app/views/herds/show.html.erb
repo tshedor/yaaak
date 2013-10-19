@@ -1,9 +1,29 @@
 <%- title "New Herd" %>
 <ul class="chat-list"></ul>
-<form action="/stream" method="get">
-<%= form_tag stream_path, :method => 'get' do  %>
-
-    <%= text_field_tag :message, params[:message] %>
-    <%= submit_tag "Post Message" %>
-
-<% end %>
+	<%= form_for @grunt do |f| %>
+		<% if @grunt.errors.any? %>
+		<div class="row clearfix">
+			<div class="large-12 columns">
+				<div id="error_explanation">
+					<h2><%= pluralize(@grunt.errors.count, "error") %> prohibited this major from being saved:</h2>
+					<ul>
+						<% @grunt.errors.full_messages.each do |msg| %>
+							<li><%= msg %></li>
+						<% end %>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<% end %>
+		<div class="row clearfix actions">
+			<div class="large-6 columns large-centered">
+				<h2>Name</h2>
+				<%= f.text_field :message %>
+				<%= f.hidden_field :herd_id, :value => 1 %>
+				<%= f.hidden_field :yak_id, :value => 1 %>
+				<div class="text-center lg-margin">
+					<%= f.submit %>
+				</div>
+			</div>
+		</div>
+	<% end %>
