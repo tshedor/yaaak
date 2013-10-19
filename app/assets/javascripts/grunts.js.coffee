@@ -3,9 +3,10 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 jQuery(document).ready ($) ->
-	formData = $(this).serialize();
-	console.log $('form').html()
+
+	#console.log $('form').html()
 	$("form").submit ->
+		formData = $(this).serialize();
 		console.log formData
 		$.ajax
 			url: $(this).attr('action')
@@ -18,7 +19,6 @@ jQuery(document).ready ($) ->
 			error: (xhr, status) ->
 				console.error 'errrr'
 				console.log formData
-				console.log xhr.responseText
 				$('body').html(xhr.responseText)
-				alert xhr.error
+				#alert xhr.error
 		return false
