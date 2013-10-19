@@ -17,7 +17,8 @@
 			<div class="large-6 columns large-centered">
 				<h2>Name</h2>
 				<%= f.text_field :message %>
-				<%= f.text_field :herd_id %>
+				<%= f.hidden_field :herd_id, :value => 1 %>
+				<%= f.hidden_field :yak_id, :value => 1 %>
 				<div class="text-center lg-margin">
 					<%= f.submit %>
 				</div>
