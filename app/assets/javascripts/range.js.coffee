@@ -45,7 +45,6 @@ updateLocation = ->
 		gmapsPosition = new google.maps.LatLng(position.coords.latitude,position.coords.longitude)
 		yakapp.position = [position.coords.latitude,position.coords.longitude]
 		yakapp.rangemap.panTo gmapsPosition
-		yakapp.rangemap.setZoom 16
 		if typeof yakapp.CLM isnt "undefined"
 			yakapp.CLM.setPosition gmapsPosition
 		else
@@ -68,6 +67,7 @@ jQuery(document).ready ($) ->
 		yakapp.rangemap = new google.maps.Map($('#map_canvas')[0], yakapp.rangeOptions)
 
 		if navigator.geolocation
+			yakapp.rangemap.setZoom 16
 			updateLocation()
 			setInterval(->
 				updateLocation()
