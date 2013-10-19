@@ -2,4 +2,5 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-$('body.splash').backstretch(["/assets/splash-bg.jpg"]);
+jQuery(document).ready ($) ->
+	$('body.splash').backstretch(["/assets/splash-bg.jpg"]);
