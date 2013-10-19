@@ -23,10 +23,18 @@ class HerdsController < ApplicationController
       sse.close
   end
 
-
   # GET /herds/1
   # GET /herds/1.json
   def show
+    response.headers['Content-Type'] = 'text/event-stream'
+    sse = ServerSide::SSE.new(response.stream)
+    @herd.notify_herd do |grunt|
+      logger.debug 'ENTERING STREAM'
+      sse.write({:message => grunt })
+    end
+    rescue IOError
+    ensure
+      sse.close
   end
 
   # GET /herds/new
