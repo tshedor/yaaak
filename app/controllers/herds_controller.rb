@@ -31,7 +31,7 @@ class HerdsController < ApplicationController
     #  sse.write({:message => grunt })
     #end
 
-    ActiveSupport::Notifications.subscribe("herd#{herd.id}") do |name, start, finish, id, payload|
+    ActiveSupport::Notifications.subscribe("herd#{@herd.id}") do |name, start, finish, id, payload|
       sse.write({:message => name })
     end
 
