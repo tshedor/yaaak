@@ -1,0 +1,1 @@
+$('body').backstretch(["/assets/splash-bg.jpg"]);
