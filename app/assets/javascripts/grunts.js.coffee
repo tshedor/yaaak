@@ -3,16 +3,22 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 jQuery(document).ready ($) ->
-	formData = $('form').serialize();
+	formData = $(this).serialize();
+	console.log $('form').html()
 	$("form").submit ->
+		console.log formData
 		$.ajax
-			url: "/grunts/create"
+			url: $(this).attr('action')
 			type: "POST"
-			dataType: "json"
+			dataType: "JSON"
 			data: formData
-			processData: false
 			success: (msg) ->
-				console.log 'success'
+				console.log formData
 				alert msg
 			error: (xhr, status) ->
+				console.error 'errrr'
+				console.log formData
+				console.log xhr.responseText
+				$('body').html(xhr.responseText)
 				alert xhr.error
+		return false

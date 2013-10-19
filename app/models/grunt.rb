@@ -7,6 +7,8 @@ class Grunt < ActiveRecord::Base
   private
 
   def notify_herd
+  	logger.debug 'HEHEHEHEHEHEHEHE'
+  	logger.debug self
     herd.notify_herd(self)
   end
 

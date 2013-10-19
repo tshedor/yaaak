@@ -6,6 +6,12 @@ class GruntsController < ApplicationController
 
   def new
   	@grunt = Grunt.new
+
+    respond_to do |format|
+      format.html # new.html.erb
+      format.json { render json: @grunt }
+      format.js
+    end
   end
 
   def create
