@@ -6,6 +6,10 @@ $serif: Georgia, serif;
 	font-family:'Open Sans', $sans;
 }
 
-@mixin sub {
+@mixin paragraph {
 	font-family:'Open Sans Condensed', $sans;
+}
+
+@mixin font-size($n) {
+	font-size: $n + px; font-size: ($n / 10) + rem;
 }
