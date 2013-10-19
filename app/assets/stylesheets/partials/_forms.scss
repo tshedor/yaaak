@@ -1,0 +1,8 @@
+.form {
+	.field-group { float: left; width: 40%; margin: 0 0 0 10px;
+	input { width: 100%; padding: 15px; border: 1px solid $lightest_gray; border-radius: 4px; }
+	}
+	.actions { float: left; margin: 0 0 0 10px;
+		button { @include btn($linkColor); }
+	}
+}

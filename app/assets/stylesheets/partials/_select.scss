@@ -1,26 +1,25 @@
 .gin-select, .gin-select[class*="span"] {
-    float:none;
+    float:none; 
     display: inline-block;
+    margin-bottom: 10px;
     margin-left:0;
 }
 
-.gin-select { width: 100%; position: relative; position: relative; vertical-align: middle; white-space: nowrap;
-    .gin-btn { position: relative; background: white; width: 100%; padding: 6px; margin: 4px 0; font-size: 1em;border: 1px solid #c3c3c3; color: #272727; cursor: pointer; border-radius: 4px;
-        &:focus { outline: thin dotted #333333 !important; outline: 5px auto -webkit-focus-ring-color !important; outline-offset: -2px; }
-        &:hover { background: white; color: #272727; }
-        span { background: transparent !important; padding: 0 !important; margin: 0 !important; }
-        .filter-option { position:absolute; left:12px; text-align:left; width: 90%; overflow: hidden; }
-        .caret { position:absolute; right:12px; border-left: 4px solid transparent; top: 14px; border-right: 4px solid transparent; border-top: 4px solid #716e56; content: ""; display: inline-block; height: 0; vertical-align: top; width: 0; }
+.gin-select { position: relative; vertical-align: middle; white-space: nowrap; margin: 2px; 
+    .btn { position: relative; margin: 0; background: white; border: 1px solid $lightest_gray; font-size: 0.9em;cursor: pointer; @include border-radius(4px);
+        &:focus { outline: 0; outline-offset: -2px; }
+        &:hover { background: #f2f2f2; color: #272727; }
+        .filter-option { display: block; padding: 11px 40px 11px 11px; @include font-size(16); color: $light_gray; overflow:hidden; text-align:left; }
+        .caret { position:absolute; right:20px; border-left: 6px solid transparent; top: 20px; border-right: 6px solid transparent; border-top: 6px solid #716e56; content: ""; display: inline-block; height: 0; vertical-align: top; width: 0;}
     }
 
     .div-contain { overflow:hidden; }
-    .dropdown-menu { position: relative; display: none; float: left; left: 0; list-style: none outside none; margin: 2px 0 0; min-width: 160px; padding: 5px 0; z-index: 9999;
-    position: absolute; top: 100%; z-index: 1000; min-width:100%; @include box-sizing(border-box); @include box-shadow(rgba(black, 0.2) 0 0 4px 2px); border-radius: 3px;
+    .dropdown-menu {display: none; float: left; left: 0; list-style: none outside none; margin: 2px 0 0; min-width: 160px; padding: 5px 0;
+    position: absolute; top: 100%; z-index: 9999; min-width:100%; @include box-sizing(border-box); @include box-shadow(rgba(black, 0.2) 0 0 4px 2px); @include border-radius(3px);
     background: white;
-        li { float: none !important;
-            a { clear: both; color: #333333; display: block; font-size: 1.1em;line-height: 20px; padding: 3px 20px; white-space: nowrap; text-decoration: none; overflow:hidden;
-                &:hover { background: #f2f2f2; }
-                span { background: none !important; }
+        li {
+            a { clear: both; color: #333333; display: block;font-size: 1em;line-height: 20px; padding: 3px 20px; white-space: nowrap; text-decoration: none; 
+                &:hover { background: $lightest_gray; }
             }
             small { padding-left:0.5em; }
             a i.check-mark { display: none; }
