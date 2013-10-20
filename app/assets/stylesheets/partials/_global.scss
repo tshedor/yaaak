@@ -14,7 +14,7 @@ body {
 	@include paragraph; font-size: 14px; font-size: 1.4rem; -webkit-backface-visibility: hidden;
 }
 
-#map_canvas { position: relative; z-index: 10; }
+#map_canvas { position: relative; z-index: 10; top: 40px; }
 
 // Type
 h1, h2, h3, h4 { @include display; margin: 0; }
