@@ -23,7 +23,7 @@ class GruntsController < ApplicationController
 
     #respond_to do |format|
       if @grunt.save
-        Herd.find_by_id(herd_id).grunts << @grunt
+        # Herd.find_by_id(herd_id).grunts << @grunt
 
         render json: @grunt
       else
