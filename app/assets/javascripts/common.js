@@ -17,7 +17,7 @@
 
 $(document).ready(function() {
     if($('body').hasClass('herds show')) {
-    var evtSource, isEmpty;
+    var evtSource;
     evtSource = new EventSource('/herds/1/stream');
     evtSource.onmessage = function(e) {
       var resp;

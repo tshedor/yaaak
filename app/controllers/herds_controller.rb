@@ -22,12 +22,17 @@ class HerdsController < ApplicationController
       end
     end
 
-    on = true
-    while on
-      on = false if response.stream.closed?
+    #end = Time.now + 5.minutes
+    #on = true
+    #while on
+    #  on = false if response.stream.closed?
+    #end
+
+    loop do
+      sleep 1
     end
 
-    rescue IOError
+    rescue
     ensure
       sse.close
       ActiveSupport::Notifications.unsubscribe("herd#{@herd.id}")
