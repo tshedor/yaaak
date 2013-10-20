@@ -79,15 +79,7 @@ $(document).ready(function() {
       var latest_grunt = parseFloat($('#grunt_count').text())
       latest_grunt++;
       $('#grunt_count').text(latest_grunt)
-      if($.cookie('active_yak') !== resp.data.user_id){
-      	console.log('same')
-      }
-      if($.cookie('active_yak') == resp.data.user_id){
-      	console.log('not same')
-      }
-      if($.cookie('active_yak') !== resp.data.user_id) {
-      	console.log($.cookie('active_yak'))
-      	console.log(resp.data.user_id)
+      if(parseInt($.cookie('active_yak')) !== resp.data.user_id) {
       	notify((resp.data.user_name + ': ' + resp.data.message),$('#chat_list').attr('data-herdid'),'Yaaak', window.location.href)
       }
     };
@@ -116,6 +108,24 @@ $(document).ready(function() {
   	});
   	window.toggle_overlay()
   });
+
+  var pagination = 1;
+  $('#chat_list').scroll(function(e){
+  	console.log($('#chat_list')[0].scrollHeight);
+  	console.log($('#chat_list').scrollTop() + 580)
+  	if($('#chat_list')[0].scrollHeight == ($('#chat_list').scrollTop() + 580) ){
+  	  $.getJSON('/herds/' + $('#chat_list').attr('data-herdid') + '.json?page=' + pagination, function(data){
+  		$.each(data.grunts, function(key, val){
+  			$('#chat_list').append(messageDisplay(val))
+  		});
+      });
+    }
+  });
+  $('.overlay-bg').click(function(){
+  	window.toggle_overlay()
+  })
+
+
 
 /**********************/
 /******* GRUNTS *******/

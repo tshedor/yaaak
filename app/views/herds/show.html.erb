@@ -24,16 +24,15 @@
 				<%= f.submit "Yaaak" %>
 			<% end %>
 
-			<ul class="chat-list" id="chat_list" data-herdid="<%= @herd.id %>"></ul>
+			<ul class="chat-list" id="chat_list" data-herdid="<%= @herd.id %>"><li>SEE MORE</li></ul>
 
 		</div><!-- /herd -->
 		<div class="herd-sb">
 			<h1>Name of Heard</h1>
 			<ul class="herd-stats">
 				<li><%= @herd.yaks.length %><span> Yaks in this herd</span></li>
-				<li><strong id="grunt_count"><%= @herd.grunts.length %></strong><span> grunts</span></li>
+				<li><strong id="grunt_count"><%= @herd.grunts.length %></strong><span> total grunts</span></li>
 				<li>12<span> mile radius</span></li>
-				<li><span>Some other cool stat</span></li>
 			</ul><!-- /states -->
 			<div class="range-actions">
 				<%= link_to 'Leave the herd', range_path, {:class => 'leave-herd i-leftarrow'} %>
