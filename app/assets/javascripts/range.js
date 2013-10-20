@@ -123,12 +123,12 @@
   };
 
   jQuery(document).ready(function($) {
-      if (navigator.geolocation) {
-        updateLocation();
-        return setInterval(function() {
-          return updateLocation();
-        }, 25000);
-      }
+    if (navigator.geolocation) {
+      updateLocation();
+      return setInterval(function() {
+        return updateLocation();
+      }, 25000);
+    }
     if ($('body').hasClass('range')) {
       yakapp.rangeOptions = {
         zoom: 8,

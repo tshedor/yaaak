@@ -1,54 +1,49 @@
 
-    function messageDisplay(info){
-    	return '<li><div class="message"><div class="yak" data-date="' + info.created_at + '" style="border-color:' + info.user_color + '">' + info.user_name + '</div><div class="message-content">' + info.message + '</div></div></li>'
-    }
-  $(document).ready(function() {
-
-    $('select').selectpicker();
-
-    $('#show-hdr').click(function(e) {
-      e.preventDefault();
-      $(this).toggleClass('i-close-active').toggleClass('i-settings');
-      $('.hdr').toggleClass('hdr-out');
-      return $('.hdr-controls').toggle().toggleClass('flipInY animated');
-    });
-
-    $('body.herds').backstretch(['/assets/herds-bg.jpg']);
+  function messageDisplay(info){
+  	return '<li><div class="message"><div class="yak" data-date="' + info.created_at + '" style="border-color:' + info.user_color + '">' + info.user_name + '</div><div class="message-content">' + info.message + '</div></div></li>'
+  }
+$(document).ready(function() {
+  $('select').selectpicker();
+  $('#show-hdr').click(function(e) {
+    e.preventDefault();
+    $(this).toggleClass('i-close-active').toggleClass('i-settings');
+    $('.hdr').toggleClass('hdr-out');
+    return $('.hdr-controls').toggle().toggleClass('flipInY animated');
+  });
+  $('body.herds').backstretch(['/assets/herds-bg.jpg']);
 
 /**********************/
 /******* HERDS ********/
 /**********************/
-$(document).ready(function() {
-
-	function notify(content,tags,title, url){
-		if(window.webkitNotifications){
-				var havePermission = window.webkitNotifications.checkPermission();
-				if (havePermission == 0) {
-					var notification = window.webkitNotifications.createNotification('/assets/favicon.png',title,content);
-					notification.onclick = function () {
-						window.open(url);
-						notification.close();
-   		 		}
-   		 		notification.show();
-   		 	} else {
-   		 		window.webkitNotifications.requestPermission();
-   		 	}
-   		 } else {
-   		 	if (Notification && Notification.permission === "granted") {
-   		 		var notification = new Notification(content, {tag: tags });
-   		 	} else if (Notification && Notification.permission !== 'denied') {
-   		 		Notification.requestPermission(function (permission) {
-   		 			if(!('permission' in Notification)) {
-   		 				Notification.permission = permission;
-   		 			}
-   		 			if (permission === "granted") {
-   		     			var notification = new Notification(content, {tag: tags});
-   		     		}
-   		     	});
-   		     }
-   		};
-   	}
-    if($('body').hasClass('herds show')) {
+  function notify(content,tags,title, url){
+    if(window.webkitNotifications){
+      var havePermission = window.webkitNotifications.checkPermission();
+      if (havePermission == 0) {
+        var notification = window.webkitNotifications.createNotification('/assets/favicon.png',title,content);
+	    notification.onclick = function () {
+		  window.open(url);
+		  notification.close();
+		}
+   		notification.show();
+   	  } else {
+   	    window.webkitNotifications.requestPermission();
+   	  }
+    } else {
+      if (Notification && Notification.permission === "granted") {
+   	    var notification = new Notification(content, {tag: tags });
+   	  } else if (Notification && Notification.permission !== 'denied') {
+   	    Notification.requestPermission(function (permission) {
+   	      if(!('permission' in Notification)) {
+   		    Notification.permission = permission;
+   		  }
+   		  if (permission === "granted") {
+   		   var notification = new Notification(content, {tag: tags});
+   		  }
+   	    });
+   	  }
+    };
+  }
+  if($('body').hasClass('herds show')) {
     var evtSource;
     evtSource = new EventSource('/herds/1/stream');
 
@@ -73,26 +68,33 @@ $(document).ready(function() {
     window.onbeforeunload = function() {
       evtSource.close()
     };
-    }
-});
+
+    //AJAX in the list
+    $.getJSON('/herds/'+$('#chat_list').attr('data-herdid')+'.json', function(data){
+      $.each(data.grunts, function(key, val){
+  	    $('#chat_list').append(messageDisplay(val))
+  	  });
+    })
+
+  }
 
 /**********************/
 /******* GRUNTS *******/
 /**********************/
-	$('#grunt_message').focus();
-    $("#new_grunt").submit(function(e) {
-      e.preventDefault();
-      $.ajax({
-        url: $('#new_grunt').attr('action'),
-        type: "POST",
-        dataType: "json",
-        data: $('#new_grunt').serialize(),
-        success: function(msg) {
-        	$('#grunt_message').val('')
-        },
-        error: function(xhr, status) {
-          return $('body').html(xhr.responseText);
-        }
-      });
+  $('#grunt_message').focus();
+  $("#new_grunt").submit(function(e) {
+    e.preventDefault();
+    $.ajax({
+      url: $('#new_grunt').attr('action'),
+      type: "POST",
+      dataType: "json",
+      data: $('#new_grunt').serialize(),
+      success: function(msg) {
+      	$('#grunt_message').val('')
+      },
+      error: function(xhr, status) {
+        return $('body').html(xhr.responseText);
+      }
     });
   });
+});

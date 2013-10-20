@@ -2,11 +2,7 @@
 	<div class="w">
 		<div class="herd">
 			<%- title "New Herd" %>
-			<ul class="chat-list" id="chat_list">
-			<% @herd.grunts.each do |grunt| %>
-				<li><%= grunt.message %></li>
-			<% end %>
-			</ul>
+			<ul class="chat-list" id="chat_list" data-herdid="<%= @herd.id %>"></ul>
 
 			<%= form_for @grunt do |f| %>
 			<% if @grunt.errors.any? %>
