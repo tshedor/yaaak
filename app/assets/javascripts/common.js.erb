@@ -15,7 +15,10 @@ $(document).ready(function() {
 
   $('#show-grunt').click(function(e) {
     e.preventDefault();
+    $(this).toggleClass('i-close-active').toggleClass('i-chats');
+    $('#range-grunt').find('input').focus();
     $('.range-grunt').toggleClass('grunt-out');
+    $('#rumble2013').toggle();
     return $('.grunt-controls').toggle().toggleClass('flipInY animated');
   });
 

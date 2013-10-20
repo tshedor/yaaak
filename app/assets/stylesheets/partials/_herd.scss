@@ -68,7 +68,7 @@
 			padding:10px;
 			@include border-left-radius(5px);
 		}
-		input[type="submit"] {
+		input[type="submit"], button {
 			@include inline-block;
 		}
 	}
