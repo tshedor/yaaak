@@ -1,5 +1,6 @@
 .range {
 	.quick-view { width: 400px; height: 450px;
+		.yaaak { @include btn($subColor); width: 100%; }
 		.quick-view-hdr { width: 100%; padding: 10px; background: $subColor; color: white; border-radius: 4px 4px 0 0; margin: 20px 0 0; }
 		.chat-list { background: $lightest_gray; width: 100%;
 			li { padding: 10px;
@@ -42,7 +43,6 @@
 				}
 			}
 		}
-		.yaaak { @include btn($subColor); width: 100%; }
 	}
 }
 .gmnoprint {
