@@ -24,7 +24,7 @@
 				<%= f.submit "Yaaak" %>
 			<% end %>
 
-			<ul class="chat-list" id="chat_list" data-herdid="<%= @herd.id %>"><li>SEE MORE</li></ul>
+			<ul class="chat-list" id="chat_list" data-herdid="<%= @herd.id %>"></ul>
 
 		</div><!-- /herd -->
 		<div class="herd-sb">
@@ -32,7 +32,7 @@
 			<ul class="herd-stats">
 				<li><%= @herd.yaks.length %><span> Yaks in this herd</span></li>
 				<li><strong id="grunt_count"><%= @herd.grunts.length %></strong><span> total grunts</span></li>
-				<li>12<span> mile radius</span></li>
+				<li><%= @herd.herd_radius %><span> mile radius</span></li>
 			</ul><!-- /states -->
 			<div class="range-actions">
 				<%= link_to 'Leave the herd', range_path, {:class => 'leave-herd i-leftarrow'} %>
@@ -44,11 +44,13 @@
 	<div class="overlay-content">
 		<div class="chat-view">
 			<div class="short_user_name"></div><h2 class="user_name"></h2>
+			<h3>Total Grunts  <span class="grunt_count"></span></h3>
 			<div>
-				<h3>Total Grunts:</h3><span class="grunt_count"></span>
+				<h3>Last Grunt</h3>
+				<div class="message">
+					<div class="message-content"><span class="last_grunt"></span>
+				</div>
 			</div>
-			<div>
-				<h3>Last Grunt:</h3><span class="message"><span class="message-content"><span class="last_grunt"></span></span></span>
 			</div>
 		</div>
 	</div>
