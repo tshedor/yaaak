@@ -21,7 +21,6 @@ $(document).ready(function() {
     $('#rumble2013').toggle();
     return $('.grunt-controls').toggle().toggleClass('flipInY animated');
   });
-
   $('.herds').backstretch(['<%= asset_url 'herds-bg.jpg' %>']);
 
 /**********************/
@@ -68,15 +67,31 @@ $(document).ready(function() {
   }
 
   if($('body').hasClass('herds show')) {
+  	$.getJSON('/herds/' + $('#chat_list').attr('data-herdid') + '.json', function(data){
+  		$.each(data.grunts, function(key, val){
+  			$('#chat_list').append(messageDisplay(val))
+  		});
+  	});
     var evtSource;
-    evtSource = new EventSource('/herds/1/stream');
+    evtSource = new EventSource('/herds/' + $('#chat_list').attr('data-herdid') + '/stream');
     evtSource.onmessage = function(e) {
       var resp;
       resp = JSON.parse(e.data);
       $('#chat_list').prepend(messageDisplay(resp.data));
       var latest_grunt = parseFloat($('#grunt_count').text())
-      $('#grunt_count').html(latest_grunt++)
-      notify((resp.data.user_name + ': ' + resp.data.message),$('#chat_list').attr('data-herdid'),'Yaaak', window.location.href)
+      latest_grunt++;
+      $('#grunt_count').text(latest_grunt)
+      if($.cookie('active_yak') !== resp.data.user_id){
+      	console.log('same')
+      }
+      if($.cookie('active_yak') == resp.data.user_id){
+      	console.log('not same')
+      }
+      if($.cookie('active_yak') !== resp.data.user_id) {
+      	console.log($.cookie('active_yak'))
+      	console.log(resp.data.user_id)
+      	notify((resp.data.user_name + ': ' + resp.data.message),$('#chat_list').attr('data-herdid'),'Yaaak', window.location.href)
+      }
     };
     evtSource.onopen = function(e) {
       return console.log('open');
