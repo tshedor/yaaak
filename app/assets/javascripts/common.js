@@ -19,7 +19,7 @@
     evtSource.onmessage = function(e) {
       var resp;
       resp = JSON.parse(e.data);
-      $('.chat-list').append('<li>' + e.data + '</li>');
+      $('.chat-list').append('<li>' + resp.data.message + '</li>');
       return console.log(resp);
     };
     evtSource.onopen = function(e) {
