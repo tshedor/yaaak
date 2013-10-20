@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131019031139) do
+ActiveRecord::Schema.define(version: 20131020045759) do
 
   create_table "grunts", force: true do |t|
     t.integer  "yak_id"
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 20131019031139) do
     t.float    "geo_long"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "color"
   end
 
 end
