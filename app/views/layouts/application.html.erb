@@ -25,7 +25,9 @@
 </head>
 <body class="<%= body_class.strip %>" >
 <%= render "layouts/header" %>
-	<%= yield %>
+<div class="yield">	
+  <%= yield %>
+</div><!-- /yield -->
 <%= render "layouts/footer" %>
 
   <script>
