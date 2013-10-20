@@ -10,10 +10,12 @@ private
 
   def notify_herd
     if herd
+      un = grunt.yak.name.split(' ')
+      moniker = un[1] ? un[0][0] + un[1][0] : un[0][0]
       payload = {
           message: grunt.message,
           user_id: grunt.yak.id,
-          user_name: grunt.yak.name,
+          user_name: moniker,
           created_at: grunt.created_at,
           user_color: grunt.yak.color
       }
