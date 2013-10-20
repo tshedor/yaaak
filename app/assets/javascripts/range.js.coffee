@@ -17,7 +17,7 @@ yakfunc =
 	customMarkerBubble: (content, pos, map)->
 		customLocationWindow = new google.maps.InfoWindow
 			content: '<div class="quick-view">' +
-								'<div class="hdr">' +
+								'<div class="quick-view-hdr">' +
 									'<strong>' + content + '</strong>' +
 								'</div><!-- /hdr -->' +
 								'<div class="grunts">' +
