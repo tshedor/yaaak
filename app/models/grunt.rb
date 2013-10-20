@@ -15,6 +15,10 @@ class Grunt < ActiveRecord::Base
     ")
   end
 
+  def self.delete_old_grunts
+    Grunt.where('created_at < ?', Time.zone.now - 1.day).destroy_all
+  end
+
 private
 
   def attach_or_create_herd

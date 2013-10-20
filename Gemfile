@@ -58,3 +58,5 @@ group :production do
 end
 
 gem 'georuby'
+
+gem 'whenever', :require => false
