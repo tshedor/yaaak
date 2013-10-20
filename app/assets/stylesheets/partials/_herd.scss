@@ -79,6 +79,35 @@
 	}
 }
 
+.overlay {
+
+	.chat-view {
+		background: $lightest_gray;
+		overflow:scroll;
+		padding:10px;
+		h2 {
+			@include font-size(30);
+			@include inline-block;
+		}
+		.short_user_name {
+			background:$domColor;
+			color:white;
+			@include font-size(24);
+			@include inline-block;
+		}
+				.message-content { position: relative; padding: 10px 20px 10px 10px; border-radius: 3px 0 3px 3px;
+			position: relative;
+			padding:10px 10px 10px 20px;
+			background: white;
+			width: 83.090909%;
+			margin: 0 2%;
+			border-radius: 0 3px 3px 3px;
+			box-shadow: 0 2px 3px 0 rgba($light_gray, 0.4);
+					.tab { position: absolute; top: 30%; left: auto; right: -12px !important; display: inline-block; width: 0; height: 0; border-left: 5px solid white; border-right: 5px solid transparent; border-top: 5px solid transparent; border-bottom: 5px solid transparent; margin: 2px; }
+				}
+		}
+	}
+
 .herd-sb { width: 35.2941%; margin-top: 80px; padding: 20px; background: #dadada asset-url('sb-bg.jpg') repeat-y; border-radius: 0 4px 4px 0; box-shadow: 0 3px 4px 0 rgba($gray, 0.4); float: right;
 	h1 { color: white; }
 	.herd-stats {

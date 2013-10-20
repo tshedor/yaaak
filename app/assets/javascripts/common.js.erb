@@ -65,7 +65,7 @@ $(document).ready(function() {
   }
 
   if($('body').hasClass('herds show')) {
-  	$.getJSON('/herds/' + $('#chat_list').attr('data-herdid') + '.json', function(data){
+  	$.getJSON('/herds/' + $('#chat_list').attr('data-herdid') + '.json?limit=0', function(data){
   		$.each(data.grunts, function(key, val){
   			$('#chat_list').append(messageDisplay(val))
   		});
@@ -112,7 +112,6 @@ $(document).ready(function() {
   var pagination = 1;
   $('#chat_list').scroll(function(e){
   	console.log($('#chat_list')[0].scrollHeight);
-  	console.log($('#chat_list').scrollTop() + 580)
   	if($('#chat_list')[0].scrollHeight == ($('#chat_list').scrollTop() + 580) ){
   	  $.getJSON('/herds/' + $('#chat_list').attr('data-herdid') + '.json?page=' + pagination, function(data){
   		$.each(data.grunts, function(key, val){
@@ -141,6 +140,7 @@ $(document).ready(function() {
       data: $('#new_grunt').serialize(),
       success: function(msg) {
       	$('#grunt_message').val('')
+      	console.log($('#new_grunt').serialize());
       },
       error: function(xhr, status) {
         return $('body').html(xhr.responseText);
@@ -151,9 +151,9 @@ $(document).ready(function() {
     e.preventDefault();
     $.ajax({
       url: '/yaks/'+parseInt($.cookie('active_yak')),
-      type: "POST",
+      type: "PATCH",
       dataType: "json",
-      data: { 'name': $('#newName').val() },
+      data: 'name='+encodeURIComponent($('#newName').val()),
       success: function(msg) {
       	console.log('success')
       },
