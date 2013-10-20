@@ -6,6 +6,8 @@ html, body, #map_canvas {
 	padding:0;
 }
 
+#map_canvas { position: relative; top: 40px; }
+
 html { font-size: 62.5%; }
 
 body {
