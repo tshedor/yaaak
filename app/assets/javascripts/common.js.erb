@@ -1,24 +1,24 @@
 
   function messageDisplay(info){
-  	return '<li><div class="message"><div class="yak" data-date="' + info.created_at + '" style="border-color:' + info.user_color + '">' + info.user_name + '</div><div class="message-content"><p>' + info.message + '</p><span class="tab"></span></div></div></li>'
+  	return '<li><div class="message"><div class="yak" data-date="' + info.created_at + '" style="background:' + info.user_color + '">' + info.user_name + '</div><div class="message-content"><p>' + info.message + '</p><span class="tab"></span></div></div></li>'
   }
 $(document).ready(function() {
-  
+
   $('select').selectpicker();
-  
+
   $('#show-hdr').click(function(e) {
     e.preventDefault();
     $(this).toggleClass('i-close-active').toggleClass('i-settings');
     $('.hdr').toggleClass('hdr-out');
     return $('.hdr-controls').toggle().toggleClass('flipInY animated');
   });
-  
+
   $('#show-grunt').click(function(e) {
     e.preventDefault();
     $('.range-grunt').toggleClass('grunt-out');
     return $('.grunt-controls').toggle().toggleClass('flipInY animated');
   });
-  
+
   $('.herds').backstretch(['/assets/herds-bg.jpg']);
 
 /**********************/
