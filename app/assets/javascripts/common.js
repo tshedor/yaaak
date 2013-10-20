@@ -1,5 +1,5 @@
   $(document).ready(function() {
-    
+
     $('select').selectpicker();
 
     $('#show-hdr').click(function(e) {
@@ -8,7 +8,7 @@
       $('.hdr').toggleClass('hdr-out');
       return $('.hdr-controls').toggle().toggleClass('flipInY animated');
     });
-    
+
     $('body.herds').backstretch(['/assets/herds-bg.jpg']);
 
 /**********************/
@@ -16,6 +16,35 @@
 /**********************/
 
 $(document).ready(function() {
+
+	function notify(content,tags,title, url){
+		if(window.webkitNotifications){
+				var havePermission = window.webkitNotifications.checkPermission();
+				if (havePermission == 0) {
+					var notification = window.webkitNotifications.createNotification('/assets/favicon.png',title,content);
+					notification.onclick = function () {
+						window.open(url);
+						notification.close();
+   		 		}
+   		 		notification.show();
+   		 	} else {
+   		 		window.webkitNotifications.requestPermission();
+   		 	}
+   		 } else {
+   		 	if (Notification && Notification.permission === "granted") {
+   		 		var notification = new Notification(content, {tag: tags });
+   		 	} else if (Notification && Notification.permission !== 'denied') {
+   		 		Notification.requestPermission(function (permission) {
+   		 			if(!('permission' in Notification)) {
+   		 				Notification.permission = permission;
+   		 			}
+   		 			if (permission === "granted") {
+   		     			var notification = new Notification(content, {tag: tags});
+   		     		}
+   		     	});
+   		     }
+   		};
+   	}
     if($('body').hasClass('herds show')) {
     var evtSource;
     evtSource = new EventSource('/herds/1/stream');
@@ -23,6 +52,7 @@ $(document).ready(function() {
       var resp;
       resp = JSON.parse(e.data);
       $('.chat-list').append('<li>' + resp.data.message + '</li>');
+      notify(resp.data.message,'headerroom1','Yaaak App', window.location.href)
       return console.log(resp);
     };
     evtSource.onopen = function(e) {
