@@ -22,9 +22,9 @@ window.center_content = () ->
 	left = Math.max($(window).width() - $('.overlay').outerWidth(), 0) / 2
 	$('.overlay').css({ top:top + $(window).scrollTop(), left:left + $(window).scrollLeft() })
 
-$('.overlay-content .destroy').live 'click', () -> toggle_overlay()
-$('.overlay-bg').live 'click', () -> toggle_overlay()
+$('.overlay-content .destroy').on 'click', () -> toggle_overlay()
+$('.overlay-bg').on 'click', () -> toggle_overlay()
 
-$(window).resize () -> 
+$(window).resize () ->
 	center_content()
 	overlay_resize()
