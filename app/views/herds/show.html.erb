@@ -31,7 +31,7 @@
 		<div class="herd-sb">
 			<h1>Name of Heard</h1>
 			<ul class="herd-stats">
-				<li>12<span> Yaks in this herd</span></li>
+				<li><%= @herd.yaks.length %><span> Yaks in this herd</span></li>
 				<li><%= @herd.grunts.length %><span> grunts</span></li>
 				<li>12<span> mile radius</span></li>
 				<li><span>Some other cool stat</span></li>
@@ -42,3 +42,12 @@
 		</div><!-- /sb -->
 	</div><!-- /w -->
 </div><!-- /yield -->
+<div class="overlay">
+	<div class="overlay-content">
+		<div class="user_name"></div>
+		<div class="short_user_name"></div>
+		<div class="user_color"></div>
+		<div class="last_grunt"></div>
+		<div class="grunt_count"></div>
+	</div>
+</div>

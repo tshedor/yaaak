@@ -1,5 +1,5 @@
 json.extract! @herd, :id
-json.grunts @herd.grunts do |grunt|
+json.grunts @herd.grunts.limit(3) do |grunt|
   json.message grunt.message
   json.user_id grunt.yak.id
   json.user_name grunt.display_name
