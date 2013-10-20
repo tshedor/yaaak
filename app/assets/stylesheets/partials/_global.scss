@@ -65,3 +65,13 @@ img { width:100%; }
 		z-index:9999999;
 	}
 }
+
+input[type="submit"] {
+	-webkit-appearance:none;
+	@include btn($linkColor);
+	padding:9px 12px;
+	&:focus {
+		outline:none;
+		outline-offset:none;
+	}
+}

@@ -1,11 +1,13 @@
 .herd { width: 55%; height: 500px; float: left;
-	.chat-list {
+	.new_grunt, .chat-list {
+		background: $lightest_gray;
+		@include border-top-radius(4px);
+		box-shadow: 0 3px 4px 0 rgba($gray, 0.4);
 		padding:20px;
+	}
+	.chat-list {
 		overflow:scroll;
 		height:100%;
-		background: $lightest_gray;
-		border-radius: 4px;
-		box-shadow: 0 3px 4px 0 rgba($gray, 0.4);
 		li { padding: 10px; margin:5px 0; background: white; border-radius: 4px;
 			&:nth-child(even){
 				text-align:right;
@@ -33,6 +35,15 @@
 		}
 		.message-content {
 			padding-left:10px;
+		}
+	}
+	.new_grunt {
+		input[type="text"] {
+			width:80%;
+			@include inline-block;
+		}
+		input[type="submit"] {
+			@include inline-block;
 		}
 	}
 }

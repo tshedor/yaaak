@@ -19,7 +19,7 @@ $(document).ready(function() {
     if(window.webkitNotifications){
       var havePermission = window.webkitNotifications.checkPermission();
       if (havePermission == 0) {
-        var notification = window.webkitNotifications.createNotification('/assets/favicon.png',title,content);
+        var notification = window.webkitNotifications.createNotification(<%= asset_url 'favicon.png' %>,title,content);
 	    notification.onclick = function () {
 		  window.open(url);
 		  notification.close();
