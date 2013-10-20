@@ -18,7 +18,11 @@ module SessionHelper
     @current_yak = yak
   end
 
-  def current_yak(lat, long)
+  def current_yak
+    @current_yak ||= yak_from_auth_hash
+  end
+
+  def current_or_create_yak(lat, long)
     @current_yak ||= yak_from_auth_hash
     @current_yak ||= create_new_yak(lat, long)
   end
