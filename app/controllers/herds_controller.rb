@@ -73,17 +73,12 @@ class HerdsController < ApplicationController
       params.require(:herd).permit(:message)
     end
     def set_session
-      session.delete(:active_yak)
-      logger.debug session.has_key?("active_yak")
-      if session.has_key?("active_yak")
-        ya = Yak.create(name: 'PANDA', color:'#ccc')
-        logger.debug 'WWWWWW'
-      	session[:active_yak] = ya.id
-      else
-      	logger.debug 'AAAAAAAAA'
-      	session[:active_yak] = 12
-      	logger.debug session[:active_yak]
-      	logger.debug 'BLUEUEEEEE'
+      cookies.delete :active_yak
+      if !cookies.has_key?("active_yak")
+      	new_name = ['Imperial Yak', 'Golden Yak', 'Wolly Yak'].sample
+      	new_color = ['red', 'blue', 'purple'].sample
+        ya = Yak.create(name: new_name, color:new_color)
+      	cookies[:active_yak] = ya.id
       end
     end
 end
