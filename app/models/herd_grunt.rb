@@ -2,6 +2,7 @@ class HerdGrunt < ActiveRecord::Base
 
   belongs_to :grunt
   belongs_to :herd
+  include ActionView::Helpers::DateHelper
 
   after_create :notify_herd
   after_destroy :last_herd_grunt_check
@@ -17,7 +18,8 @@ private
           user_id: grunt.yak.id,
           user_name: moniker,
           created_at: grunt.created_at,
-          user_color: grunt.yak.color
+          user_color: grunt.yak.color,
+          time_ago: time_ago_in_words(grunt.created_at)
       }
       ActiveSupport::Notifications.instrument("herd#{herd.id}", payload)
     end

@@ -5,6 +5,10 @@ html, body, #map_canvas {
 	margin:0;
 	padding:0;
 }
+.time-ago {
+	@include font-size(12);
+	color:#aaa;
+}
 
 #map_canvas { position: relative; top: 40px; }
 

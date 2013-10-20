@@ -1,7 +1,7 @@
 <div class="yield">
 	<div class="w">
 	<div class="herd-hdr">
-		<%= link_to 'Mozy back to the range', range_path, {:class => 'i-leftarrow'} %>
+		<%= link_to 'Mozy back to the range', root_path, {:class => 'i-leftarrow'} %>
 	</div><!-- /herd hdr -->
 		<div class="herd">
 			<%- title "New Herd" %>
@@ -35,7 +35,7 @@
 				<li><%= @herd.herd_radius %><span> mile radius</span></li>
 			</ul><!-- /states -->
 			<div class="range-actions">
-				<%= link_to 'Leave the herd', range_path, {:class => 'leave-herd i-leftarrow'} %>
+				<%= link_to 'Leave the herd', root_path, {:class => 'leave-herd i-leftarrow'} %>
 			</div><!-- /range actions -->
 		</div><!-- /sb -->
 	</div><!-- /w -->

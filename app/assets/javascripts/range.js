@@ -1,6 +1,8 @@
 (function() {
   var callNotification, supportsSvg, supportssvg, updateLocation, yakapp, yakfunc;
-
+function messageDisplay(info){
+  return '<li><div class="message"><div class="yak" data-userid="' + info.user_id + '" data-date="' + info.created_at + '" style="background:' + info.user_color + '">' + info.user_name + '</div><div class="message-content"><p>' + info.message + '<span class="time-ago"> ' + info.time_ago +' ago</span></p><span class="tab"></span></div></div></li>'
+}
   supportssvg = function() {
     if (document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#Image", "1.1")) {
       return true;

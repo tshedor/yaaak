@@ -3,11 +3,10 @@ YakApp::Application.routes.draw do
   get "herds/index"
   get 'herds/:id' => 'herds#show'
   get 'herds/:id/stream' => 'herds#stream', :as => 'stream'
-  get "/range" => 'range#index'
+  root 'range#index'
   resources :grunts, only: [:create, :new]
   resources :yaks, only: [:edit, :update, :show]
   #Homepage
-  root 'splash#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
