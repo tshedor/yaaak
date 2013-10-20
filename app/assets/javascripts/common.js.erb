@@ -1,8 +1,9 @@
 
   function messageDisplay(info){
-  	return '<li><div class="message"><div class="yak" data-date="' + info.created_at + '" style="border-color:' + info.user_color + '">' + info.user_name + '</div><div class="message-content">' + info.message + '</div></div></li>'
+  	return '<li><div class="message"><div class="yak" data-date="' + info.created_at + '" style="border-color:' + info.user_color + '">' + info.user_name + '</div><div class="message-content">' + info.message + '<span class="tab"></span></div></div></li>'
   }
 $(document).ready(function() {
+  
   $('select').selectpicker();
   $('#show-hdr').click(function(e) {
     e.preventDefault();
@@ -10,7 +11,8 @@ $(document).ready(function() {
     $('.hdr').toggleClass('hdr-out');
     return $('.hdr-controls').toggle().toggleClass('flipInY animated');
   });
-  $('body.herds').backstretch(['/assets/herds-bg.jpg']);
+  
+  $('.herds').backstretch(['assets/herds-bg.jpg']);
 
 /**********************/
 /******* HERDS ********/

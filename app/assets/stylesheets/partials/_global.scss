@@ -21,12 +21,12 @@ body.splash { background: none; }
 #map_canvas { position: relative; z-index: 10; top: 41px; }
 .yield { position: relative; z-index: 10; top: 60px; }
 
-.w { max-width: 1000px; width:100%; min-width: 320px; margin: 0 auto; }
+.w { max-width: 850px; width:100%; min-width: 320px; margin: 0 auto; }
 
 // Type
 h1, h2, h3, h4 { @include display; margin: 0; }
 h2, h3 { font-weight: 400; }
-h1, h1 a { font-weight: 500; @include font-size(38); text-decoration: none; }
+h1, h1 a { font-weight: 700; @include font-size(24); text-decoration: none; }
 h2, h2 a { line-height: 35px; @include font-size(20); text-decoration: none; }
 h3, h3 a { @include font-size(18); text-decoration: none; }
 
@@ -68,7 +68,7 @@ img { width:100%; }
 
 input[type="submit"] {
 	-webkit-appearance:none;
-	@include btn($linkColor);
+	@include btn($subColor);
 	padding:9px 12px;
 	&:focus {
 		outline:none;
