@@ -4,6 +4,7 @@ class CreateYaks < ActiveRecord::Migration
     create_table :yaks do |t|
       t.string :name
       t.string :auth_hash
+      t.string :color
       t.float :geo_lat
       t.float :geo_long
       t.integer :herd_id
