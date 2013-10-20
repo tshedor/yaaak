@@ -30,6 +30,9 @@ ActiveRecord::Schema.define(version: 20131020050606) do
   end
 
   create_table "herds", force: true do |t|
+    t.integer  "parent_id"
+    t.float    "geo_lat"
+    t.float    "geo_long"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
