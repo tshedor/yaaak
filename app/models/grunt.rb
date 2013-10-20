@@ -5,6 +5,8 @@ class Grunt < ActiveRecord::Base
   has_many :herd_grunts, :dependent => :destroy
   has_many :herds, :through => :herd_grunts
 
+  profanity_filter! :message, :method => 'dictionary'
+
   # after_save :attach_or_create_herd
 
   def self.nearest_grunt(lat, long, mile_radius = 5)
