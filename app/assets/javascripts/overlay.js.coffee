@@ -8,7 +8,6 @@ window.toggle_overlay = () ->
 		$('body').addClass('noscroll')
 		$('.overlay, .overlay-bg').show()
 		content.addClass('overlayShowing')
-		$(".btn").button('reset')
 		center_content()
 		overlay_resize()
 
