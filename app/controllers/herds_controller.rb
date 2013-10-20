@@ -13,25 +13,15 @@ class HerdsController < ApplicationController
   def stream
     response.headers['Content-Type'] = 'text/event-stream'
     sse = ServerSide::SSE.new(response.stream)
-
     begin
-
-    ActiveSupport::Notifications.subscribe("herd#{@herd.id}") do |name, start, finish, id, payload|
-      unless response.stream.closed?
-        sse.write({message: 'testEvent', data: payload })
+      ActiveSupport::Notifications.subscribe("herd#{@herd.id}") do |name, start, finish, id, payload|
+        unless response.stream.closed?
+          sse.write({message: 'testEvent', data: payload })
+        end
       end
-    end
-
-    #end = Time.now + 5.minutes
-    #on = true
-    #while on
-    #  on = false if response.stream.closed?
-    #end
-
-    loop do
-      sleep 1
-    end
-
+      loop do
+        sleep 1
+      end
     rescue
     ensure
       sse.close
