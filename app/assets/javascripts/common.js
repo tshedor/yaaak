@@ -16,6 +16,7 @@
 /**********************/
 
 $(document).ready(function() {
+    if($('body').hasClass('herds show')) {
     var evtSource, isEmpty;
     evtSource = new EventSource('/herds/1/stream');
     evtSource.onmessage = function(e) {
@@ -38,6 +39,7 @@ $(document).ready(function() {
     window.onbeforeunload = function() {
       evtSource.close()
     };
+    }
 });
 
 /**********************/
