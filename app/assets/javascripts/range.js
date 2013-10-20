@@ -41,7 +41,7 @@
   	      herderstring += messageDisplay(val)
   	    });
   	    herderstring += '</ul>'
-        herderstring += '<div class="quick-view-meta">' + '</div><!-- /meta -->' + '<button class="yak">Yaaak!</button>' + '</div><!-- /quick view -->'
+        herderstring += '<div class="quick-view-meta">' + '</div><!-- /meta -->' + '<a class="i-chats" href="/herds/">Yaaak</a>' + '</div><!-- /quick view -->'
       });
 
       customLocationMarker = new google.maps.Marker({
