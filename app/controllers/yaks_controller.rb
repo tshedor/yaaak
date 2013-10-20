@@ -1,0 +1,2 @@
+class YaksController < ApplicationController
+end
