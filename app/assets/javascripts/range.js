@@ -131,11 +131,7 @@
         mapTypeControl: false,
         zoomControlOptions: {
           style: google.maps.ZoomControlStyle.SMALL,
-          position: google.maps.ControlPosition.LEFT_CENTER
         },
-    	panControlOptions: {
-          position: google.maps.ControlPosition.LEFT_CENTER
-    	},
         styles: yakapp.mapStyles,
         mapTypeId: google.maps.MapTypeId.ROADMAP
       };
