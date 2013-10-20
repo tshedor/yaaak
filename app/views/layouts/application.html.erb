@@ -8,7 +8,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <title><%= content_for?(:title) ? yield(:title) : "Yaaak - a proximity-based chat app" %></title>
-  
+
   <link href='https://fonts.googleapis.com/css?family=Libre+Baskerville:400,700|Titillium+Web:400,200' rel='stylesheet' type='text/css'>
 
   <%= stylesheet_link_tag "application", media: "all" %>
@@ -24,8 +24,11 @@
   <script id="maps-script" src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places,geometry"></script>
 </head>
 <body class="<%= body_class.strip %>" >
+	<div id="loadingIndicator">
+		<img src="<%= asset_url 'loader.gif' %>" />
+	</div>
 <%= render "layouts/header" %>
-<div class="yield">	
+<div class="yield">
   <%= yield %>
 </div><!-- /yield -->
 <%= render "layouts/footer" %>

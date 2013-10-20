@@ -1,3 +1,32 @@
 .herd {
 
 }
+.chat-list {
+	padding:20px;
+	overflow:scroll;
+	height:100%;
+	li {
+		&:nth-child(even){
+			background:rgba($subColor, 0.15);
+			text-align:right;
+			.yak, .message-content {
+				float:right;
+				display:block;
+			}
+		}
+	}
+}
+.message {
+	padding:15px 0;
+	.yak, .message-content {
+		@include inline-block;
+	}
+	.yak {
+		padding:4px 6px;
+		background:$domColor;
+		color:white;
+	}
+	.message-content {
+		padding-left:10px;
+	}
+}

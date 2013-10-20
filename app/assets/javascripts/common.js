@@ -21,10 +21,14 @@
     	isEmpty = function(str) {
     	  return !str || 0 === str.length;
     	};
+    	$.getJSON('/herds/index.json', data, success)
+    	messageTemplate = function(data){
+    		return '<li><div class="message"><div class="yak" data-id="' + resp.data.user_id + '">' + resp.data.user_name + '</div><div class="message-content" data-time="' + resp.data.created_at + '">' + resp.data.message + '</div></div></li>'
+    	}
     	evtSource.onmessage = function(e) {
     	  var resp;
     	  resp = JSON.parse(e.data);
-    	  $('.chat-list').append('<li>' + resp.data.message + '</li>');
+    	  $('.chat-list').append(messageTemplate(resp));
     	  return console.log(resp);
     	};
     	evtSource.onopen = function(e) {
@@ -60,4 +64,7 @@
         }
       });
     });
+  });
+  $(window).load(function(){
+  	$('#loadingIndicator').fadeOut();
   });
