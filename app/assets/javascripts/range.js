@@ -32,16 +32,15 @@
       });
       return customLocationMarker;
     },
-    customChatMarker: function(herddata, pos, map) {
+    customChatMarker: function(herddata, pos, map, herdid) {
       var customLocationMarker, customLocationWindow, herderstring;
       herderstring = '<div class="quick-view">' + '<div class="quick-view-hdr">' + '<strong>Herd</strong>' + '</div><!-- /hdr -->'
       herderstring += '<ul class="chat-list">'
   	  $.each(herddata, function(key, val){
-  	  	console.log(val)
   	      herderstring += messageDisplay(val)
   	    });
   	    herderstring += '</ul>'
-        herderstring += '<div class="quick-view-meta">12 Yaks / 42 Grunts' + '</div><!-- /meta -->' + '<a class="i-chats yaaak" href="/herds/">Yaaak</a>' + '</div><!-- /quick view -->'
+        herderstring += '<div class="quick-view-meta">12 Yaks / 42 Grunts' + '</div><!-- /meta -->' + '<a class="i-chats yaaak" href="/herds/' + herdid + '">Yaaak</a>' + '</div><!-- /quick view -->'
 
       customLocationMarker = new google.maps.Marker({
         position: pos,
@@ -118,7 +117,7 @@
       $.getJSON('/herds/index.json', function(data){
       	$.each(data, function(key, val){
       	  var gmapsSPOT = new google.maps.LatLng(val.geo_lat, val.geo_long);
-          yakfunc.customChatMarker(val.grunts, gmapsSPOT, yakapp.rangemap);
+          yakfunc.customChatMarker(val.grunts, gmapsSPOT, yakapp.rangemap, val.id);
       	});
       });
       if (navigator.geolocation) {
