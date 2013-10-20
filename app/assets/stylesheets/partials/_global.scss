@@ -18,8 +18,7 @@ body {
 
 body.splash { background: none; }
 
-#map_canvas { position: relative; z-index: 10; top: 41px; }
-.yield { position: relative; z-index: 10; top: 60px; @include clearfix; }
+.yield { @include clearfix; }
 
 .w { max-width: 850px; width:100%; min-width: 320px; margin: 0 auto; }
 
