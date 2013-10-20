@@ -15,7 +15,7 @@
 /******* HERDS ********/
 /**********************/
 
-$(window).load(function() {
+$(document).ready(function() {
     var evtSource, isEmpty;
     evtSource = new EventSource('/herds/1/stream');
     evtSource.onmessage = function(e) {
@@ -34,6 +34,9 @@ $(window).load(function() {
     };
 	evtSource.onclose = function(e) {
       return console.log('close');
+    };
+    window.onbeforeunload = function() {
+      evtSource.close()
     };
 });
 
