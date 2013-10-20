@@ -21,7 +21,6 @@
     	isEmpty = function(str) {
     	  return !str || 0 === str.length;
     	};
-    	$.getJSON('/herds/index.json', data, success)
     	messageTemplate = function(data){
     		return '<li><div class="message"><div class="yak" data-id="' + resp.data.user_id + '">' + resp.data.user_name + '</div><div class="message-content" data-time="' + resp.data.created_at + '">' + resp.data.message + '</div></div></li>'
     	}
