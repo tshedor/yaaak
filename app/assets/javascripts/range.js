@@ -32,32 +32,30 @@
       });
       return customLocationMarker;
     },
-    customChatMarker: function(herdid, pos, map) {
+    customChatMarker: function(herddata, pos, map) {
       var customLocationMarker, customLocationWindow, herderstring;
       herderstring = '<div class="quick-view">' + '<div class="quick-view-hdr">' + '<strong>Herd</strong>' + '</div><!-- /hdr -->'
       herderstring += '<ul class="chat-list">'
-  	  var herdrequest = $.getJSON('/herds/'+herdid+'.json?limit=3', function(data){
-  	    $.each(data.grunts, function(key, val){
+  	  $.each(herddata, function(key, val){
+  	  	console.log(val)
   	      herderstring += messageDisplay(val)
   	    });
   	    herderstring += '</ul>'
         herderstring += '<div class="quick-view-meta">12 Yaks / 42 Grunts' + '</div><!-- /meta -->' + '<a class="i-chats yaaak" href="/herds/">Yaaak</a>' + '</div><!-- /quick view -->'
-      });
 
       customLocationMarker = new google.maps.Marker({
         position: pos,
         map: map,
         animation: google.maps.Animation.DROP,
       });
-  	  herdrequest.complete(function(){
   	  	customLocationWindow = new google.maps.InfoWindow({
   	  		content: herderstring
       	});
+      	console.log(herderstring)
       	google.maps.event.addListener(customLocationMarker, 'click', function() {
       		return customLocationWindow.open(map, customLocationMarker);
       	});
       	return customLocationMarker;
-      });
 
     },
     currentLocationMarker: function(map) {
@@ -84,12 +82,6 @@
       if($('body').hasClass('range')){
         gmapsPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
         yakapp.rangemap.panTo(gmapsPosition);
-        if (typeof yakapp.CLM !== "undefined") {
-          yakapp.CLM.setPosition(gmapsPosition);
-        } else {
-          yakapp.CLM = yakfunc.currentLocationMarker(yakapp.rangemap);
-          yakapp.HLM = yakfunc.customChatMarker(1, gmapsPosition, yakapp.rangemap);
-        }
       }
     }), function(error) {
       alert('Lone ranger, get back on the beaten trail. We can\'t locate you.');
@@ -123,6 +115,12 @@
         mapTypeId: google.maps.MapTypeId.ROADMAP
       };
       yakapp.rangemap = new google.maps.Map($('#map_canvas')[0], yakapp.rangeOptions);
+      $.getJSON('/herds/index.json', function(data){
+      	$.each(data, function(key, val){
+      	  var gmapsSPOT = new google.maps.LatLng(val.geo_lat, val.geo_long);
+          yakfunc.customChatMarker(val.grunts, gmapsSPOT, yakapp.rangemap);
+      	});
+      });
       if (navigator.geolocation) {
         yakapp.rangemap.setZoom(16);
       } else {
