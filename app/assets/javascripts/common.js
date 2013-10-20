@@ -1,3 +1,7 @@
+
+    function messageDisplay(info){
+    	return '<li><div class="message"><div class="yak" data-date="' + info.created_at + '" style="border-color:' + info.user_color + '">' + info.user_name + '</div><div class="message-content">' + info.message + '</div></div></li>'
+    }
   $(document).ready(function() {
 
     $('select').selectpicker();
@@ -14,7 +18,6 @@
 /**********************/
 /******* HERDS ********/
 /**********************/
-
 $(document).ready(function() {
 
 	function notify(content,tags,title, url){
@@ -48,13 +51,11 @@ $(document).ready(function() {
     if($('body').hasClass('herds show')) {
     var evtSource;
     evtSource = new EventSource('/herds/1/stream');
-    function messageDisplay(resp){
-    	return '<li><div class="message"><div class="yak" data-date="' + resp.data.created_at + '" style="border-color:' + resp.data.user_color + '">' + resp.data.user_name + '</div><div class="message-content">' + resp.data.message + '</div></div></li>'
-    }
+
     evtSource.onmessage = function(e) {
       var resp;
       resp = JSON.parse(e.data);
-      $('.chat-list').append(messageDisplay(resp));
+      $('#chat_list').append(messageDisplay(resp.data));
       notify(resp.data.message,'headerroom1','Yaaak', window.location.href)
       return console.log(resp);
     };

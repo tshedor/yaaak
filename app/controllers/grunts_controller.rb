@@ -42,6 +42,6 @@ class GruntsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def grunt_params
-      params.require(:grunt).permit(:message, :yak_id)
+      params.require(:grunt).permit(:message, :yak_id, :geo_lat, :geo_long)
     end
 end
