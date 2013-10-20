@@ -17,12 +17,15 @@ class GruntsController < ApplicationController
   def create
     @grunt = Grunt.new(grunt_params)
 
-    respond_to do |format|
-      if !@grunt.save
-        format.html { render action: 'new' }
-        format.json { render json: @grunt.errors, status: :unprocessable_entity }
+    #respond_to do |format|
+      if @grunt.save
+        render json: @grunt
+      else
+    #    format.html { render action: 'new' }
+        render json: @grunt.errors, status: :unprocessable_entity
       end
-    end
+
+    #end
   end
 
   private
