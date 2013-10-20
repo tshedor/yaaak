@@ -5,4 +5,5 @@ json.grunts @grunts do |grunt|
   json.user_name grunt.display_name
   json.created_at grunt.created_at
   json.user_color grunt.yak.color
+  json.time_ago time_ago_in_words(grunt.created_at)
 end
