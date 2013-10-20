@@ -19,16 +19,16 @@ body {
 body.splash { background: none; }
 
 #map_canvas { position: relative; z-index: 10; top: 41px; }
-.yield { position: relative; z-index: 10; top: 60px; }
+.yield { position: relative; z-index: 10; top: 60px; @include clearfix; }
 
 .w { max-width: 850px; width:100%; min-width: 320px; margin: 0 auto; }
 
 // Type
-h1, h2, h3, h4 { @include display; margin: 0; }
+h1, h2, h3, h4 { @include display; margin: 0; text-transform: lowercase; }
 h2, h3 { font-weight: 400; }
-h1, h1 a { font-weight: 700; @include font-size(24); text-decoration: none; }
-h2, h2 a { line-height: 35px; @include font-size(20); text-decoration: none; }
-h3, h3 a { @include font-size(18); text-decoration: none; }
+h1, h1 a { color: $gray; font-weight: 700; @include font-size(24); text-decoration: none; }
+h2, h2 a { color: $domColor; line-height: 35px; @include font-size(20); text-decoration: none; }
+h3, h3 a { color: $linkColor; @include font-size(18); text-decoration: none; }
 
 p { color: $gray; line-height: 1.6em; margin: 5px 0; }
 

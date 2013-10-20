@@ -23,6 +23,7 @@
 	}
 }
 
-.footer {
-
+.footer { clear: both; overflow:hidden;
+	margin: 40px 0; width: 100%; text-align: center;
+	p { @include font-size(10); color: $lightest_gray; }	
 }
