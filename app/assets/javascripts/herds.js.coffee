@@ -6,13 +6,13 @@
 
 jQuery(document).ready ($) ->
 	evtSource = new EventSource('/herds/1/stream')
-	console.log evtSource
 	isEmpty = (str) ->
 		!str || 0 is str.length
 
 	evtSource.onmessage = (e) ->
 		resp = JSON.parse(e.data)
 		$('.chat-list').append('<li>'+e.data+'</li>')
+  console.log(resp)
 
 	evtSource.onopen = (e) ->
 		console.log 'open'

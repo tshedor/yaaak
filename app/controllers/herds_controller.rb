@@ -16,12 +16,6 @@ class HerdsController < ApplicationController
 
     begin
 
-    #(0..10).each do
-    #  sse.write({message: 'testEvent'})
-    #  sleep(1)
-    #end
-
-
     ActiveSupport::Notifications.subscribe("herd#{@herd.id}") do |name, start, finish, id, payload|
       logger.debug name
       logger.debug start
