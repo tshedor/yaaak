@@ -17,7 +17,8 @@ body {
 
 body.splash { background: none; }
 
-#map_canvas { position: relative; z-index: 10; top: 41px; }
+#map_canvas, .yield { position: relative; z-index: 10; top: 41px; }
+
 
 // Type
 h1, h2, h3, h4 { @include display; margin: 0; }

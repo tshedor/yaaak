@@ -14,26 +14,22 @@
 ActiveRecord::Schema.define(version: 20131019031139) do
 
   create_table "grunts", force: true do |t|
-    t.integer  "yak_id"
-    t.integer  "herd_id"
+    t.integer  "user_id"
+    t.integer  "heard_id"
     t.text     "message"
-    t.float    "geo_lat"
-    t.float    "geo_long"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "grunts", ["herd_id"], name: "index_grunts_on_herd_id"
-  add_index "grunts", ["yak_id"], name: "index_grunts_on_yak_id"
-
   create_table "herds", force: true do |t|
+    t.integer  "parent_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "yaks", force: true do |t|
     t.string   "name"
-    t.string   "auth_hash"
+    t.string   "hash"
     t.float    "geo_lat"
     t.float    "geo_long"
     t.datetime "created_at"
