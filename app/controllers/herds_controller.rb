@@ -42,6 +42,7 @@ class HerdsController < ApplicationController
   end
 
   def show
+  	@grunt = Grunt.new
   end
 
   def new
