@@ -15,7 +15,8 @@ class GruntsController < ApplicationController
   end
 
   def create
-    @grunt = Grunt.new(grunt_params)
+    yak = current_yak(grunt_params[:geo_lat], grunt_params[:geo_long])
+    @grunt = yak.grunts.new(grunt_params)
     if @grunt.save
       render json: @grunt
     else
