@@ -10,8 +10,33 @@
 
 }
 @media (max-width:767px){
-
+	#rumble2013 { display: none; }
+	.w { width: 100%; max-width: 100%; }
+	[class^="i-"]:before,
+	[class*=" i-"]:before { @include font-size(24); line-height: 24px; }
+	.form .field-group { width: 100%; margin: 5px; } 
+	.hdr {
+		.logo { left: -55px; }
+		.hdr-controls { left: 0; top: 100px; width: 90%; 
+			form {
+				.gin-select { float: none; 
+					.btn { width: 100%; }
+				}
+			}
+		}
+	}
+	.hdr-out { height: 280px;  
+		.logo { top:-50px; bottom: auto; }
+	}
+	.range-grunt {
+		form {
+			input[type="text"] { width: 70% }
+			input[type="submit"] { padding: 20px 10px; }
+		}
+	}
+	.herd { width: 100%; float: none; margin-bottom: 60px; }
+	.herd-sb { width: 100%; margin-top: 20px; float: none; }
 }
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {
-
+	
 }
