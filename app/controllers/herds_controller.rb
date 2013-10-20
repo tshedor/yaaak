@@ -24,7 +24,6 @@ class HerdsController < ApplicationController
 
     on = true
     while on
-      sleep(1)
       on = false if response.stream.closed?
     end
 
