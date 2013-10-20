@@ -25,7 +25,7 @@
 				.yak {
 					border-left:0;
 				}
-				.message-content { position: relative; padding: 10px 20px 10px 10px; border-radius: 3px 0 3px 3px;
+				.message-content { position: relative; padding: 10px 20px 10px 10px; border-radius: 3px;
 					.tab { position: absolute; top: 30%; left: auto; right: -12px !important; display: inline-block; width: 0; height: 0; border-left: 5px solid white; border-right: 5px solid transparent; border-top: 5px solid transparent; border-bottom: 5px solid transparent; margin: 2px; }
 				}
 			}
@@ -50,7 +50,7 @@
 			background: white;
 			width: 83.090909%;
 			margin: 0 2%;
-			border-radius: 0 3px 3px 3px;
+			border-radius: 3px;
 			box-shadow: 0 2px 3px 0 rgba($light_gray, 0.4);
 		.tab { position: absolute; top: 30%; left: -12px; display: inline-block; width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid white; border-top: 5px solid transparent; border-bottom: 5px solid transparent; margin: 2px; }
 		}
