@@ -9,12 +9,13 @@ html, body, #map_canvas {
 html { font-size: 62.5%; }
 
 body {
+	background: #f2f2f2;
 	width:100%;
 	margin:0 auto;
 	@include paragraph; font-size: 14px; font-size: 1.4rem; -webkit-backface-visibility: hidden;
 }
 
-#map_canvas { position: relative; z-index: 10; top: 40px; }
+#map_canvas { position: relative; z-index: 10; top: 41px; }
 
 // Type
 h1, h2, h3, h4 { @include display; margin: 0; }
