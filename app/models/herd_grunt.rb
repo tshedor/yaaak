@@ -4,8 +4,9 @@ class HerdGrunt < ActiveRecord::Base
   belongs_to :herd
 
   after_create :notify_herd
+  after_destroy :last_grunt_check
 
-  private
+private
 
   def notify_herd
     if herd
@@ -17,6 +18,12 @@ class HerdGrunt < ActiveRecord::Base
           user_color: grunt.yak.color
       }
       ActiveSupport::Notifications.instrument("herd#{herd.id}", payload)
+    end
+  end
+
+  def last_grunt_check
+    if herd.grunts.empty?
+      herd.delete
     end
   end
 
