@@ -2,8 +2,6 @@ class Herd < ActiveRecord::Base
 
   require 'geo_ruby'
 
-  has_many :grunts
-
   has_many :herd_grunts, :dependent => :destroy
   has_many :grunts, :through => :herd_grunts
 
@@ -14,13 +12,22 @@ class Herd < ActiveRecord::Base
     Yak.joins(:herd).where(herds: { id: id })
   end
 
-  def master_herd
-    herd ? herd.master_herd : self
+  def furthest_grunt
+    Grunt.find_by_sql("
+      SELECT id, geo_lat, geo_long, created_at,
+      ( 3959 * acos( cos( radians( #{geo_lat} ) ) * cos( radians( geo_lat ) ) * cos( radians( geo_long ) - radians( #{geo_long} ) ) + sin( radians( #{geo_lat} ) ) * sin( radians( geo_lat ) ) ) ) AS distance
+      FROM grunts ORDER BY distance DESC LIMIT 1
+    ").first
   end
 
-  def self.test_point
-    point = GeoRuby::SimpleFeatures::Point.new
-    point.set_x_y(5, 5)
+  def herd_radius
+    grunt_point = GeoRuby::SimpleFeatures::Point.from_lon_lat(furthest_grunt.geo_long, furthest_grunt.geo_lat)
+    herd_point = GeoRuby::SimpleFeatures::Point.from_lon_lat(geo_long, geo_lat)
+    herd_point.euclidian_distance(grunt_point)
+  end
+
+  def master_herd
+    herd ? herd.master_herd : self
   end
 
 end
