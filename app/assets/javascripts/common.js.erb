@@ -147,11 +147,12 @@ $(document).ready(function() {
       }
     });
   });
+
   $("#updateName").submit(function(e) {
     e.preventDefault();
     $.ajax({
       url: '/yaks/'+parseInt($.cookie('active_yak')),
-      type: "PATCH",
+      type: "put",
       dataType: "json",
       data: 'name='+encodeURIComponent($('#newName').val()),
       success: function(msg) {
