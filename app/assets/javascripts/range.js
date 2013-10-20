@@ -94,34 +94,18 @@
     });
   };
 
-  if (Notification && Notification !== "granted") {
+  if(window.webkitNotifications){
+      var havePermission = window.webkitNotifications.checkPermission();
+      if (havePermission !== 0) {
+   	    window.webkitNotifications.requestPermission();
+   	  }
+  } else if (Notification && Notification !== "granted") {
     Notification.requestPermission(function(status) {
       if (Notification.permission !== status) {
         return Notification.permission = status;
       }
     });
   }
-
-  callNotification = function(content) {
-    var n;
-    if (Notification && Notification.permission === "granted") {
-      n = new Notification(content);
-      n.onshow = function() {
-        return setTimeout(n.close, 5000);
-      };
-    }
-    return Notification.requestPermission(function(status) {
-      if (Notification.permission !== status) {
-        Notification.permission = status;
-      }
-      if (status === "granted") {
-        n = new Notification(content);
-        return n.onshow = function() {
-          return setTimeout(n.close, 5000);
-        };
-      }
-    });
-  };
 
   jQuery(document).ready(function($) {
 
