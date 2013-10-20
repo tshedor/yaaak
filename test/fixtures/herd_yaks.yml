@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  yak_id: 1
+  herd_id: 1
+
+two:
+  yak_id: 1
+  herd_id: 1

@@ -15,10 +15,16 @@ class GruntsController < ApplicationController
   end
 
   def create
+    herd_id = params[:herd_id]
+
     @grunt = Grunt.new(grunt_params)
+
+
 
     #respond_to do |format|
       if @grunt.save
+        Herd.find_by_id(herd_id).grunts << @grunt
+
         render json: @grunt
       else
     #    format.html { render action: 'new' }
@@ -36,6 +42,6 @@ class GruntsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def grunt_params
-      params.require(:grunt).permit(:message, :herd_id, :yak_id)
+      params.require(:grunt).permit(:message, :yak_id)
     end
 end

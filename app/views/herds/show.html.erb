@@ -20,7 +20,8 @@
 				</div>
 			<% end %>
 				<%= f.text_area :message %>
-				<%= f.hidden_field :herd_id, :value => 1 %>
+
+              <input name="herd_id" type="hidden" value="1" />
 				<%= f.hidden_field :yak_id, :value => 1 %>
 				<div class="text-center lg-margin">
 					<%= f.submit %>

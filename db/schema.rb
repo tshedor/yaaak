@@ -11,11 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131019031139) do
+ActiveRecord::Schema.define(version: 20131020050606) do
 
   create_table "grunts", force: true do |t|
     t.integer  "yak_id"
-    t.integer  "herd_id"
     t.text     "message"
     t.float    "geo_lat"
     t.float    "geo_long"
@@ -23,8 +22,12 @@ ActiveRecord::Schema.define(version: 20131019031139) do
     t.datetime "updated_at"
   end
 
-  add_index "grunts", ["herd_id"], name: "index_grunts_on_herd_id", using: :btree
-  add_index "grunts", ["yak_id"], name: "index_grunts_on_yak_id", using: :btree
+  create_table "herd_grunts", force: true do |t|
+    t.integer  "grunt_id"
+    t.integer  "herd_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "herds", force: true do |t|
     t.datetime "created_at"
@@ -36,6 +39,7 @@ ActiveRecord::Schema.define(version: 20131019031139) do
     t.string   "auth_hash"
     t.float    "geo_lat"
     t.float    "geo_long"
+    t.integer  "herd_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

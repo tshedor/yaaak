@@ -9,7 +9,8 @@
 herd = Herd.create()
 Yak.create()
 Yak.create()
-Grunt.create(message: 'Test Message', herd_id: herd.id, yak_id: 1)
-Grunt.create(message: 'Test Message Second', herd_id: herd.id, yak_id: 2)
-Grunt.create(message: 'Test Message Third', herd_id: herd.id, yak_id: 1)
-Grunt.create(message: 'Test Message Fourth', herd_id: herd.id, yak_id: 2)
+
+herd.grunts << Grunt.create(message: 'Test Message', yak_id: 1)
+herd.grunts << Grunt.create(message: 'Test Message Second', yak_id: 2)
+herd.grunts << Grunt.create(message: 'Test Message Third', yak_id: 1)
+herd.grunts << Grunt.create(message: 'Test Message Fourth', yak_id: 2)
