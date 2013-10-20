@@ -75,6 +75,10 @@
   updateLocation = function() {
     return navigator.geolocation.getCurrentPosition((function(position) {
       var gmapsPosition;
+
+      yakapp.position = [position.coords.latitude, position.coords.longitude];
+      $('#grunt_geo_long').val(position.coords.longitude)
+      $('#grunt_geo_lat').val(position.coords.latitude)
       if($('body').hasClass('range')){
         gmapsPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
         yakapp.rangemap.panTo(gmapsPosition);
@@ -85,9 +89,6 @@
           yakapp.HLM = yakfunc.customChatMarker(1, gmapsPosition, yakapp.rangemap);
         }
       }
-      yakapp.position = [position.coords.latitude, position.coords.longitude];
-      $('#grunt_geo_long').val(position.coords.longitude)
-      $('#grunt_geo_lat').val(position.coords.latitude)
     }), function(error) {
       alert('Lone ranger, get back on the beaten trail. We can\'t locate you.');
     });

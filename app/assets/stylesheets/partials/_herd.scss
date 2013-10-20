@@ -68,8 +68,13 @@
 			padding:10px;
 			@include border-left-radius(5px);
 		}
-		input[type="submit"], button {
+		input[type="submit"] {
 			@include inline-block;
+			@include display;
+			font-weight:bold;
+			font-style:italic;
+			font-size:19px;
+			padding:8px 17px;
 		}
 	}
 }
