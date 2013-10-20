@@ -1,6 +1,6 @@
 class YaksController < ApplicationController
 
-	def show
+  def show
     @yak = Yak.find(params[:id])
   end
 
