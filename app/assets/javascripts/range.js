@@ -19,7 +19,7 @@
     customMarkerBubble: function(content, pos, map) {
       var customLocationMarker, customLocationWindow;
       customLocationWindow = new google.maps.InfoWindow({
-        content: '<div class="quick-view">' + '<div class="hdr">' + '<strong>' + content + '</strong>' + '</div><!-- /hdr -->' + '<div class="grunts">' + '</div><!-- /grunts -->' + '<div class="quick-view-meta">' + '</div><!-- /meta -->' + '<button class="yak">Yaaak!</button>' + '</div><!-- /quick view -->'
+        content: '<div class="hdr">' + '<div class="quick-view-hdr">' + '<strong>' + content + '</strong>' + '</div><!-- /hdr -->' + '<div class="grunts">' + '</div><!-- /grunts -->' + '<div class="quick-view-meta">' + '</div><!-- /meta -->' + '<button class="yak">Yaaak!</button>' + '</div><!-- /quick view -->'
       });
       customLocationMarker = new google.maps.Marker({
         position: pos,
