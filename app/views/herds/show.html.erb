@@ -1,14 +1,14 @@
-<%- title "New Herd" %>
-<ul class="chat-list">
-<% @herd.grunts.each do |grunt| %>
-	<li><%= grunt.message %></li>
-<% end %>
-</ul>
+<div class="yield">
+	<div class="herd w">
+		<%- title "New Herd" %>
+		<ul class="chat-list">
+		<% @herd.grunts.each do |grunt| %>
+			<li><%= grunt.message %></li>
+		<% end %>
+		</ul>
 
-	<%= form_for @grunt do |f| %>
-		<% if @grunt.errors.any? %>
-		<div class="row clearfix">
-			<div class="large-12 columns">
+			<%= form_for @grunt do |f| %>
+			<% if @grunt.errors.any? %>
 				<div id="error_explanation">
 					<h2><%= pluralize(@grunt.errors.count, "error") %> prohibited this major from being saved:</h2>
 					<ul>
@@ -17,11 +17,7 @@
 						<% end %>
 					</ul>
 				</div>
-			</div>
-		</div>
-		<% end %>
-		<div class="row clearfix actions">
-			<div class="large-6 columns large-centered">
+			<% end %>
 				<h2>Name</h2>
 				<%= f.text_field :message %>
 				<%= f.hidden_field :herd_id, :value => 1 %>
@@ -29,6 +25,6 @@
 				<div class="text-center lg-margin">
 					<%= f.submit %>
 				</div>
-			</div>
-		</div>
-	<% end %>
+			<% end %>
+	</div><!-- /herd -->
+</div><!-- /yield -->
