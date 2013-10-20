@@ -17,15 +17,15 @@ class HerdsController < ApplicationController
     begin
 
     ActiveSupport::Notifications.subscribe("herd#{@herd.id}") do |name, start, finish, id, payload|
-      logger.debug name
-      logger.debug start
-      logger.debug finish
-      logger.debug id
-      logger.debug payload
-      sse.write({message: 'testEvent', data: payload })
+      unless response.stream.closed?
+        sse.write({message: 'testEvent', data: payload })
+      end
     end
 
-    while true
+    on = true
+    while on
+      sleep(1)
+      on = false if response.stream.closed?
     end
 
     rescue IOError

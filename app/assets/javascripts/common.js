@@ -18,9 +18,6 @@
 $(window).load(function() {
     var evtSource, isEmpty;
     evtSource = new EventSource('/herds/1/stream');
-    isEmpty = function(str) {
-      return !str || 0 === str.length;
-    };
     evtSource.onmessage = function(e) {
       var resp;
       resp = JSON.parse(e.data);
@@ -33,6 +30,7 @@ $(window).load(function() {
     evtSource.onerror = function(e) {
       console.log('error');
       return console.log(e);
+      evtSource.close();
     };
 	evtSource.onclose = function(e) {
       return console.log('close');
