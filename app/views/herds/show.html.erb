@@ -1,6 +1,6 @@
 <%- title "New Herd" %>
 <ul class="chat-list">
-<%= @herd.grunts.each do |grunt| %>
+<% @herd.grunts.each do |grunt| %>
 	<li><%= grunt.message %></li>
 <% end %>
 </ul>
