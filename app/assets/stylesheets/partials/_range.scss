@@ -1,12 +1,6 @@
-.range {
+.range { 
 	.quick-view { width: 350px; height: 450px;
-
-	}
-}
-.gmnoprint {
-	margin-top:40px!important;
-	.gmnoprint {
-		margin-top:0!important;
+		
 	}
 	.range-grunt { position: absolute; bottom: 0; background:$gray; width:100%; height: 0px; min-width: 768px; overflow: hidden; transition: all .5s ease-in; -moz-transition: all .5s ease-in; z-index: 9999;
 		form {
@@ -17,16 +11,16 @@
 				border:0;
 				padding:20px;
 				background: $lightest_gray;
-				color: white;
+				color: $gray;
 				@include font-size(24);
 				@include border-left-radius(5px);
 			}
 			input[type="submit"] {
 				@include inline-block;
-				@include btn($subColor);
+				@include font-size(24);
 			}
 		}
 	}
-	.grunt-out { height: 100px; padding: 10px; }
+	.grunt-out { height: 100px; padding: 10px;  }
 }
 
