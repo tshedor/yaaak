@@ -6,9 +6,9 @@
 		background: $lightest_gray;
 		border-radius: 4px;
 		box-shadow: 0 3px 4px 0 rgba($gray, 0.4);
-		li {
+		li { padding: 10px; border-radius: 4px;
 			&:nth-child(even){
-				background:rgba($subColor, 0.15);
+				background:rgba(white, 0.15);
 				text-align:right;
 				.yak, .message-content {
 					float:right;
