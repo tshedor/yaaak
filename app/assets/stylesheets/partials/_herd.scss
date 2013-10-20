@@ -1,34 +1,35 @@
-.herd {
-}
-.chat-list {
-	padding:20px;
-	overflow:scroll;
-	height:100%;
-	background: $light_gray;
-	border-radius: 4px;
-	box-shadow: 0 3px 4px 0 rgba($gray, 0.4);
-	li {
-		&:nth-child(even){
-			background:rgba($subColor, 0.15);
-			text-align:right;
-			.yak, .message-content {
-				float:right;
-				display:block;
+.herd { width: 55%; float: left;
+	.chat-list {
+		padding:20px;
+		overflow:scroll;
+		height:100%;
+		background: $lightest_gray;
+		border-radius: 4px;
+		box-shadow: 0 3px 4px 0 rgba($gray, 0.4);
+		li {
+			&:nth-child(even){
+				background:rgba($subColor, 0.15);
+				text-align:right;
+				.yak, .message-content {
+					float:right;
+					display:block;
+				}
 			}
 		}
 	}
+	.message {
+		padding:15px 0;
+		.yak, .message-content {
+			@include inline-block;
+		}
+		.yak {
+			padding:4px 6px;
+			background:$domColor;
+			color:white;
+		}
+		.message-content {
+			padding-left:10px;
+		}
+	}
 }
-.message {
-	padding:15px 0;
-	.yak, .message-content {
-		@include inline-block;
-	}
-	.yak {
-		padding:4px 6px;
-		background:$domColor;
-		color:white;
-	}
-	.message-content {
-		padding-left:10px;
-	}
-}
+.herds-sb { width: 40%; background: $light_gray; border-radius: 4px; box-shadow: 0 3px 4px 0 rgba($gray, 0.4); float: right; }
