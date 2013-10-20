@@ -15,7 +15,7 @@
 					</ul>
 				</div>
 			<% end %>
-				<%= f.text_field :message %>
+				<%= f.text_field :message, :placeholder => "Did you know the yak is the mightiest animal in the Midwest?" %>
 				<input type="hidden" name="herd_id" value="<%= @herd.id %>" />
 				<%= f.hidden_field :geo_lat %>
 				<%= f.hidden_field :geo_long %>

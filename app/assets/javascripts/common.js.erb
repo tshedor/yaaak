@@ -19,7 +19,7 @@ $(document).ready(function() {
     if(window.webkitNotifications){
       var havePermission = window.webkitNotifications.checkPermission();
       if (havePermission == 0) {
-        var notification = window.webkitNotifications.createNotification(<%= asset_url 'favicon.png' %>,title,content);
+        var notification = window.webkitNotifications.createNotification("<%= asset_url 'favicon.png' %>",title,content);
 	    notification.onclick = function () {
 		  window.open(url);
 		  notification.close();
@@ -51,7 +51,7 @@ $(document).ready(function() {
       var resp;
       resp = JSON.parse(e.data);
       $('#chat_list').append(messageDisplay(resp.data));
-      notify(resp.data.message,'headerroom1','Yaaak', window.location.href)
+      notify(resp.data.message,$('#chat_list').attr('data-herdid'),'Yaaak', window.location.href)
       return console.log(resp);
     };
     evtSource.onopen = function(e) {
