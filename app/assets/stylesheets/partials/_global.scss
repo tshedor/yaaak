@@ -32,6 +32,7 @@ h3, h3 a { color: $linkColor; @include font-size(18); text-decoration: none; }
 p { color: $gray; line-height: 1.6em; margin: 5px 0; }
 
 a { color: #272727;
+	text-decoration:none;
 	&:hover { text-decoration: none; }
 	&:focus { outline: 0; }
 }

@@ -1,22 +1,22 @@
 <div class="yield">
 	<div class="w">
 	<div class="herd-hdr">
-		<a class="i-leftarrow" href="/range">Mozy back to the range</a>
+		<%= link_to 'Mozy back to the range', range_path, {:class => 'i-leftarrow'} %>
 	</div><!-- /herd hdr -->
 		<div class="herd">
 			<%- title "New Herd" %>
-			
+
 			<%= form_for @grunt do |f| %>
-			<% if @grunt.errors.any? %>
-				<div id="error_explanation">
-					<h2><%= pluralize(@grunt.errors.count, "error") %> prohibited this major from being saved:</h2>
-					<ul>
-						<% @grunt.errors.full_messages.each do |msg| %>
-							<li><%= msg %></li>
-						<% end %>
-					</ul>
-				</div>
-			<% end %>
+				<% if @grunt.errors.any? %>
+					<div id="error_explanation">
+						<h2><%= pluralize(@grunt.errors.count, "error") %> prohibited this major from being saved:</h2>
+						<ul>
+							<% @grunt.errors.full_messages.each do |msg| %>
+								<li><%= msg %></li>
+							<% end %>
+						</ul>
+					</div>
+				<% end %>
 				<%= f.text_field :message, :placeholder => "Did you know the yak is the mightiest animal in the Midwest?" %>
 				<input type="hidden" name="herd_id" value="<%= @herd.id %>" />
 				<%= f.hidden_field :geo_lat %>
@@ -24,19 +24,20 @@
 				<%= f.hidden_field :yak_id, :value => 1 %>
 				<%= f.submit "Yaaak" %>
 			<% end %>
-			
+
 			<ul class="chat-list" id="chat_list" data-herdid="<%= @herd.id %>"></ul>
-			
+
 		</div><!-- /herd -->
 		<div class="herd-sb">
 			<h1>Name of Heard</h1>
 			<ul class="herd-stats">
-				<li>42 <span>Yaks in this herd</span></li>
-				<li>12 <span>mile radius</span></li>
+				<li>12<span> Yaks in this herd</span></li>
+				<li><%= @herd.grunts.length %><span> grunts</span></li>
+				<li>12<span> mile radius</span></li>
 				<li><span>Some other cool stat</span></li>
 			</ul><!-- /states -->
 			<div class="range-actions">
-				<a class="leave-herd i-leftarrow">Leave the herd</a>
+				<%= link_to 'Leave the herd', range_path, {:class => 'leave-herd i-leftarrow'} %>
 			</div><!-- /range actions -->
 		</div><!-- /sb -->
 	</div><!-- /w -->

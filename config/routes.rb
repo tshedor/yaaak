@@ -5,7 +5,7 @@ YakApp::Application.routes.draw do
   get 'herds/:id/stream' => 'herds#stream', :as => 'stream'
   get "/range" => 'range#index'
   resources :grunts, only: [:create, :new]
-  resources :yaks, only: [:edit, :update]
+  resources :yaks, only: [:edit, :update, :show]
   #Homepage
   root 'splash#index'
 
