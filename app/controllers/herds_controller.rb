@@ -3,7 +3,6 @@ require 'serverside/sse'
 class HerdsController < ApplicationController
 
   before_action :set_herd, only: [:show, :destroy, :stream]
-  after_action :set_session, only: [:show]
 
   include ActionController::Live
 
@@ -72,13 +71,5 @@ class HerdsController < ApplicationController
     def herd_params
       params.require(:herd).permit(:message)
     end
-    def set_session
-      cookies.delete :active_yak
-      if !cookies.has_key?("active_yak")
-      	new_name = ['Imperial Yak', 'Golden Yak', 'Wolly Yak', 'Water Buffalo', 'Mammoth Yak', 'Wild Yak', 'Blind Yak', 'Geriatric Yak', 'Helpless Yak', 'Curious Yak', 'Cat Yak', 'Nefarious Yak', 'Byah Yak', 'Bubbly Yak', 'Orca Yak', 'Grunting Yak', 'Patient Yak', 'Jumpin Yak', 'Squatting Yak'].sample
-      	new_color = ['#575501', '#0177A8', '#356B83', '#AC2434', '#7A101D', '#77508D', '#50888D', '#0B545A', '#79A271', '#577751', '#D8D589', '#A8A8A8', '#EEB679', '#CAA883'].sample
-        ya = Yak.create(name: new_name, color:new_color)
-      	cookies[:active_yak] = ya.id
-      end
-    end
+
 end
