@@ -123,7 +123,8 @@ $(document).ready(function() {
   });
   $('.overlay-bg').click(function(){
   	window.toggle_overlay()
-  })
+  });
+
 
 
 
@@ -140,6 +141,21 @@ $(document).ready(function() {
       data: $('#new_grunt').serialize(),
       success: function(msg) {
       	$('#grunt_message').val('')
+      },
+      error: function(xhr, status) {
+        return $('body').html(xhr.responseText);
+      }
+    });
+  });
+  $("#updateName").submit(function(e) {
+    e.preventDefault();
+    $.ajax({
+      url: '/yaks/'+parseInt($.cookie('active_yak')),
+      type: "POST",
+      dataType: "json",
+      data: { 'name': $('#newName').val() },
+      success: function(msg) {
+      	console.log('success')
       },
       error: function(xhr, status) {
         return $('body').html(xhr.responseText);
