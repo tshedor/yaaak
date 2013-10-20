@@ -4,7 +4,7 @@
 
 
 
-jQuery(document).load ($) ->
+jQuery(document).ready ($) ->
 	evtSource = new EventSource('/herds/1/stream')
 	console.log evtSource
 	isEmpty = (str) ->
@@ -12,14 +12,12 @@ jQuery(document).load ($) ->
 
 	evtSource.onmessage = (e) ->
 		resp = JSON.parse(e.data)
-		console.log resp.message
-		if !isEmpty
-			$('.chat-list').append('<li>'+resp.message+'</li>')
+		$('.chat-list').append('<li>'+e.data+'</li>')
 
-  evtSource.onopen(e) ->
-    console.log 'open'
-
-  evtSource.onerror(e) ->
-    console.log 'error'
-
-
+	evtSource.onopen = (e) ->
+		console.log 'open'
+	evtSource.onerror = (e) ->
+		console.log 'error'
+		console.log e
+	evtSource.onclose = (e) ->
+		console.log 'close'
