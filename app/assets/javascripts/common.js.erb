@@ -17,9 +17,7 @@ $(document).ready(function() {
     e.preventDefault();
     $(this).toggleClass('i-close-active');
     $('#range-grunt').find('input').focus();
-    $('.range-grunt').toggleClass('grunt-out');
-    $('#rumble2013').toggle();
-    return $('.grunt-controls').toggle().toggleClass('flipInY animated');
+    return $('.range-grunt').toggle().toggleClass('flipInY animated');
   });
   $('.herds').backstretch(['<%= asset_url 'herds-bg.jpg' %>']);
 

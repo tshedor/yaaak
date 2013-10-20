@@ -4,7 +4,7 @@ class HerdGrunt < ActiveRecord::Base
   belongs_to :herd
 
   after_create :notify_herd
-  after_destroy :last_grunt_check
+  after_destroy :last_herd_grunt_check
 
 private
 
@@ -23,9 +23,9 @@ private
     end
   end
 
-  def last_grunt_check
+  def last_herd_grunt_check
     if herd.grunts.empty? && herd.herds.empty?
-      herd.delete
+      herd.destroy
     end
   end
 

@@ -30,7 +30,9 @@ class HerdsController < ApplicationController
   end
 
   def show
+    limit = params[:limit] ||= 10
   	@grunt = Grunt.new
+    @grunts = @herd.grunts.paginate(:page => params[:page], :per_page => limit)
   end
 
   def new
