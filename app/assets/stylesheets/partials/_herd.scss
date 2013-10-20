@@ -71,7 +71,7 @@
 	}
 }
 
-.herd-sb { width: 35.2941%; margin-top: 80px; padding: 20px; background: #dadada url('/assets/sb-bg.jpg') repeat-y; border-radius: 0 4px 4px 0; box-shadow: 0 3px 4px 0 rgba($gray, 0.4); float: right; 
+.herd-sb { width: 35.2941%; margin-top: 80px; padding: 20px; background: #dadada asset-url('sb-bg.jpg') repeat-y; border-radius: 0 4px 4px 0; box-shadow: 0 3px 4px 0 rgba($gray, 0.4); float: right; 
 	h1 { color: white; }
 	.herd-stats { 
 		li { color: $lightest_gray; padding: 10px; @include font-size(30); @include display; 
