@@ -1,6 +1,6 @@
 .range {
 	.quick-view { width: 400px; height: 450px; padding: 20px 0 20px 20px;
-		.yaaak { @include btn($subColor); width: 100%; text-align: center; }
+		.yaaak { @include btn($subColor); width: 100%; text-align: center; @include font-size(26); }
 		.quick-view-meta  { display: block; text-align: center; margin: 10px 0; @include font-size(20); } 
 		.quick-view-hdr { width: 100%; padding: 10px; background: $subColor; color: white; border-radius: 4px 4px 0 0; }
 		.chat-list { background: $lightest_gray; width: 100%;
