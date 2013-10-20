@@ -10,6 +10,8 @@ class Herd < ActiveRecord::Base
   has_many :herds, foreign_key: 'parent_id'
   belongs_to :herd, foreign_key: 'parent_id'
 
+  self.default_scope { order('created_at DESC') }
+
   def yaks
     Yak.joins(:herd).where(herds: { id: id })
   end

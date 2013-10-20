@@ -8,6 +8,7 @@ class HerdsController < ApplicationController
 
   def index
   	@herds = Herd.all
+
   end
 
   def stream

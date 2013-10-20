@@ -3,7 +3,7 @@ class Yak < ActiveRecord::Base
   belongs_to :herd
   has_many :grunts
 
-  default_scope order('created_at DESC')
+  default_scope { order('created_at DESC') }
 
   before_create :generate_name, :generate_color
 

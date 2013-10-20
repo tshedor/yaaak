@@ -1,9 +1,9 @@
-.overlay-bg { background-image: url('/assets/floral-dark-bg.png'); display: none; position: fixed; left: 0; top: 0; width: 100%; height: 100%; z-index: 9999; }
+.overlay-bg { background:rgba(black,0.8); display: none; position: fixed; left: 0; top: 0; width: 100%; height: 100%; z-index: 9999; }
 .overlay { display: none; min-width: 350px; max-width: 800px; position: absolute; z-index: 99999;
 	.overlay-content { padding: 15px; width: 60%; box-shadow: 0 0 6px 3px rgba(0,0,0,.7); border-radius: 4px; -webkit-border-radius: 4px; overflow: hidden;
-		.overlay-hdr { overflow: hidden; padding: 0 0 10px 0; margin: 10px 0; 
+		.overlay-hdr { overflow: hidden; padding: 0 0 10px 0; margin: 10px 0;
 			h1 { float: left; }
-			.destroy { background: url('/assets/destroy.png') no-repeat center bottom; display: block; float: right; height: 20px; width: 20px; text-indent: -99999px; cursor: pointer; 
+			.destroy { background: asset-url('destroy.png') no-repeat center bottom; display: block; float: right; height: 20px; width: 20px; text-indent: -99999px; cursor: pointer;
 				&:hover { background-position: center top; }
 			}
 		}
@@ -11,7 +11,7 @@
 	}
 }
 
-.alert { 
+.alert {
     pointer-events: none;
     position: fixed;
     z-index: 99999;

@@ -10,6 +10,8 @@ class Grunt < ActiveRecord::Base
   after_save :attach_or_create_herd
   after_destroy :last_yak_grunt_check
 
+  self.default_scope { order('created_at DESC') }
+
   def display_name
     if yak && yak.name
       yak.name.split(' ')[1] ? yak.name.split(' ')[0][0] + yak.name.split(' ')[1][0] : yak.name.split(' ')[0][0]
