@@ -6,10 +6,10 @@ class YaksController < ApplicationController
 
   def update
     @yak = Yak.find(params[:id])
-    if @yak.update_attributes(name: params[:yak][:name])
-      render status: 200
+    if @yak.update_attributes(name: params[:name])
+      render json: @yak
     else
-      render status: 301
+      render json: @yak.errors, status: :unprocessable_entity
     end
   end
 
