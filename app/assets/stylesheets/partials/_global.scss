@@ -15,6 +15,8 @@ body {
 	@include paragraph; font-size: 14px; font-size: 1.4rem; -webkit-backface-visibility: hidden;
 }
 
+body.splash { background: none; }
+
 #map_canvas { position: relative; z-index: 10; top: 41px; }
 
 // Type
