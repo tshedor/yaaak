@@ -15,23 +15,12 @@ class GruntsController < ApplicationController
   end
 
   def create
-    herd_id = params[:herd_id]
-
     @grunt = Grunt.new(grunt_params)
-
-
-
-    #respond_to do |format|
-      if @grunt.save
-        # Herd.find_by_id(herd_id).grunts << @grunt
-
-        render json: @grunt
-      else
-    #    format.html { render action: 'new' }
-        render json: @grunt.errors, status: :unprocessable_entity
-      end
-
-    #end
+    if @grunt.save
+      render json: @grunt
+    else
+      render json: @grunt.errors, status: :unprocessable_entity
+    end
   end
 
   private
