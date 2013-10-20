@@ -6,7 +6,9 @@ class Grunt < ActiveRecord::Base
   has_many :herds, :through => :herd_grunts
 
   profanity_filter! :message, :method => 'dictionary'
+
   after_save :attach_or_create_herd
+  after_destroy :last_yak_grunt_check
 
   def display_name
     if yak && yak.name
@@ -43,6 +45,12 @@ private
     end
     herd.grunts << self
     yak.update_attributes(herd_id: herd.id, geo_lat: geo_lat, geo_long: geo_long) if yak
+  end
+
+  def last_yak_grunt_check
+    if yak.grunts.empty?
+      yak.destroy
+    end
   end
 
 end
