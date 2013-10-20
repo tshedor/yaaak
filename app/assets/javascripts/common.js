@@ -1,3 +1,7 @@
+
+    function messageDisplay(info){
+    	return '<li><div class="message"><div class="yak" data-date="' + info.created_at + '" style="border-color:' + info.user_color + '">' + info.user_name + '</div><div class="message-content">' + info.message + '</div></div></li>'
+    }
   $(document).ready(function() {
 
     $('select').selectpicker();
@@ -14,7 +18,6 @@
 /**********************/
 /******* HERDS ********/
 /**********************/
-
 $(document).ready(function() {
 
 	function notify(content,tags,title, url){
@@ -48,11 +51,12 @@ $(document).ready(function() {
     if($('body').hasClass('herds show')) {
     var evtSource;
     evtSource = new EventSource('/herds/1/stream');
+
     evtSource.onmessage = function(e) {
       var resp;
       resp = JSON.parse(e.data);
-      $('.chat-list').append('<li>' + resp.data.message + '</li>');
-      notify(resp.data.message,'headerroom1','Yaaak App', window.location.href)
+      $('#chat_list').append(messageDisplay(resp.data));
+      notify(resp.data.message,'headerroom1','Yaaak', window.location.href)
       return console.log(resp);
     };
     evtSource.onopen = function(e) {
@@ -75,7 +79,7 @@ $(document).ready(function() {
 /**********************/
 /******* GRUNTS *******/
 /**********************/
-
+	$('#grunt_message').focus();
     $("#new_grunt").submit(function(e) {
       e.preventDefault();
       $.ajax({
@@ -83,7 +87,9 @@ $(document).ready(function() {
         type: "POST",
         dataType: "json",
         data: $('#new_grunt').serialize(),
-        success: function(msg) {},
+        success: function(msg) {
+        	$('#grunt_message').val('')
+        },
         error: function(xhr, status) {
           return $('body').html(xhr.responseText);
         }

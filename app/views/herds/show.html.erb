@@ -2,7 +2,7 @@
 	<div class="w">
 		<div class="herd">
 			<%- title "New Herd" %>
-			<ul class="chat-list">
+			<ul class="chat-list" id="chat_list">
 			<% @herd.grunts.each do |grunt| %>
 				<li><%= grunt.message %></li>
 			<% end %>
@@ -19,9 +19,10 @@
 					</ul>
 				</div>
 			<% end %>
-				<%= f.text_area :message %>
-
-              <input name="herd_id" type="hidden" value="1" />
+				<%= f.text_field :message %>
+				<input type="hidden" name="herd_id" value="<%= @herd.id %>" />
+				<%= f.hidden_field :geo_lat %>
+				<%= f.hidden_field :geo_long %>
 				<%= f.hidden_field :yak_id, :value => 1 %>
 				<div class="text-center lg-margin">
 					<%= f.submit %>
@@ -29,8 +30,8 @@
 			<% end %>
 		</div><!-- /herd -->
 		<div class="herd-sb">
-		
-		
+
+
 		</div><!-- /sb -->
 	</div><!-- /w -->
 </div><!-- /yield -->

@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 20131020050606) do
     t.integer  "herd_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "color"
   end
 
 end

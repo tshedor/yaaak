@@ -13,6 +13,10 @@
 					float:right;
 					display:block;
 				}
+				.yak {
+					border-left:0;
+					border-right:8px solid white;
+				}
 			}
 		}
 	}
@@ -25,6 +29,7 @@
 			padding:4px 6px;
 			background:$domColor;
 			color:white;
+			border-left:8px solid white;
 		}
 		.message-content {
 			padding-left:10px;
