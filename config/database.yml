@@ -9,7 +9,7 @@ development:
   username: root
   password: root
   host: localhost
-  pool: 8
+  pool: 20
   timeout: 5000
   socket: /Applications/MAMP/tmp/mysql/mysql.sock
 
@@ -28,5 +28,5 @@ production:
   username: root
   password: Basement7
   host: localhost
-  pool: 8
+  pool: 20
   timeout: 5000
