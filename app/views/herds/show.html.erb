@@ -1,11 +1,12 @@
 <div class="yield">
-	<div class="herd w">
-		<%- title "New Herd" %>
-		<ul class="chat-list">
-		<% @herd.grunts.each do |grunt| %>
-			<li><%= grunt.message %></li>
-		<% end %>
-		</ul>
+	<div class="w">
+		<div class="herd">
+			<%- title "New Herd" %>
+			<ul class="chat-list">
+			<% @herd.grunts.each do |grunt| %>
+				<li><%= grunt.message %></li>
+			<% end %>
+			</ul>
 
 			<%= form_for @grunt do |f| %>
 			<% if @grunt.errors.any? %>
@@ -25,5 +26,10 @@
 					<%= f.submit %>
 				</div>
 			<% end %>
-	</div><!-- /herd -->
+		</div><!-- /herd -->
+		<div class="herd-sb">
+		
+		
+		</div><!-- /sb -->
+	</div><!-- /w -->
 </div><!-- /yield -->
