@@ -73,12 +73,13 @@
 }
 
 .herd-sb { width: 35.2941%; margin-top: 20px; padding: 20px; background: #dadada url('/assets/sb-bg.jpg') repeat-y; border-radius: 0 4px 4px 0; box-shadow: 0 3px 4px 0 rgba($gray, 0.4); float: right; 
+	h1 { color: white; }
 	.herd-stats { 
-		li { padding: 10px; @include font-size(30); @include display; color: $gray;
-			span { color: $domColor; @include font-size(15); @include paragraph; font-style: normal }
+		li { color: $lightest_gray; padding: 10px; @include font-size(30); @include display; 
+			span { @include font-size(15); @include paragraph; font-style: normal }
 		}
 	}
 	.range-actions {
-		a, button, input { border: 0; display: block; padding: 10px; }
+		a, button, input { color: white; border: 0; display: block; padding: 10px; }
 	}
 }
