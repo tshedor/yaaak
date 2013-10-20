@@ -52,7 +52,7 @@ $(document).ready(function() {
     evtSource.onmessage = function(e) {
       var resp;
       resp = JSON.parse(e.data);
-      $('#chat_list').append(messageDisplay(resp.data));
+      $('#chat_list').prepend(messageDisplay(resp.data));
       notify(resp.data.message,$('#chat_list').attr('data-herdid'),'Yaaak', window.location.href)
       return console.log(resp);
     };
@@ -74,7 +74,7 @@ $(document).ready(function() {
     //AJAX in the list
     $.getJSON('/herds/'+$('#chat_list').attr('data-herdid')+'.json', function(data){
       $.each(data.grunts, function(key, val){
-  	    $('#chat_list').append(messageDisplay(val))
+  	    $('#chat_list').prepend(messageDisplay(val))
   	  });
     })
 

@@ -6,13 +6,12 @@
 }
 .herd { width: 64.70588%; float: left; margin-bottom: 60px;
 	.new_grunt, .chat-list {
-		@include border-top-radius(4px);
+		@include border-bottom-radius(5px);
 		box-shadow: 0 3px 4px 0 rgba($gray, 0.4);
 	}
 	.chat-list { height: 500px;
 		background: $lightest_gray;
 		overflow:scroll;
-		height:100%;
 		li { padding: 10px; margin:5px 0;position: relative;
 			&:nth-child(even){
 				text-align:right;
@@ -57,7 +56,7 @@
 		padding: 20px;
 		background:$domColor;
 		overflow:hidden;
-		border-radius: 0 0 5px 5px;
+		border-radius: 5px 5px 0 0;
 		
 		input[type="text"] {
 			width:80%;
@@ -72,7 +71,7 @@
 	}
 }
 
-.herd-sb { width: 35.2941%; margin-top: 20px; padding: 20px; background: #dadada url('/assets/sb-bg.jpg') repeat-y; border-radius: 0 4px 4px 0; box-shadow: 0 3px 4px 0 rgba($gray, 0.4); float: right; 
+.herd-sb { width: 35.2941%; margin-top: 80px; padding: 20px; background: #dadada url('/assets/sb-bg.jpg') repeat-y; border-radius: 0 4px 4px 0; box-shadow: 0 3px 4px 0 rgba($gray, 0.4); float: right; 
 	h1 { color: white; }
 	.herd-stats { 
 		li { color: $lightest_gray; padding: 10px; @include font-size(30); @include display; 
