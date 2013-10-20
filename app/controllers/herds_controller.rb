@@ -3,6 +3,7 @@ require 'serverside/sse'
 class HerdsController < ApplicationController
 
   before_action :set_herd, only: [:show, :destroy, :stream]
+  after_action :set_session, only: [:show]
 
   include ActionController::Live
 
@@ -49,6 +50,7 @@ class HerdsController < ApplicationController
         format.json { render json: @herd.errors, status: :unprocessable_entity }
       end
     end
+
   end
 
   def destroy
@@ -69,5 +71,19 @@ class HerdsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def herd_params
       params.require(:herd).permit(:message)
+    end
+    def set_session
+      session.delete(:active_yak)
+      logger.debug session.has_key?("active_yak")
+      if session.has_key?("active_yak")
+        ya = Yak.create(name: 'PANDA', color:'#ccc')
+        logger.debug 'WWWWWW'
+      	session[:active_yak] = ya.id
+      else
+      	logger.debug 'AAAAAAAAA'
+      	session[:active_yak] = 12
+      	logger.debug session[:active_yak]
+      	logger.debug 'BLUEUEEEEE'
+      end
     end
 end

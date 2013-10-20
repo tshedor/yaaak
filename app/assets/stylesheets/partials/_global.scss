@@ -11,7 +11,9 @@ html { font-size: 62.5%; }
 body {
 	width:100%;
 	margin:0 auto;
-	@include paragraph; font-size: 14px; font-size: 1.4rem; -webkit-backface-visibility: hidden;
+	@include paragraph; font-size: 14px; font-size: 1.4rem;
+	-webkit-backface-visibility: hidden;
+	-webkit-tap-highlight-color: rgba(255,255,255,0); //disable gray flickering
 }
 
 body.splash { background: none; }
@@ -19,7 +21,7 @@ body.splash { background: none; }
 #map_canvas { position: relative; z-index: 10; top: 41px; }
 .yield { position: relative; z-index: 10; top: 60px; }
 
-.w { max-width: 1000px; min-width: 320px; margin: 0 auto; }
+.w { max-width: 1000px; width:100%; min-width: 320px; margin: 0 auto; }
 
 // Type
 h1, h2, h3, h4 { @include display; margin: 0; }

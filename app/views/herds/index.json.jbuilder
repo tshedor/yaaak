@@ -1,4 +1,6 @@
 json.array!(@herds) do |herd|
-  json.extract! herd, :display_name, :genre, :synopsis, :thumb, :seats_available, :seats_sold, :seats_filled, :datemeta_id, :cost
-  json.url herd_url(herd, format: :json)
+  json.id herd.id
+  json.messages herd.yaks do |yak|
+    json.message yak.message
+  end
 end
