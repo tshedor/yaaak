@@ -36,12 +36,12 @@
       var customLocationMarker, customLocationWindow, herderstring;
       herderstring = '<div class="quick-view">' + '<div class="quick-view-hdr">' + '<strong>Herd</strong>' + '</div><!-- /hdr -->'
       herderstring += '<ul class="chat-list">'
-  	  var herdrequest = $.getJSON('/herds/'+herdid+'.json', function(data){
+  	  var herdrequest = $.getJSON('/herds/'+herdid+'.json?limit=3', function(data){
   	    $.each(data.grunts, function(key, val){
   	      herderstring += messageDisplay(val)
   	    });
   	    herderstring += '</ul>'
-        herderstring += '<div class="quick-view-meta">12 Yaks / 42 Grunts' + '</div><!-- /meta -->' + '<a class="i-chats" href="/herds/">Yaaak</a>' + '</div><!-- /quick view -->'
+        herderstring += '<div class="quick-view-meta">12 Yaks / 42 Grunts' + '</div><!-- /meta -->' + '<a class="i-chats yaaak" href="/herds/">Yaaak</a>' + '</div><!-- /quick view -->'
       });
 
       customLocationMarker = new google.maps.Marker({
