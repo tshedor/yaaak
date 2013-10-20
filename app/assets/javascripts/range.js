@@ -123,12 +123,7 @@
   };
 
   jQuery(document).ready(function($) {
-    if (navigator.geolocation) {
-      updateLocation();
-      return setInterval(function() {
-        return updateLocation();
-      }, 25000);
-    }
+    
     if ($('body').hasClass('range')) {
       yakapp.rangeOptions = {
         zoom: 8,
@@ -146,6 +141,12 @@
       } else {
         return alert('Find your herd and turn on your geolocation.');
       }
+    }
+    if (navigator.geolocation) {
+      updateLocation();
+      return setInterval(function() {
+        return updateLocation();
+      }, 25000);
     }
   });
 
