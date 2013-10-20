@@ -7,8 +7,8 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 herd = Herd.create()
-Yak.create()
-Yak.create()
+Yak.create(name: 'Yellerrr', color: 'yellow')
+Yak.create(name: 'My Boy Blue', color: 'blue')
 
 herd.grunts << Grunt.create(message: 'Test Message', yak_id: 1)
 herd.grunts << Grunt.create(message: 'Test Message Second', yak_id: 2)

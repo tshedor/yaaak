@@ -13,7 +13,8 @@ class HerdGrunt < ActiveRecord::Base
           message: grunt.message,
           user_id: grunt.yak.id,
           user_name: grunt.yak.name,
-          created_at: grunt.created_at
+          created_at: grunt.created_at,
+          user_color: grunt.yak.color
       }
       ActiveSupport::Notifications.instrument("herd#{herd.id}", payload)
     end

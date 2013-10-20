@@ -48,11 +48,14 @@ $(document).ready(function() {
     if($('body').hasClass('herds show')) {
     var evtSource;
     evtSource = new EventSource('/herds/1/stream');
+    function messageDisplay(resp){
+    	return '<li><div class="message"><div class="yak" data-date="' + resp.data.created_at + '" style="border-color:' + resp.data.user_color + '">' + resp.data.user_name + '</div><div class="message-content">' + resp.data.message + '</div></div></li>'
+    }
     evtSource.onmessage = function(e) {
       var resp;
       resp = JSON.parse(e.data);
-      $('.chat-list').append('<li>' + resp.data.message + '</li>');
-      notify(resp.data.message,'headerroom1','Yaaak App', window.location.href)
+      $('.chat-list').append(messageDisplay(resp));
+      notify(resp.data.message,'headerroom1','Yaaak', window.location.href)
       return console.log(resp);
     };
     evtSource.onopen = function(e) {
@@ -75,7 +78,7 @@ $(document).ready(function() {
 /**********************/
 /******* GRUNTS *******/
 /**********************/
-
+	$('#grunt_message').focus();
     $("#new_grunt").submit(function(e) {
       e.preventDefault();
       $.ajax({
@@ -83,7 +86,9 @@ $(document).ready(function() {
         type: "POST",
         dataType: "json",
         data: $('#new_grunt').serialize(),
-        success: function(msg) {},
+        success: function(msg) {
+        	$('#grunt_message').val('')
+        },
         error: function(xhr, status) {
           return $('body').html(xhr.responseText);
         }
