@@ -12,8 +12,4 @@ class Herd < ActiveRecord::Base
     end
   end
 
-	def notify_herd(grunt)
-	  grunt
-  end
-
 end
