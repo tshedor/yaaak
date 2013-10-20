@@ -156,7 +156,9 @@ $(document).ready(function() {
       dataType: "json",
       data: 'name='+encodeURIComponent($('#newName').val()),
       success: function(msg) {
-      	console.log('success')
+          $(this).toggleClass('i-close-active').toggleClass('i-settings');
+          $('.hdr').toggleClass('hdr-out');
+          return $('.hdr-controls').toggle().toggleClass('flipInY animated');
       },
       error: function(xhr, status) {
         return $('body').html(xhr.responseText);

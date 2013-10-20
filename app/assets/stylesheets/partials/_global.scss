@@ -10,7 +10,7 @@ html, body, #map_canvas {
 	color:#aaa;
 }
 
-#map_canvas { position: relative; top: 40px; }
+#map_canvas { position: relative; top: 40px; z-index: 100; }
 
 html { font-size: 62.5%; }
 
