@@ -1,6 +1,34 @@
 .range {
-	.quick-view { width: 350px; height: 450px;
+	.quick-view { width: 400px; height: 450px;
+		.quick-view-hdr { width: 100%; padding: 10px; background: $subColor; color: white; border-radius: 4px 4px 0 0; margin: 20px 0 0; }
+		.chat-list { background: $lightest_gray; width: 100%;
+			li { padding: 10px;
+				.message { @include clearfix();
+					.yak, .message-content {
+						@include inline-block;
+						.float: left;
+					}
+					.yak {
+						padding:20px;
+						border-radius: 100%;
+						background:$terColor;
+						color:white;
+						width: 11.090909%;
 
+					}
+					.message-content {
+						position: relative;
+						padding:10px 10px 10px 20px;
+						background: white;
+						width: 83.090909%;
+						margin: 0 2%;
+						border-radius: 0 3px 3px 3px;
+						box-shadow: 0 2px 3px 0 rgba($light_gray, 0.4);
+					.tab { position: absolute; top: 30%; left: -12px; display: inline-block; width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid white; border-top: 5px solid transparent; border-bottom: 5px solid transparent; margin: 2px; }
+					}
+				}
+			}
+		}
 	}
 }
 .gmnoprint {
@@ -23,11 +51,11 @@
 		}
 	}
 }
-	.range-grunt { position: absolute; bottom: 0; background:$gray; width:100%; height: 0px; min-width: 768px; overflow: hidden; transition: all .5s ease-in; -moz-transition: all .5s ease-in; z-index: 9999;
-		form {
+	.range-grunt { position: absolute; background: white; width:60%; left: 50%; top: 50px; margin-left: -30%; display:none; overflow: hidden; transition: all .5s ease-in; -moz-transition: all .5s ease-in; z-index: 99999; box-shadow: 0 3px 4px 0 rgba($gray,0.4);
+		form { width: 100%;
 			overflow:hidden;
 			input[type="text"] {
-				width:80%;
+				width:70%;
 				@include inline-block;
 				border:1px solid white;
 				padding:20px;
@@ -37,10 +65,13 @@
 				@include border-left-radius(5px);
 				float: left;
 			}
+			input[type="text"]:hover { border: 1px solid $lightest_gray; }
 			input[type="submit"] {
 				@include inline-block;
 				@include font-size(24);
-				padding:20px 40px;
+				padding:20px 0;
+				width: 30%;
+				text-align: center;
 				border-radius: 0 4px 4px 0;
 				background: $subColor;
 				color: white;
@@ -49,39 +80,4 @@
 		}
 	}
 	.grunt-out { height: 100px; padding: 10px;  }
-
-	.range {
-		.herd {
-			width:100%;
-			float:none;
-			margin-bottom:0;
-			.chat-list {
-				background:none;
-				height:240px;
-				li {
-					padding:0 10px;
-					&:nth-child(even){
-						.message-content {
-							background:lighten($domColor, 18%);
-							.tab {
-								border-left-color:lighten($domColor, 18%);
-							}
-						}
-					}
-				}
-			}
-			.yak {
-				display:none!important;
-			}
-			.message .message-content {
-				p {
-					color:white;
-				}
-				background:$domColor;
-				.tab {
-					border-right-color:$domColor;
-				}
-			}
-		}
-	}
 

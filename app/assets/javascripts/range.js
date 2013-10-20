@@ -34,12 +34,14 @@
     },
     customChatMarker: function(herdid, pos, map) {
       var customLocationMarker, customLocationWindow, herderstring;
-      herderstring = '<div class="herd"><ul class="chat-list">'
+      herderstring = '<div class="quick-view">' + '<div class="quick-view-hdr">' + '<strong>Herd</strong>' + '</div><!-- /hdr -->'
+      herderstring += '<ul class="chat-list">'
   	  var herdrequest = $.getJSON('/herds/'+herdid+'.json', function(data){
   	    $.each(data.grunts, function(key, val){
   	      herderstring += messageDisplay(val)
   	    });
-  	    herderstring += '</ul></div>'
+  	    herderstring += '</ul>'
+        herderstring += '<div class="quick-view-meta">' + '</div><!-- /meta -->' + '<button class="yak">Yaaak!</button>' + '</div><!-- /quick view -->'
       });
 
       customLocationMarker = new google.maps.Marker({
@@ -129,9 +131,9 @@
     }
     if (navigator.geolocation) {
       updateLocation();
-      return setInterval(function() {
+      /*return setInterval(function() {
         return updateLocation();
-      }, 25000);
+      }, 25000);*/
     }
   });
 
