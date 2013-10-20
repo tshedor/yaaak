@@ -22,7 +22,7 @@ private
   end
 
   def last_grunt_check
-    if herd.grunts.empty?
+    if herd.grunts.empty? && herd.herds.empty?
       herd.delete
     end
   end
