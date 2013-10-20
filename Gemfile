@@ -56,3 +56,5 @@ group :production do
   gem 'therubyracer', platforms: :ruby
   gem 'mysql2'
 end
+
+gem 'georuby'
