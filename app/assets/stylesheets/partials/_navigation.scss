@@ -10,7 +10,7 @@
 	}
 	.nav { position: absolute; right: 20px; transition: all .5s ease-in; -moz-transition: all .5s ease-in;
 		li { display: inline; float: left;
-			a { display: block; @include font-size(10); line-height: 40px; color: $light_gray; text-decoration: none; padding: 0 15px;
+			a { display: block; @include font-size(10); line-height: 40px; color: $light_gray; text-decoration: none; padding: 0 15px; background: white; border-radius: 4px;
 				&:hover { background: $lightest_gray; }
 			}
 		}
