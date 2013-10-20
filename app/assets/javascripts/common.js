@@ -1,12 +1,16 @@
 (function() {
   $(document).ready(function() {
+    
     $('select').selectpicker();
+    
     return $('#show-hdr').click(function(e) {
       e.preventDefault();
       $(this).toggleClass('i-close-active').toggleClass('i-settings');
       $('.hdr').toggleClass('hdr-out');
       return $('.hdr-controls').toggle().toggleClass('flipInY animated');
     });
+    
+    $('body.herds').backstretch(['/assets/herds-bg.jpg']);
 
 /**********************/
 /******* HERDS ********/

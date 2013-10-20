@@ -7,6 +7,8 @@
 <!--[if (gt IE 9)|!(IE)]><!--> <html lang="en-US"> <!--<![endif]-->
 <head>
   <title><%= content_for?(:title) ? yield(:title) : "Yaaak - a proximity-based chat app" %></title>
+  
+  <link href='https://fonts.googleapis.com/css?family=Libre+Baskerville:400,700|Titillium+Web:400,200' rel='stylesheet' type='text/css'>
 
   <%= stylesheet_link_tag "application", media: "all" %>
   <%= javascript_include_tag "application" %>

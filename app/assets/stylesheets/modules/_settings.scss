@@ -15,9 +15,9 @@ $linkColor: #356B83;
 $red: #b02934;
 
 @mixin display {
-	font-family:'Open Sans', $sans;
+	font-family: 'Libre Baskerville', serif;
 }
 
 @mixin paragraph {
-	font-family:'Open Sans Condensed', $sans;
+	font-family: 'Titillium Web', sans-serif;
 }
