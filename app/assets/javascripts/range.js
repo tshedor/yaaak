@@ -123,15 +123,19 @@
   };
 
   jQuery(document).ready(function($) {
-    
+
     if ($('body').hasClass('range')) {
       yakapp.rangeOptions = {
         zoom: 8,
         streetViewControl: false,
         mapTypeControl: false,
         zoomControlOptions: {
-          style: google.maps.ZoomControlStyle.SMALL
+          style: google.maps.ZoomControlStyle.SMALL,
+          position: google.maps.ControlPosition.LEFT_BOTTOM
         },
+    	panControlOptions: {
+          position: google.maps.ControlPosition.LEFT_BOTTOM
+    	},
         styles: yakapp.mapStyles,
         mapTypeId: google.maps.MapTypeId.ROADMAP
       };
