@@ -5,11 +5,18 @@
 $(document).ready(function() {
   
   $('select').selectpicker();
+  
   $('#show-hdr').click(function(e) {
     e.preventDefault();
     $(this).toggleClass('i-close-active').toggleClass('i-settings');
     $('.hdr').toggleClass('hdr-out');
     return $('.hdr-controls').toggle().toggleClass('flipInY animated');
+  });
+  
+  $('#show-grunt').click(function(e) {
+    e.preventDefault();
+    $('.range-grunt').toggleClass('grunt-out');
+    return $('.grunt-controls').toggle().toggleClass('flipInY animated');
   });
   
   $('.herds').backstretch(['/assets/herds-bg.jpg']);
