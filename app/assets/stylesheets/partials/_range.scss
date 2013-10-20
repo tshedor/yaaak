@@ -1,7 +1,7 @@
 .range {
 	.quick-view { width: 400px; height: 450px; padding: 20px 0 20px 20px;
-		.yaaak { @include btn($subColor); width: 100%; text-align: center; @include font-size(26); }
-		.quick-view-meta  { display: block; text-align: center; margin: 10px 0; @include font-size(20); } 
+		.yaaak { @include btn($subColor); width: 100%; text-align: center; }
+		.quick-view-meta  { display: block; text-align: center; margin: 10px 0; @include font-size(20); }
 		.quick-view-hdr { width: 100%; padding: 10px; background: $subColor; color: white; border-radius: 4px 4px 0 0; }
 		.chat-list { background: $lightest_gray; width: 100%;
 			li { padding: 10px;
@@ -15,7 +15,7 @@
 						border-left:0;
 					}
 					.message-content { position: relative; padding: 10px 20px 10px 10px; border-radius: 3px;
-						.tab { position: absolute; top: 30%; left: auto; right: -12px !important; display: inline-block; width: 0; height: 0; border-left: 5px solid white; border-right: 5px solid transparent; border-top: 5px solid transparent; border-bottom: 5px solid transparent; margin: 2px; }
+						.tab { display:none; }
 					}
 				}
 				.message { @include clearfix();
@@ -24,7 +24,7 @@
 						.float: left;
 					}
 					.yak {
-						padding:20px;
+						padding:14px;
 						border-radius: 100%;
 						background:$terColor;
 						color:white;
@@ -39,7 +39,7 @@
 						margin: 0 2%;
 						border-radius: 3px;
 						box-shadow: 0 2px 3px 0 rgba($light_gray, 0.4);
-					.tab { position: absolute; top: 30%; left: -12px; display: inline-block; width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid white; border-top: 5px solid transparent; border-bottom: 5px solid transparent; margin: 2px; }
+					.tab { display:none; }
 					}
 				}
 			}
