@@ -22,7 +22,7 @@ class HerdsController < ApplicationController
       logger.debug finish
       logger.debug id
       logger.debug payload
-      sse.write({message: 'testEvent', data: {name: name }})
+      sse.write({message: 'testEvent', data: payload })
     end
 
     while true
@@ -31,7 +31,7 @@ class HerdsController < ApplicationController
     rescue IOError
     ensure
       sse.close
-      #ActiveSupport::Notifications.unsubscribe("herd#{@herd.id}")
+      ActiveSupport::Notifications.unsubscribe("herd#{@herd.id}")
     end
   end
 

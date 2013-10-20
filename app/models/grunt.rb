@@ -9,9 +9,13 @@ class Grunt < ActiveRecord::Base
 
   def notify_herd
     if herd
-      ActiveSupport::Notifications.instrument("herd#{herd.id}", extra: :information) do
-
-      end
+      payload = {
+        message: message,
+        user_id: yak.id,
+        user_name: yak.name,
+        created_at: created_at
+      }
+      ActiveSupport::Notifications.instrument("herd#{herd.id}", payload)
     end
   end
 
