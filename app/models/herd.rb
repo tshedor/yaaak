@@ -23,7 +23,7 @@ class Herd < ActiveRecord::Base
   def herd_radius
     grunt_point = GeoRuby::SimpleFeatures::Point.from_lon_lat(furthest_grunt.geo_long, furthest_grunt.geo_lat)
     herd_point = GeoRuby::SimpleFeatures::Point.from_lon_lat(geo_long, geo_lat)
-    herd_point.euclidian_distance(grunt_point)
+    herd_point.euclidian_distance(grunt_point).round + 5
   end
 
   def master_herd
