@@ -40,12 +40,12 @@ ActiveRecord::Schema.define(version: 20131020050606) do
   create_table "yaks", force: true do |t|
     t.string   "name"
     t.string   "auth_hash"
+    t.string   "color"
     t.float    "geo_lat"
     t.float    "geo_long"
     t.integer  "herd_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "color"
   end
 
 end

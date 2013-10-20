@@ -29,16 +29,22 @@
 			input[type="text"] {
 				width:80%;
 				@include inline-block;
-				border:0;
+				border:1px solid white;
 				padding:20px;
 				background: white;
 				color: $gray;
 				@include font-size(24);
 				@include border-left-radius(5px);
+				float: left;
 			}
 			input[type="submit"] {
 				@include inline-block;
 				@include font-size(24);
+				padding:20px 40px;
+				border-radius: 0 4px 4px 0;
+				background: $subColor;
+				color: white;
+				float: left;
 			}
 		}
 	}
