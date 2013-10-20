@@ -27,6 +27,7 @@ $(document).ready(function() {
 /**********************/
 /******* HERDS ********/
 /**********************/
+
   function notify(content,tags,title, url){
     if(window.webkitNotifications){
       var havePermission = window.webkitNotifications.checkPermission();
@@ -37,42 +38,52 @@ $(document).ready(function() {
 		  notification.close();
 		}
    		notification.show();
+   		setTimeout(function() {
+   			notification.cancel();
+   		}, 2500)
    	  } else {
    	    window.webkitNotifications.requestPermission();
    	  }
     } else {
       if (Notification && Notification.permission === "granted") {
    	    var notification = new Notification(content, {tag: tags });
+
+   		setTimeout(function() {
+   			notification.close();
+   		}, 3000)
    	  } else if (Notification && Notification.permission !== 'denied') {
    	    Notification.requestPermission(function (permission) {
    	      if(!('permission' in Notification)) {
    		    Notification.permission = permission;
    		  }
    		  if (permission === "granted") {
-   		   var notification = new Notification(content, {tag: tags});
-   		  }
+   		    var notification = new Notification(content, {tag: tags});
+   		    setTimeout(function() {
+   			  notification.close();
+   		    }, 3000)
+   		   }
    	    });
    	  }
     };
   }
+
   if($('body').hasClass('herds show')) {
     var evtSource;
     evtSource = new EventSource('/herds/1/stream');
-
     evtSource.onmessage = function(e) {
       var resp;
       resp = JSON.parse(e.data);
       $('#chat_list').prepend(messageDisplay(resp.data));
-      notify(resp.data.message,$('#chat_list').attr('data-herdid'),'Yaaak', window.location.href)
-      return console.log(resp);
+      var latest_grunt = parseFloat($('#grunt_count').text())
+      $('#grunt_count').html(latest_grunt++)
+      notify((resp.data.user_name + ': ' + resp.data.message),$('#chat_list').attr('data-herdid'),'Yaaak', window.location.href)
     };
     evtSource.onopen = function(e) {
       return console.log('open');
     };
     evtSource.onerror = function(e) {
       console.log('error');
-      return console.log(e);
-      evtSource.close();
+      return evtSource.close();
     };
 	evtSource.onclose = function(e) {
       return console.log('close');
@@ -80,24 +91,16 @@ $(document).ready(function() {
     window.onbeforeunload = function() {
       evtSource.close()
     };
-
-    //AJAX in the list
-    $.getJSON('/herds/'+$('#chat_list').attr('data-herdid')+'.json', function(data){
-      $.each(data.grunts, function(key, val){
-  	    $('#chat_list').prepend(messageDisplay(val))
-  	  });
-    })
-
   }
-  $('.herds .message .yak').click(function(){
-  	console.log('lllll')
-  	$.getJSON('/yaks/' + $(this).attr('data-userid') + '.json', function(data){
-  		$('.overlay .user_name').text(data.user_name)
-  		$('.overlay .grunt_count').text(data.grunt_count)
-  		$('.overlay .user_color').text(data.user_color)
-  		$('.overlay .short_user_name').text(data.short_user_name)
-  		$('.overlay .last_grunt').text(data.last_grunt)
-  	})
+
+  $('#chat_list').on('click', '.message', function(e) {
+    $.getJSON('/yaks/' + $(this).children('.yak').attr('data-userid') + '.json', function(data){
+  	  $('.overlay .user_name').text(data.user_name)
+  	  $('.overlay .grunt_count').text(data.grunt_count)
+  	  $('.overlay .user_color').text(data.user_color)
+  	  $('.overlay .short_user_name').text(data.short_user_name)
+  	  $('.overlay .last_grunt').text(data.last_grunt)
+  	});
   });
 
 /**********************/

@@ -21,7 +21,6 @@
 				<input type="hidden" name="herd_id" value="<%= @herd.id %>" />
 				<%= f.hidden_field :geo_lat %>
 				<%= f.hidden_field :geo_long %>
-				<%= f.hidden_field :yak_id, :value => 1 %>
 				<%= f.submit "Yaaak" %>
 			<% end %>
 
@@ -32,7 +31,7 @@
 			<h1>Name of Heard</h1>
 			<ul class="herd-stats">
 				<li><%= @herd.yaks.length %><span> Yaks in this herd</span></li>
-				<li><%= @herd.grunts.length %><span> grunts</span></li>
+				<li><strong id="grunt_count"><%= @herd.grunts.length %></strong><span> grunts</span></li>
 				<li>12<span> mile radius</span></li>
 				<li><span>Some other cool stat</span></li>
 			</ul><!-- /states -->
