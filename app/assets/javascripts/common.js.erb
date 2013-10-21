@@ -130,6 +130,7 @@ $(document).ready(function() {
 /**********************/
 /******* GRUNTS *******/
 /**********************/
+
   $('#grunt_message').focus();
   $("#new_grunt").submit(function(e) {
     e.preventDefault();
@@ -141,12 +142,16 @@ $(document).ready(function() {
       success: function(msg) {
       	$('#grunt_message').val('')
       	console.log($('#new_grunt').serialize());
+          if(!$('body').hasClass('herds')) {
+              window.location = "/herds/" + msg.herd_id;
+          }
       },
       error: function(xhr, status) {
         return $('body').html(xhr.responseText);
       }
     });
   });
+
 
   $("#updateName").submit(function(e) {
     e.preventDefault();

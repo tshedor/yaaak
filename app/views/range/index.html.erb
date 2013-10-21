@@ -1,8 +1,11 @@
 <div class="range-grunt" id="range-grunt">
-	<form>
-		<input type="text" placeholder="Start yaaakin' to join a herd or start your own" />
-		<input type="submit" value="Yaaak!" />
-	</form>
+
+  <%= form_for Grunt.new do |f| %>
+      <%= f.text_field :message, :placeholder => "Start yaaakin' to join a herd or start your own" %>
+      <%= f.hidden_field :geo_lat %>
+      <%= f.hidden_field :geo_long %>
+      <%= f.submit "Yaaak!" %>
+  <% end %>
 </div><!-- /grunt -->
 <div id="map_canvas"></div>
 

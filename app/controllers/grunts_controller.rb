@@ -18,7 +18,7 @@ class GruntsController < ApplicationController
     yak = current_or_create_yak(grunt_params[:geo_lat], grunt_params[:geo_long])
     @grunt = yak.grunts.new(grunt_params)
     if @grunt.save
-      render json: @grunt
+      render json: { herd_id: @grunt.herds.first.id }
     else
       render json: @grunt.errors, status: :unprocessable_entity
     end
