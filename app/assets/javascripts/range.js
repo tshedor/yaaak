@@ -1,9 +1,10 @@
 jQuery(document).ready(function($) {
 	if ($('body').hasClass('range')) {
 		yakapp.rangeOptions = {
-			zoom: 8,
+			zoom: 5,
 			streetViewControl: false,
 			mapTypeControl: false,
+			center: new google.maps.LatLng(38.96237430000001, -95.24213780000001),
 			zoomControlOptions: {
 				style: google.maps.ZoomControlStyle.SMALL,
 			},
@@ -18,7 +19,7 @@ jQuery(document).ready(function($) {
 			});
 		});
 		if (navigator.geolocation) {
-			yakapp.rangemap.setZoom(14);
+			yakapp.rangemap.setZoom(12);
 		} else {
 			alert('Find your herd and turn on your geolocation.');
 		}

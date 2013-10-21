@@ -22,6 +22,15 @@
 		li a:hover { background: none; }
 	}
 }
+.has-range {
+	display:none;
+}
+.range.index {
+	.has-range {
+		display:block;
+	}
+}
+
 
 .footer { clear: both; overflow:hidden;
 	position:fixed; z-index:999; width: 100%; text-align: center;

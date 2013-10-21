@@ -1,40 +1,38 @@
-.herd-hdr { width: 100%; padding: 10px 0;
-	a { color: $lightest_gray; text-decoration: none; @include font-size(16); display: inline-block; padding: 5px;
-		&:hover { color: white; }
+.herd-hdr {
+	width: 100%;
+	padding: 10px 0;
+	a {
+		color: $lightest_gray;
+		text-decoration: none;
+		@include font-size(16);
+		@include inline-block;
+		padding: 5px;
+		@include hover(white);
 	}
-
 }
+
 .herds.show .yield {
 	margin-top:60px;
 }
-.herd { width: 64.70588%; float: left; margin-bottom: 60px;
+
+.herd {
+	width: 64.70588%;
+	float: left;
+	margin-bottom: 60px;
+	position:relative;
 	.new_grunt, .chat-list {
 		@include border-bottom-radius(5px);
 		box-shadow: 0 3px 4px 0 rgba($gray, 0.4);
 	}
-	.chat-list { height: 500px;
+	.chat-list {
+		height: 500px;
 		background: $lightest_gray;
 		overflow:scroll;
-		li { padding: 10px; margin:5px 0;position: relative;
-			&:nth-child(even){
-				text-align:right;
-				.yak, .message-content {
-					float:right;
-					display:block;
-				}
-				.yak {
-					border-left:0;
-				}
-				.message-content { position: relative; padding: 10px 20px 10px 10px; border-radius: 3px;
-					.tab { position: absolute; top: 30%; left: auto; right: -12px !important; display: inline-block; width: 0; height: 0; border-left: 5px solid white; border-right: 5px solid transparent; border-top: 5px solid transparent; border-bottom: 5px solid transparent; margin: 2px; }
-				}
-			}
+		.message {
+			@include clearfix();
 		}
-	}
-	.message { @include clearfix();
 		.yak, .message-content {
 			@include inline-block;
-			.float: left;
 		}
 		.yak {
 			padding:23px;
@@ -52,15 +50,50 @@
 			margin: 0 2%;
 			border-radius: 3px;
 			box-shadow: 0 2px 3px 0 rgba($light_gray, 0.4);
-		.tab { position: absolute; top: 30%; left: -12px; display: inline-block; width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid white; border-top: 5px solid transparent; border-bottom: 5px solid transparent; margin: 2px; }
+			.tab {
+				position: absolute;
+				top: 30%;
+				left: -12px;
+				@include inline-block;
+				width: 0;
+				height: 0;
+				border-left: 5px solid transparent;
+				border-right: 5px solid white;
+				border-top: 5px solid transparent;
+				border-bottom: 5px solid transparent;
+				margin: 2px;
+			}
+		}
+		li {
+			padding: 10px;
+			margin:5px 0;
+			position: relative;
+			&:nth-child(even) {
+				text-align:right;
+				.yak, .message-content {
+					float:right;
+					display:block;
+				}
+				.yak {
+					border-left:0;
+				}
+				.message-content {
+					.tab {
+						left: auto;
+						right: -12px !important;
+						border-left: 5px solid white;
+						border-right: 5px solid transparent;
+					}
+				}
+			}
 		}
 	}
+
 	.new_grunt {
 		padding: 20px;
 		background:$domColor;
 		overflow:hidden;
 		border-radius: 5px 5px 0 0;
-
 		input[type="text"] {
 			width:80%;
 			@include inline-block;
@@ -79,50 +112,56 @@
 	}
 }
 
-.overlay {
-	width:100%;
-	.chat-view {
-		padding:10px;
-		h2 {
-			@include font-size(30);
-			@include inline-block;
-			padding-left:12px
-		}
-		h3, h2 {
-			@include paragraph;
-			span {
-				color:#3d3d3d;
-			}
-		}
-		.short_user_name {
-			background:$domColor;
-			color:white;
-			@include font-size(24);
-			@include inline-block;
-			padding:12px 11px;
-			@include border-radius(100%);
-		}
-				.message-content { position: relative; padding: 10px 20px 10px 10px; border-radius: 3px 0 3px 3px;
-			position: relative;
-			padding:10px 10px 10px 20px;
-			background: white;
-			width: 83.090909%;
-			margin: 0 2%;
-			border-radius: 0 3px 3px 3px;
-			box-shadow: 0 2px 3px 0 rgba($light_gray, 0.4);
-					.tab { position: absolute; top: 30%; left: auto; right: -12px !important; display: inline-block; width: 0; height: 0; border-left: 5px solid white; border-right: 5px solid transparent; border-top: 5px solid transparent; border-bottom: 5px solid transparent; margin: 2px; }
-				}
-		}
+.herd-sb {
+	width: 35.2941%;
+	margin-top: 80px;
+	padding: 20px;
+	background: #dadada asset-url('sb-bg.jpg') repeat-y;
+	border-radius: 0 4px 4px 0;
+	box-shadow: 0 3px 4px 0 rgba($gray, 0.4);
+	float: right;
+	h1 {
+		color: white;
 	}
-
-.herd-sb { width: 35.2941%; margin-top: 80px; padding: 20px; background: #dadada asset-url('sb-bg.jpg') repeat-y; border-radius: 0 4px 4px 0; box-shadow: 0 3px 4px 0 rgba($gray, 0.4); float: right;
-	h1 { color: white; }
 	.herd-stats {
-		li { color: $lightest_gray; padding: 10px; @include font-size(30); @include display;
-			span { @include font-size(15); @include paragraph; font-style: normal }
+		li {
+			color: $lightest_gray;
+			padding: 10px;
+			@include font-size(30);
+			@include display;
+			span {
+				@include font-size(15);
+				@include paragraph;
+				font-style: normal;
+			}
 		}
 	}
 	.range-actions {
-		a, button, input { color: white; border: 0; display: block; padding: 10px; }
+		a, button, input {
+			color: white;
+			border: 0;
+			display: block;
+			padding: 10px;
+		}
+	}
+}
+.popup {
+	position:absolute;
+	background:white;
+	top:0;
+	left:40%;
+	border-radius:4px;
+	max-width:100%;
+	width:100%;
+	box-shadow:0 1px 4px 1px $light_gray;
+	.header {
+		width: 100%;
+		padding: 10px;
+		background: $subColor;
+		color: white;
+		border-radius: 4px 4px 0 0;
+	}
+	.popup-content {
+		padding:12px;
 	}
 }

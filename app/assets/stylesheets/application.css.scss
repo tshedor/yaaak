@@ -9,5 +9,18 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require style
  */
+
+@import "compass",
+	"modules/normalize",
+	"modules/mixins",
+	"modules/bourbon-custom",
+	"modules/settings",
+	"modules/icons",
+	"partials/global",
+	"partials/forms",
+	"partials/navigation",
+	"partials/range",
+	"partials/herd",
+	"partials/yak",
+	"partials/responsive";

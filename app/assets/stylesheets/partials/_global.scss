@@ -42,7 +42,7 @@ a { color: #272727;
 }
 
 // Utility
-//.clearfix { @include clearfix; }
+.clearfix { @include clearfix; }
 .clear { clear: both; }
 .left { float: left; }
 .right { float: right; }

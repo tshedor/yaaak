@@ -6,19 +6,18 @@
 
 		<form class="form" id="updateName">
 			<% if current_yak %>
-			<div class="field-group">
-				<input type="text" placeholder="Random Rhinoceros" id="newName" value="<%= current_yak.name %>" />
-			</div><!-- /field group -->
-			<div class="actions">
-
-                <input type="submit" value="Save" />
-			</div><!-- /actions -->
+				<div class="field-group">
+					<input type="text" placeholder="Random Rhinoceros" id="newName" value="<%= current_yak.name %>" />
+				</div><!-- /field group -->
+				<div class="actions">
+					<input type="submit" value="Save" />
+				</div><!-- /actions -->
 			<% end %>
 		</form>
 	</div><!-- /hdr-controls -->
 	<ul class="nav">
-		<% if controller_name == 'range' && action_name == 'index' %><li><a id="show-grunt" class="i-chats" href=""></a></li><% end %>
-		<li><a class="i-globe" href="/"></a></li>
-		<li><a id="show-hdr" class="i-settings" href=""></a></li>
+		<li class="has-range"><a id="show-grunt" class="i-chats" href="#"></a></li>
+		<li><%= link_to '', root_path, {:class => 'i-globe' } %></a></li>
+		<li><a id="show-hdr" class="i-settings" href="#"></a></li>
 	</ul>
 </header>
