@@ -29,6 +29,7 @@
 		background: $lightest_gray;
 		overflow:scroll;
 		.message {
+			position:relative;
 			@include clearfix();
 		}
 		.yak, .message-content {
@@ -147,19 +148,36 @@
 }
 .popup {
 	position:absolute;
+	text-align:left!important;
 	background:white;
-	top:0;
-	left:40%;
+	bottom:50%;
+	left:30%;
 	border-radius:4px;
-	max-width:100%;
+	max-width:200px;
 	width:100%;
-	box-shadow:0 1px 4px 1px $light_gray;
-	.header {
+	box-shadow:0 1px 2px 0 rgba($light_gray, 0.4);
+	display:none;
+	z-index:99;
+	@include paragraph;
+	h2, h3 {
+		@include paragraph;
+	}
+	small {
+		@include font-size(8);
+	}
+	.popup-header {
 		width: 100%;
 		padding: 10px;
 		background: $subColor;
 		color: white;
 		border-radius: 4px 4px 0 0;
+		h2 {
+			color:white;
+			@include font-size(16);
+			small {
+				@include font-size(12);
+			}
+		}
 	}
 	.popup-content {
 		padding:12px;
