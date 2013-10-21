@@ -12,6 +12,4 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require foundation
-//= require foundation.joyride
 //= require_tree .

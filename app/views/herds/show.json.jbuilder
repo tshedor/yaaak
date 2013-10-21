@@ -1,4 +1,6 @@
 json.extract! @herd, :id, :herd_radius, :geo_lat, :geo_long
+json.yak_length @herd.yaks.length
+json.grunt_length @herd.grunts.length
 json.grunts @grunts do |grunt|
   json.message grunt.message
   json.user_id grunt.yak.id
