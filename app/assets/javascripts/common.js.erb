@@ -124,6 +124,7 @@ $(document).ready(function() {
 			success: function(msg) {
 					$('#show-hdr').toggleClass('i-close-active').toggleClass('i-settings');
 					$('.hdr').toggleClass('hdr-out');
+					yakfunc.notify('Name successfully updated','yaaakname','Yaaak', window.location.href)
 					return $('.hdr-controls').toggle().toggleClass('flipInY animated');
 			},
 			error: function(xhr, status) {
