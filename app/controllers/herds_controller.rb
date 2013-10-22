@@ -22,7 +22,6 @@ class HerdsController < ApplicationController
       end
       loop do
         sleep 1
-        break if response.stream.closed?
       end
     rescue
     ensure
