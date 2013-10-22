@@ -6,17 +6,7 @@
 			<%= link_to 'Mozy back to the range', root_path, {:class => 'i-leftarrow'} %>
 		</div><!-- /herd hdr -->
 		<div class="herd">
-			<%= form_for @grunt do |f| %>
-				<% if @grunt.errors.any? %>
-					<div id="error_explanation">
-						<h2><%= pluralize(@grunt.errors.count, "error") %> prohibited this major from being saved:</h2>
-						<ul>
-							<% @grunt.errors.full_messages.each do |msg| %>
-								<li><%= msg %></li>
-							<% end %>
-						</ul>
-					</div>
-				<% end %>
+			<%= form_for Grunt.new do |f| %>
 				<%= f.text_field :message, :placeholder => "Did you know the yak is the mightiest animal in the Midwest?" %>
 				<input type="hidden" name="herd_id" value="<%= @herd.id %>" />
 				<%= f.hidden_field :geo_lat %>
