@@ -52,20 +52,23 @@ $(document).ready(function() {
 		window.onbeforeunload = function() {
 			evtSource.close()
 		};
+
+		yakfunc.googleLocation([parseFloat($('.herd').attr('data-lat')), parseFloat($('.herd').attr('data-long'))]);
 	}
 
-	$('#chat_list').on('click', '.message', function(e) {
-		var retrieveYakData, targetedMessage;
+	$('#chat_list').on('click', '.yak', function(e) {
+		var retrieveYakData, targetedMessage, user_id;
 		$('#chat_list').find('.popup').remove();
-		console.log($('#chat_list').find('.popup'))
-		retrieveYakData = $.getJSON('/yaks/' + $(this).children('.yak').attr('data-userid') + '.json', function(data){
+		user_id = $(this).attr('data-userid');
+		retrieveYakData = $.getJSON('/yaks/' + user_id + '.json', function(data){
 			$('.popup .user_name').text(data.user_name)
 			$('.popup .grunt_count').text(data.grunt_count)
 			$('.popup .user_color').text(data.user_color)
 			$('.popup .short_user_name').text(data.short_user_name)
 			$('.popup .last_grunt').text(data.last_grunt)
+			$('.popup .block-user').attr('data-userid', user_id);
 		});
-		targetedMessage = $(this);
+		targetedMessage = $(this).parent();
 		retrieveYakData.complete(function(){
 			var popup = $('.popup').html();
 			$(targetedMessage).prepend('<div class="popup">' + popup + '</div>')
@@ -73,14 +76,21 @@ $(document).ready(function() {
 
 		});
 	});
-	$('.popup').click(function(){
-		$(this).fadeOut();
-	})
+
+	/* Block user function */
+	$('#chat_list').on('click', '.block-user', function(e){
+		var blockedUsers, userid;
+		user_id = $(this).attr('data-userid');
+		blockedUsers = yakfunc.localRetrieve('blockedUsers');
+		blockedUsers.push(parseInt(user_id));
+		yakfunc.localStore('blockedUsers', blockedUsers);
+		$('.yak[data-userid="' + user_id + '"]').parent().parent().each(function(){
+			$(this).remove();
+		})
+	});
 
 	var pagination = 2;
 	$('#chat_list').scroll(function(e){
-		console.log($('#chat_list')[0].scrollHeight);
-		console.log($('#chat_list').scrollTop() + 580);
 		if($('#chat_list')[0].scrollHeight == ($('#chat_list').scrollTop() + 580) ){
 			$.getJSON('/herds/' + $('#chat_list').attr('data-herdid') + '.json?page=' + pagination, function(data){
 				$.each(data.grunts, function(key, val){

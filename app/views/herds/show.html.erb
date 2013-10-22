@@ -1,11 +1,11 @@
-<%- title "New Herd" %>
+<%- title "Roamin'" %>
 
 <div class="yield">
 	<div class="w">
 		<div class="herd-hdr">
 			<%= link_to 'Mozy back to the range', root_path, {:class => 'i-leftarrow'} %>
 		</div><!-- /herd hdr -->
-		<div class="herd">
+		<div class="herd" data-lat="<%= @herd.geo_lat %>" data-long="<%= @herd.geo_long %>">
 			<%= form_for Grunt.new do |f| %>
 				<%= f.text_field :message, :placeholder => "Did you know the yak is the mightiest animal in the Midwest?" %>
 				<input type="hidden" name="herd_id" value="<%= @herd.id %>" />
@@ -30,7 +30,7 @@
 			</div>
 		</div><!-- /herd -->
 		<div class="herd-sb">
-			<h1>Name of Herd</h1>
+			<h1 id="nameOfHerd">Roamin'</h1>
 			<ul class="herd-stats">
 				<li><%= @herd.yaks.length %><span> Yaks in this herd</span></li>
 				<li><strong id="grunt_count"><%= @herd.grunts.length %></strong><span> total grunts</span></li>

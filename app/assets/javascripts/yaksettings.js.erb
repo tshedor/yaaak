@@ -6,7 +6,8 @@ yakapp = {
 	subColor: '#0177A8',
 	hasCentered: false,
 	lastMessage: 0,
-	messageClass: 'odd'
+	messageClass: 'odd',
+	prettyPosition: 'Roamin\'',
 };
 yakfunc = {
 	/* Displays browser notification */
@@ -57,9 +58,7 @@ yakfunc = {
 			}
 		}
 		yakapp.lastMessage = info.user_id;
-		console.log($.inArray(info.user_id, yakfunc.localRetrieve('blockedUsers')))
 		if($.inArray(info.user_id, yakfunc.localRetrieve('blockedUsers')) < 0 ){
-			console.log('said')
 			return '<li class="animated bounceInDown ' + yakapp.messageClass +'"><div class="message"><div class="yak" data-userid="' + info.user_id + '" data-date="' + info.created_at + '" style="background:' + info.user_color + '">' + info.user_name + '</div><div class="message-content"><p>' + info.message + '<span class="time-ago"> ' + info.time_ago +' ago</span></p><span class="tab"></span></div></div></li>';
 		}
 	},
@@ -165,9 +164,31 @@ yakfunc = {
 		}), function(error) {
 			alert('Lone ranger, get back on the beaten trail. We can\'t locate you.');
 		});
+	},
+	/* Location lookup to name herd; check the priority of named locations */
+	googleLocation: function(latlng){
+		var googleLat, geocoder;
+		if(typeof latlng === "undefined"){
+			latlng = yakapp.position
+		}
+		geocoder = new google.maps.Geocoder();
+		googleLat = new google.maps.LatLng(latlng[0], latlng[1]);
+		geocoder.geocode({'latLng': googleLat}, function(results, status) {
+			if (status == google.maps.GeocoderStatus.OK) {
+				if (results[1] && results[1].address_components[0]) {
+					var herd_title = 'Roamin\' around ' + results[1].address_components[0].long_name;
+					$('title').text(herd_title);
+					$('#nameOfHerd').text(herd_title);
+				} else {
+					console.log('No results found');
+				}
+			} else {
+				console.log('Geocoder failed due to: ' + status);
+			}
+		});
 	}
 };
-if(!yakfunc.localRetrieve('blockedUsers')) yakfunc.localStore('blockedUsers', []);
+if(!yakfunc.localRetrieve('blockedUsers')) yakfunc.localStore('blockedUsers', new Array());
 
 /* Poll initially to determine if notifications supported by browser */
 if(window.webkitNotifications){
