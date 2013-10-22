@@ -6,12 +6,8 @@
 
 		<form class="form" id="updateName">
 			<% if current_yak %>
-				<div class="field-group">
 					<input type="text" placeholder="Random Rhinoceros" id="newName" value="<%= current_yak.name %>" />
-				</div><!-- /field group -->
-				<div class="actions">
 					<input type="submit" value="Save" />
-				</div><!-- /actions -->
 			<% end %>
 		</form>
 	</div><!-- /hdr-controls -->

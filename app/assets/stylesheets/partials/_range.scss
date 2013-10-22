@@ -3,43 +3,22 @@
 		.yaaak { @include btn($subColor); width: 100%; text-align: center; }
 		.quick-view-meta  { display: block; text-align: center; margin: 10px 0; @include font-size(20); }
 		.quick-view-hdr { width: 100%; padding: 10px; background: $subColor; color: white; border-radius: 4px 4px 0 0; }
-		.chat-list { background: $lightest_gray; width: 100%;
-			li { padding: 10px;
-				&:nth-child(even){
-					text-align:right;
-					.yak, .message-content {
-						float:right;
-						display:block;
-					}
-					.yak {
-						border-left:0;
-					}
-					.message-content { position: relative; padding: 10px 20px 10px 10px; border-radius: 3px;
-						.tab { display:none; }
-					}
-				}
-				.message { @include clearfix();
-					.yak, .message-content {
-						@include inline-block;
-						.float: left;
-					}
-					.yak {
-						padding:14px;
-						border-radius: 100%;
-						background:$terColor;
-						color:white;
-						width: 11.090909%;
-
-					}
+		.chat-list {
+			width: 100%;
+			height:auto;
+			.yak {
+				padding:14px;
+			}
+			.message-content {
+				.tab { display:none; }
+			}
+			li {
+				&.even {
 					.message-content {
 						position: relative;
-						padding:10px 10px 10px 20px;
-						background: white;
-						width: 83.090909%;
-						margin: 0 2%;
+						padding: 10px 20px 10px 10px;
 						border-radius: 3px;
-						box-shadow: 0 2px 3px 0 rgba($light_gray, 0.4);
-					.tab { display:none; }
+						.tab { display:none; }
 					}
 				}
 			}

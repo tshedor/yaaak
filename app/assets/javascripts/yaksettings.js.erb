@@ -4,7 +4,9 @@ yakapp = {
 	mapStyles: [],
 	domColor: '#02253E',
 	subColor: '#0177A8',
-	hasCentered: false
+	hasCentered: false,
+	lastMessage: 0,
+	messageClass: 'odd'
 };
 yakfunc = {
 	/* Displays browser notification */
@@ -47,7 +49,19 @@ yakfunc = {
 	},
 	/* Default formating for grunt display; used in range infowindows, AJAXed grunts on herd#show, SSE render */
 	messageDisplay: function(info){
-		return '<li class="animated bounceInDown"><div class="message"><div class="yak" data-userid="' + info.user_id + '" data-date="' + info.created_at + '" style="background:' + info.user_color + '">' + info.user_name + '</div><div class="message-content"><p>' + info.message + '<span class="time-ago"> ' + info.time_ago +' ago</span></p><span class="tab"></span></div></div></li>'
+		if(info.user_id !== yakapp.lastMessage){
+			if(yakapp.messageClass === 'odd'){
+				yakapp.messageClass = 'even';
+			} else {
+				yakapp.messageClass = 'odd';
+			}
+		}
+		yakapp.lastMessage = info.user_id;
+		console.log($.inArray(info.user_id, yakfunc.localRetrieve('blockedUsers')))
+		if($.inArray(info.user_id, yakfunc.localRetrieve('blockedUsers')) < 0 ){
+			console.log('said')
+			return '<li class="animated bounceInDown ' + yakapp.messageClass +'"><div class="message"><div class="yak" data-userid="' + info.user_id + '" data-date="' + info.created_at + '" style="background:' + info.user_color + '">' + info.user_name + '</div><div class="message-content"><p>' + info.message + '<span class="time-ago"> ' + info.time_ago +' ago</span></p><span class="tab"></span></div></div></li>';
+		}
 	},
 	/* Determines if browser supports SVG */
 	supportssvg: function() {
@@ -153,6 +167,7 @@ yakfunc = {
 		});
 	}
 };
+if(!yakfunc.localRetrieve('blockedUsers')) yakfunc.localStore('blockedUsers', []);
 
 /* Poll initially to determine if notifications supported by browser */
 if(window.webkitNotifications){

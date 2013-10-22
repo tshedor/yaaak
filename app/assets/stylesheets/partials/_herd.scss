@@ -14,7 +14,67 @@
 .herds.show .yield {
 	margin-top:60px;
 }
-
+.chat-list {
+	height: 500px;
+	background: $lightest_gray;
+	overflow:scroll;
+	.message {
+		position:relative;
+		@include clearfix();
+	}
+	.yak, .message-content {
+		@include inline-block;
+	}
+	.yak {
+		padding:23px;
+		border-radius: 100%;
+		background:$terColor;
+		color:white;
+		width: 11.090909%;
+	}
+	.message-content {
+		position: relative;
+		padding:10px 10px 10px 20px;
+		background: white;
+		width: 83.090909%;
+		margin: 0 2%;
+		border-radius: 3px;
+		box-shadow: 0 2px 3px 0 rgba($light_gray, 0.4);
+		.tab {
+			position: absolute;
+			top: 30%;
+			left: -12px;
+			@include inline-block;
+			width: 0;
+			height: 0;
+			border-left: 5px solid transparent;
+			border-right: 5px solid white;
+			border-top: 5px solid transparent;
+			border-bottom: 5px solid transparent;
+			margin: 2px;
+		}
+	}
+	li {
+		padding: 10px;
+		margin:5px 0;
+		position: relative;
+		&.even {
+			text-align:right;
+			.yak, .message-content {
+				float:right;
+				display:block;
+			}
+			.message-content {
+				.tab {
+					left: auto;
+					right: -12px !important;
+					border-left: 5px solid white;
+					border-right: 5px solid transparent;
+				}
+			}
+		}
+	}
+}
 .herd {
 	width: 64.70588%;
 	float: left;
@@ -24,71 +84,7 @@
 		@include border-bottom-radius(5px);
 		box-shadow: 0 3px 4px 0 rgba($gray, 0.4);
 	}
-	.chat-list {
-		height: 500px;
-		background: $lightest_gray;
-		overflow:scroll;
-		.message {
-			position:relative;
-			@include clearfix();
-		}
-		.yak, .message-content {
-			@include inline-block;
-		}
-		.yak {
-			padding:23px;
-			border-radius: 100%;
-			background:$terColor;
-			color:white;
-			width: 11.090909%;
 
-		}
-		.message-content {
-			position: relative;
-			padding:10px 10px 10px 20px;
-			background: white;
-			width: 83.090909%;
-			margin: 0 2%;
-			border-radius: 3px;
-			box-shadow: 0 2px 3px 0 rgba($light_gray, 0.4);
-			.tab {
-				position: absolute;
-				top: 30%;
-				left: -12px;
-				@include inline-block;
-				width: 0;
-				height: 0;
-				border-left: 5px solid transparent;
-				border-right: 5px solid white;
-				border-top: 5px solid transparent;
-				border-bottom: 5px solid transparent;
-				margin: 2px;
-			}
-		}
-		li {
-			padding: 10px;
-			margin:5px 0;
-			position: relative;
-			&:nth-child(even) {
-				text-align:right;
-				.yak, .message-content {
-					float:right;
-					display:block;
-				}
-				.yak {
-					border-left:0;
-				}
-				.message-content {
-					.tab {
-						left: auto;
-						right: -12px !important;
-						border-left: 5px solid white;
-						border-right: 5px solid transparent;
-					}
-				}
-			}
-		}
-	}
 
 	.new_grunt {
 		padding: 20px;

@@ -14,18 +14,18 @@
 	.w { width: 100%; max-width: 100%; }
 	[class^="i-"]:before,
 	[class*=" i-"]:before { @include font-size(24); line-height: 24px; }
-	.form .field-group { width: 100%; margin: 5px; } 
+	.form .field-group { width: 100%; margin: 5px; }
 	.hdr {
 		.logo { left: -55px; }
-		.hdr-controls { left: 0; top: 100px; width: 90%; 
+		.hdr-controls { left: 0; top: 100px; width: 90%;
 			form {
-				.gin-select { float: none; 
+				.gin-select { float: none;
 					.btn { width: 100%; }
 				}
 			}
 		}
 	}
-	.hdr-out { height: 280px;  
+	.hdr-out { height: 175px;
 		.logo { top:-50px; bottom: auto; }
 	}
 	.range-grunt {
@@ -34,9 +34,26 @@
 			// input[type="submit"] { padding: 20px 10px; }
 		}
 	}
-	.herd { width: 100%; float: none; margin-bottom: 60px; }
+	.herd {
+		width: 100%; float: none; margin-bottom: 60px;
+		.new_grunt {
+			input[type="submit"]{
+				padding:10px;
+				font-size:16px;
+			}
+		}
+	}
 	.herd-sb { width: 100%; margin-top: 20px; float: none; }
+	.chat-list {
+		.yak {
+			padding:12px 11px;
+			width:auto;
+		}
+	}
+	.form#updateName {
+		width:100%;
+	}
 }
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {
-	
+
 }

@@ -1,8 +1,17 @@
 .form {
-	.field-group { float: left; width: 40%; margin: 0 0 0 10px;
-	input { width: 100%; padding: 15px; border: 1px solid $lightest_gray; border-radius: 4px; }
+	&#updateName {
+		margin:0 0 0 10px;
+		width:40%;
+		@include inline-block;
+		input[type="text"]{
+			width:80%;
+			@include inline-block;
+		}
+		input[type="submit"]{
+			width:auto;
+		}
 	}
-	.actions { float: left; margin: 0 0 0 10px;
-		button { @include btn($subColor); }
+	input { width: 100%; padding: 15px; border: 1px solid $lightest_gray; border-radius: 4px;
 	}
+	button { @include btn($subColor); }
 }
