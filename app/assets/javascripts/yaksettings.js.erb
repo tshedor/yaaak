@@ -46,7 +46,7 @@ yakfunc = {
 	},
 	/* Default formating for grunt display; used in range infowindows, AJAXed grunts on herd#show, SSE render */
 	messageDisplay: function(info){
-		return '<li><div class="message"><div class="yak" data-userid="' + info.user_id + '" data-date="' + info.created_at + '" style="background:' + info.user_color + '">' + info.user_name + '</div><div class="message-content"><p>' + info.message + '<span class="time-ago"> ' + info.time_ago +' ago</span></p><span class="tab"></span></div></div></li>'
+		return '<li class="animated bounceInDown"><div class="message"><div class="yak" data-userid="' + info.user_id + '" data-date="' + info.created_at + '" style="background:' + info.user_color + '">' + info.user_name + '</div><div class="message-content"><p>' + info.message + '<span class="time-ago"> ' + info.time_ago +' ago</span></p><span class="tab"></span></div></div></li>'
 	},
 	/* Determines if browser supports SVG */
 	supportssvg: function() {
