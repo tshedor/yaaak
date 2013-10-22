@@ -84,17 +84,18 @@ $(document).ready(function() {
       }
     };
     evtSource.onopen = function(e) {
-      return console.log('open');
+      console.log('open');
+      console.log(e);
     };
     evtSource.onerror = function(e) {
       console.log('error');
-      return evtSource.close();
+      console.log(e);
     };
 	evtSource.onclose = function(e) {
-      return console.log('close');
+      console.log('close');
     };
     window.onbeforeunload = function() {
-      evtSource.close()
+      //evtSource.close()
     };
   }
 
