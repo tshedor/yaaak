@@ -11,8 +11,8 @@
 environment 'production'
 daemonize true
 
-pidfile 'tmp/pids/puma.pid'
-state_path 'tmp/pids/puma.state'
+pidfile '/home/yakapp/tmp/pids/puma.pid'
+state_path '/home/yakapp/tmp/pids/puma.state'
 
 # stdout_redirect 'log/puma.log', 'log/puma_err.log'
 
