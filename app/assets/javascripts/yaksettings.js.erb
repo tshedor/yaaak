@@ -3,7 +3,8 @@ var yakfunc, yakapp;
 yakapp = {
 	mapStyles: [],
 	domColor: '#02253E',
-	subColor: '#0177A8'
+	subColor: '#0177A8',
+	hasCentered: false
 };
 yakfunc = {
 	/* Displays browser notification */
@@ -78,8 +79,8 @@ yakfunc = {
 	},
 	/* Average-joe marker with window */
 	customMarkerBubble: function(content, pos, map) {
-		var customLocationMarker, customLocationWindow;
-		customLocationWindow = new google.maps.InfoWindow({
+		var customLocationMarker;
+		yakapp.customLocationWindow = new google.maps.InfoWindow({
 			content: '<div class="hdr">' + '<div class="quick-view-hdr">' + '<strong>' + content + '</strong>' + '</div><!-- /hdr -->' + '<div class="grunts">' + '</div><!-- /grunts -->' + '<div class="quick-view-meta">' + '</div><!-- /meta -->' + '<button class="yak">Yaaak!</button>' + '</div><!-- /quick view -->'
 		});
 		customLocationMarker = new google.maps.Marker({
@@ -89,13 +90,13 @@ yakfunc = {
 			title: content
 		});
 		google.maps.event.addListener(customLocationMarker, 'click', function() {
-			return customLocationWindow.open(map, customLocationMarker);
+			return yakapp.customLocationWindow.open(map, customLocationMarker);
 		});
 		return customLocationMarker;
 	},
 	/* Marker that has a herd quick display in its infoWindow. Also has radius */
 	customChatMarker: function(herddata, pos, map) {
-		var customLocationMarker, customLocationWindow, herderstring, herd_radius;
+		var customChatMarker, herderstring, herd_radius;
 		herderstring = '<div class="quick-view">' + '<div class="quick-view-hdr">' + '<strong>Herd</strong>' + '</div><!-- /hdr -->'
 		herderstring += '<ul class="chat-list">'
 		$.each(herddata.grunts, function(key, val){
@@ -104,16 +105,15 @@ yakfunc = {
 		herderstring += '</ul>'
 		herderstring += '<div class="quick-view-meta">' + herddata.yak_length + ' Yaks / ' + herddata.grunt_length + ' Grunts / ' + herddata.herd_radius + ' Miles</div><!-- /meta -->' + '<a class="i-chats yaaak" href="/herds/' + herddata.id + '">Yaaak</a>' + '</div><!-- /quick view -->'
 
-		customLocationMarker = new google.maps.Marker({
+		customChatMarker = new google.maps.Marker({
 			position: pos,
 			map: map,
 			animation: google.maps.Animation.DROP,
-		});
-		customLocationWindow = new google.maps.InfoWindow({
 			content: herderstring
 		});
-		google.maps.event.addListener(customLocationMarker, 'click', function() {
-			return customLocationWindow.open(map, customLocationMarker);
+		google.maps.event.addListener(customChatMarker, 'click', function() {
+			yakapp.customChatWindow.setContent(customChatMarker.content)
+			return yakapp.customChatWindow.open(map, customChatMarker);
 		});
 		herd_radius = new google.maps.Circle({
 			map: map,
@@ -123,8 +123,8 @@ yakfunc = {
 			strokeColor: yakapp.subColor,
 			strokeOpacity: 0.5
 		});
-		herd_radius.bindTo('center', customLocationMarker, 'position');
-		return customLocationMarker;
+		herd_radius.bindTo('center', customChatMarker, 'position');
+		return customChatMarker;
 	},
 	/* Add a marker for the current location */
 	currentLocationMarker: function(map) {
@@ -135,13 +135,18 @@ yakfunc = {
 	/* Retrieve and set location with HTML5 API. Stores in yakapp.position as lat/lng array; also sets value on grunt input for geo lat/lng */
 	updateLocation: function() {
 		return navigator.geolocation.getCurrentPosition((function(position) {
-			var gmapsPosition;
+			var gmapsPosition, hasCentered;
 			yakapp.position = [position.coords.latitude, position.coords.longitude];
 			$('#grunt_geo_long').val(position.coords.longitude)
 			$('#grunt_geo_lat').val(position.coords.latitude)
 			if($('body').hasClass('range')){
 				gmapsPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-				yakapp.rangemap.panTo(gmapsPosition);
+				if(yakapp.hasCentered){
+					return
+				} else {
+					yakapp.hasCentered = true
+					yakapp.rangemap.panTo(gmapsPosition);
+				}
 			}
 		}), function(error) {
 			alert('Lone ranger, get back on the beaten trail. We can\'t locate you.');

@@ -12,6 +12,7 @@ jQuery(document).ready(function($) {
 			mapTypeId: google.maps.MapTypeId.ROADMAP
 		};
 		yakapp.rangemap = new google.maps.Map($('#map_canvas')[0], yakapp.rangeOptions);
+		yakapp.customChatWindow = new google.maps.InfoWindow()
 		$.getJSON('/herds/index.json', function(data){
 			$.each(data, function(key, val){
 				var gmapsSPOT = new google.maps.LatLng(val.geo_lat, val.geo_long);
@@ -31,5 +32,7 @@ jQuery(document).ready(function($) {
 		}, 25000);
 	}
 	$('.range-grunt').toggle().toggleClass('flipInY animated');
+
+	yakfunc.localStore('returningUser', true);
 });
 
