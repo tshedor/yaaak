@@ -13,6 +13,9 @@
 			a { display: block; @include font-size(10); color: $light_gray; text-decoration: none; padding: 10px 15px; line-height: 20px; background: white; border-radius: 4px;
 				&:hover { background: $lightest_gray; }
 			}
+			&.has-range {
+				display:none;
+			}
 		}
 	}
 }
@@ -22,12 +25,9 @@
 		li a:hover { background: none; }
 	}
 }
-.has-range {
-	display:none;
-}
 .range.index {
 	.has-range {
-		display:block;
+		display:block!important;
 	}
 }
 

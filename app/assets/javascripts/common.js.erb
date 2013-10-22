@@ -122,7 +122,7 @@ $(document).ready(function() {
 			dataType: "json",
 			data: 'name='+encodeURIComponent($('#newName').val()),
 			success: function(msg) {
-					$(this).toggleClass('i-close-active').toggleClass('i-settings');
+					$('#show-hdr').toggleClass('i-close-active').toggleClass('i-settings');
 					$('.hdr').toggleClass('hdr-out');
 					return $('.hdr-controls').toggle().toggleClass('flipInY animated');
 			},

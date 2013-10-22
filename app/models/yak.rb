@@ -5,6 +5,8 @@ class Yak < ActiveRecord::Base
 
   default_scope { order('created_at DESC') }
 
+  profanity_filter! :name, :method => 'dictionary'
+
   before_create :generate_name, :generate_color
 
   def remember_me!
