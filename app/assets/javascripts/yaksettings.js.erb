@@ -1,19 +1,12 @@
-var yakfunc, hasBrowserSVG, supportsSvg, yakapp;
+var yakfunc, yakapp;
 
-hasBrowserSVG = function() {
-	if (document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#Image", "1.1")) {
-		return true;
-	} else {
-		return false;
-	}
-};
 yakapp = {
 	mapStyles: [],
 	domColor: '#02253E',
 	subColor: '#0177A8'
 };
-supportsSvg = hasBrowserSVG();
 yakfunc = {
+	/* Displays browser notification */
 	notify: function(content,tags,title, url){
 		if(window.webkitNotifications){
 			var havePermission = window.webkitNotifications.checkPermission();
@@ -33,7 +26,6 @@ yakfunc = {
 		} else {
 			if (Notification && Notification.permission === "granted") {
 				var notification = new Notification(content, {tag: tags });
-
 				setTimeout(function() {
 					notification.close();
 				}, 3000)
@@ -52,9 +44,11 @@ yakfunc = {
 			}
 		}
 	},
+	/* Default formating for grunt display; used in range infowindows, AJAXed grunts on herd#show, SSE render */
 	messageDisplay: function(info){
 		return '<li><div class="message"><div class="yak" data-userid="' + info.user_id + '" data-date="' + info.created_at + '" style="background:' + info.user_color + '">' + info.user_name + '</div><div class="message-content"><p>' + info.message + '<span class="time-ago"> ' + info.time_ago +' ago</span></p><span class="tab"></span></div></div></li>'
 	},
+	/* Determines if browser supports SVG */
 	supportssvg: function() {
 		if (document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#Image", "1.1")) {
 			return true;
@@ -62,16 +56,19 @@ yakfunc = {
 			return false;
 		}
 	},
+	/* Pass image to use either .svg or fallback .png */
 	useSVG: function(item) {
-		if (!supportsSvg) {
+		if (!yakfunc.supportssvg) {
 			return item + '.png';
 		} else {
 			return item + '.svg';
 		}
 	},
+	/* Store variables in localStorage, like cookies */
 	localStore: function(key, obj) {
 		return localStorage[key] = JSON.stringify(obj);
 	},
+	/* Retrieve variables in localStorage, like cookies. Returns false if key does not exist */
 	localRetrieve: function(key) {
 		if (typeof localStorage[key] !== 'undefined') {
 			return JSON.parse(localStorage[key]);
@@ -79,6 +76,7 @@ yakfunc = {
 			return false;
 		}
 	},
+	/* Average-joe marker with window */
 	customMarkerBubble: function(content, pos, map) {
 		var customLocationMarker, customLocationWindow;
 		customLocationWindow = new google.maps.InfoWindow({
@@ -95,6 +93,7 @@ yakfunc = {
 		});
 		return customLocationMarker;
 	},
+	/* Marker that has a herd quick display in its infoWindow. Also has radius */
 	customChatMarker: function(herddata, pos, map) {
 		var customLocationMarker, customLocationWindow, herderstring, herd_radius;
 		herderstring = '<div class="quick-view">' + '<div class="quick-view-hdr">' + '<strong>Herd</strong>' + '</div><!-- /hdr -->'
@@ -127,15 +126,16 @@ yakfunc = {
 		herd_radius.bindTo('center', customLocationMarker, 'position');
 		return customLocationMarker;
 	},
+	/* Add a marker for the current location */
 	currentLocationMarker: function(map) {
 		var currentPosition;
 		currentPosition = new google.maps.LatLng(yakapp.position[0], yakapp.position[1]);
 		return yakfunc.customMarkerBubble('Current Location', currentPosition, map);
 	},
+	/* Retrieve and set location with HTML5 API. Stores in yakapp.position as lat/lng array; also sets value on grunt input for geo lat/lng */
 	updateLocation: function() {
 		return navigator.geolocation.getCurrentPosition((function(position) {
 			var gmapsPosition;
-
 			yakapp.position = [position.coords.latitude, position.coords.longitude];
 			$('#grunt_geo_long').val(position.coords.longitude)
 			$('#grunt_geo_lat').val(position.coords.latitude)
@@ -149,6 +149,7 @@ yakfunc = {
 	}
 };
 
+/* Poll initially to determine if notifications supported by browser */
 if(window.webkitNotifications){
 	var havePermission = window.webkitNotifications.checkPermission();
 	if (havePermission !== 0) {
