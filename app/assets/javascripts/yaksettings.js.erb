@@ -8,6 +8,7 @@ yakapp = {
 	lastMessage: 0,
 	messageClass: 'odd',
 	prettyPosition: 'Roamin\'',
+	position:[38,-94]
 };
 yakfunc = {
 	/* Displays browser notification */
@@ -150,6 +151,7 @@ yakfunc = {
 		return navigator.geolocation.getCurrentPosition((function(position) {
 			var gmapsPosition, hasCentered;
 			yakapp.position = [position.coords.latitude, position.coords.longitude];
+			yakfunc.localStore('position',[position.coords.latitude, position.coords.longitude]);
 			$('#grunt_geo_long').val(position.coords.longitude)
 			$('#grunt_geo_lat').val(position.coords.latitude)
 			if($('body').hasClass('range')){
@@ -165,7 +167,7 @@ yakfunc = {
 			alert('Lone ranger, get back on the beaten trail. We can\'t locate you.');
 		});
 	},
-	/* Location lookup to name herd; check the priority of named locations */
+	/* Location lookup to name herd */
 	googleLocation: function(latlng){
 		var googleLat, geocoder;
 		if(typeof latlng === "undefined"){
@@ -186,7 +188,27 @@ yakfunc = {
 				console.log('Geocoder failed due to: ' + status);
 			}
 		});
-	}
+	},
+	/* Calculate distance between two points */
+	distanceBetween: function(point1, point2) {
+		var R, dLat, dLon, a, c, d
+		R = 3963.1676;
+		dLat = yakfunc.deg2rad(point2[0]-point1[0]);
+		dLon = yakfunc.deg2rad(point2[1]-point1[1]);
+		a =
+			Math.sin(dLat/2) * Math.sin(dLat/2) +
+			Math.cos(yakfunc.deg2rad(point1[0])) * Math.cos(yakfunc.deg2rad(point2[0])) *
+			Math.sin(dLon/2) * Math.sin(dLon/2)
+		;
+		c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+		d = R * c; // Distance in miles
+		//return Math.round(d) <= 0 ? 'You\'re at the center' : Math.round(d)
+		return Math.round(d)
+	},
+	/* Helper function for distanceBetween */
+	deg2rad: function(deg) {
+		return deg * (Math.PI/180)
+	},
 };
 if(!yakfunc.localRetrieve('blockedUsers')) yakfunc.localStore('blockedUsers', new Array());
 

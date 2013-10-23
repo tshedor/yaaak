@@ -21,18 +21,18 @@ $(document).ready(function() {
 	$('.herds').backstretch(['<%= asset_url 'herds-bg.jpg' %>']);
 
 	if($('body').hasClass('herds show')) {
+		var herd_epicenter, evtSource;
 		$.getJSON('/herds/' + $('#chat_list').attr('data-herdid') + '.json?', function(data){
 			$.each(data.grunts, function(key, val){
 				$('#chat_list').append(yakfunc.messageDisplay(val))
 			});
 		});
-		var evtSource;
 		evtSource = new EventSource('/herds/' + $('#chat_list').attr('data-herdid') + '/stream');
 		evtSource.onmessage = function(e) {
-			var resp;
+			var resp, latest_grunt;
 			resp = JSON.parse(e.data);
 			$('#chat_list').prepend(yakfunc.messageDisplay(resp.data));
-			var latest_grunt = parseFloat($('#grunt_count').text())
+			latest_grunt = parseFloat($('#grunt_count').text())
 			latest_grunt++;
 			$('#grunt_count').text(latest_grunt)
 			if(parseInt($.cookie('active_yak')) !== resp.data.user_id) {
@@ -52,8 +52,10 @@ $(document).ready(function() {
 		window.onbeforeunload = function() {
 			evtSource.close()
 		};
+		herd_epicenter = [parseFloat($('.herd').attr('data-lat')), parseFloat($('.herd').attr('data-long'))];
 
-		yakfunc.googleLocation([parseFloat($('.herd').attr('data-lat')), parseFloat($('.herd').attr('data-long'))]);
+		yakfunc.googleLocation(herd_epicenter);
+		$('#distanceFromCenter').text(yakfunc.distanceBetween(yakfunc.localRetrieve('position'), herd_epicenter));
 	}
 
 	$('#chat_list').on('click', '.yak', function(e) {
@@ -115,7 +117,7 @@ $(document).ready(function() {
 			success: function(msg) {
 				$('#grunt_message').val('')
 					if(!$('body').hasClass('herds')) {
-							window.location = "/herds/" + msg.herd_id;
+						window.location = "/herds/" + msg.herd_id;
 					}
 			},
 			error: function(xhr, status) {

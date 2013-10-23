@@ -35,6 +35,7 @@
 				<li><%= @herd.yaks.length %><span> Yaks in this herd</span></li>
 				<li><strong id="grunt_count"><%= @herd.grunts.length %></strong><span> total grunts</span></li>
 				<li><%= @herd.herd_radius %><span> mile radius</span></li>
+				<li><strong id="distanceFromCenter">0</strong><span> miles from center</span></li>
 			</ul><!-- /states -->
 			<div class="range-actions">
 				<%= link_to 'Leave the herd', root_path, {:class => 'leave-herd i-leftarrow'} %>
