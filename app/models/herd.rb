@@ -14,9 +14,11 @@ class Herd < ActiveRecord::Base
 
   def furthest_grunt
     Grunt.find_by_sql("
-      SELECT id, geo_lat, geo_long, created_at,
+      SELECT grunts.*,
       ( 3959 * acos( cos( radians( #{geo_lat} ) ) * cos( radians( geo_lat ) ) * cos( radians( geo_long ) - radians( #{geo_long} ) ) + sin( radians( #{geo_lat} ) ) * sin( radians( geo_lat ) ) ) ) AS distance
-      FROM grunts ORDER BY distance DESC LIMIT 1
+      FROM grunts
+      INNER JOIN herd_grunts ON grunts.id = herd_grunts.grunt_id WHERE herd_grunts.herd_id = #{id}
+      ORDER BY distance ASC LIMIT 1
     ").first
   end
 
