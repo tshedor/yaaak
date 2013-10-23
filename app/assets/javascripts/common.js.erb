@@ -81,7 +81,7 @@ $(document).ready(function() {
 
 	/* Block user function */
 	$('#chat_list').on('click', '.block-user', function(e){
-		var blockedUsers, userid;
+		var blockedUsers, user_id;
 		if(window.confirm('Are you sure you want to never grunt with this yak again?')){
 			user_id = parseInt($(this).attr('data-userid'));
 			if(parseInt($.cookie('active_yak')) === user_id){
