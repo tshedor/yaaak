@@ -20,9 +20,9 @@ class HerdsController < ApplicationController
           sse.write({message: 'testEvent', data: payload })
         end
       end
-      #loop do
-      #  sleep 1
-      #end
+      loop do
+        sleep 1
+      end
     rescue
     ensure
       sse.close
