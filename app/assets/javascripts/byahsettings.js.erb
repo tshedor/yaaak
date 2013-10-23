@@ -1,0 +1,253 @@
+/*** Byah API
+
+	notify
+		content 	string 	'New notification'
+		tags		string 	'yaaakap'
+		title		string 	'Yaaak'
+		url 		string 	window.location.href
+		returns notification
+
+	supportssvg
+		returns boolean
+
+	useSVG
+		imagepath	string
+		returns image path with .png or .svg suffix
+
+	localStore
+		key			string
+		obj			string
+		returns localStorage store function
+
+	localRetrive
+		key			string
+		returns obj; false on failure
+
+	setDefault
+		variable 	var
+		value 		string/array/int/whatever
+		returns variable if defined; value if undefined
+
+	customMarkerBubble
+		content 	string 				'Location'
+		pos 		array(lat, lng)
+		map 		google maps object
+		sep_window 	boolean 			false
+		returns google maps marker object
+
+	currentLocationMarker
+		map 		google maps object
+		latlng 		array(lat, lng)		byah.localRetrieve('position')
+		returns google maps marker object
+
+	updateLocation
+		returns array(lat, lng); false on error
+
+	googleLocation
+		latlng 		array(lat, lng)
+		returns pretty place name
+
+	distanceBetween
+		point1 		array(lat, lng)
+		point2 		array(lat, lng)
+		returns distance in rounded miles
+
+***/
+
+
+var byah, byahsettings;
+
+byahsettings = {
+	notification_delay: 3500
+};
+byah = {
+	/* Displays browser notification */
+	notify: function(content,tags,title, url){
+
+		content = byah.setDefault(content, 'New notification')
+		tags = byah.setDefault(tags, 'yaaakapp')
+		title = byah.setDefault(title, 'Yaaak')
+		url = byah.setDefault(url, window.location.href)
+
+		if(window.webkitNotifications){
+			var havePermission = window.webkitNotifications.checkPermission();
+			if (havePermission == 0) {
+				var notification = window.webkitNotifications.createNotification("<%= asset_url 'favicon.png' %>",title,content);
+				notification.onclick = function () {
+					window.open(url);
+					notification.close();
+				}
+				notification.show();
+				setTimeout(function() {
+					notification.cancel();
+				}, byahsettings.notification_delay)
+			} else {
+				window.webkitNotifications.requestPermission();
+			}
+		} else {
+			if (Notification && Notification.permission === "granted") {
+				var notification = new Notification(content, {tag: tags });
+				setTimeout(function() {
+					notification.close();
+				}, byahsettings.notification_delay)
+			} else if (Notification && Notification.permission !== 'denied') {
+				Notification.requestPermission(function (permission) {
+					if(!('permission' in Notification)) {
+						Notification.permission = permission;
+					}
+					if (permission === "granted") {
+						var notification = new Notification(content, {tag: tags});
+						setTimeout(function() {
+							notification.close();
+						}, byahsettings.notification_delay)
+					}
+				});
+			}
+		}
+	},
+	/* Determines if browser supports SVG */
+	supportssvg: function() {
+		if (document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#Image", "1.1")) {
+			return true;
+		} else {
+			return false;
+		}
+	},
+	/* Pass image to use either .svg or fallback .png */
+	useSVG: function(imagepath) {
+		if (!byah.supportssvg) {
+			return imagepath + '.png';
+		} else {
+			return imagepath + '.svg';
+		}
+	},
+	/* Store variables in localStorage, like cookies */
+	localStore: function(key, obj) {
+		return localStorage[key] = JSON.stringify(obj);
+	},
+	/* Retrieve variables in localStorage, like cookies. Returns false if key does not exist */
+	localRetrieve: function(key) {
+		if (typeof localStorage[key] !== 'undefined') {
+			return JSON.parse(localStorage[key]);
+		} else {
+			return false;
+		}
+	},
+	/* Set default values for JS functions */
+	setDefault: function(variable, value){
+		return (typeof variable === 'undefined') ? value : variable;
+	},
+	/* Average-joe marker with window */
+	customMarkerBubble: function(content, pos, map, sep_window) {
+		var customLocationMarker, customMarkerBubble;
+
+		content = byah.setDefault(content, 'Location');
+		separate_window = byah.setDefault(separate_window, false)
+
+		customLocationMarker = new google.maps.Marker({
+			position: pos,
+			map: map,
+			animation: google.maps.Animation.DROP,
+			title: content
+		});
+		if(separate_window){
+			customLocationWindow = new google.maps.InfoWindow({
+				content: content
+			});
+			google.maps.event.addListener(customLocationMarker, 'click', function() {
+				return customLocationWindow.open(map, customLocationMarker);
+			});
+		} else {
+			byah.customLocationWindow = new google.maps.InfoWindow({
+				content: content
+			});
+			google.maps.event.addListener(customLocationMarker, 'click', function() {
+				return byah.customLocationWindow.open(map, customLocationMarker);
+			});
+		}
+		return customLocationMarker;
+	},
+	/* Add a marker for the current location */
+	currentLocationMarker: function(map, latlng) {
+		var currentPosition;
+
+		latlng = location.setDefault(latlng, byah.localRetrieve('position'))
+
+		currentPosition = new google.maps.LatLng(latlng[0], latlng[1]);
+		return byah.customMarkerBubble('Current Location', currentPosition, map);
+	},
+	/* Retrieve and set location with HTML5 API. Stores in localStorage as position as lat/lng array; also sets value on grunt input for geo lat/lng */
+	updateLocation: function() {
+		return navigator.geolocation.getCurrentPosition((function(position) {
+			byah.localStore('position',[position.coords.latitude, position.coords.longitude]);
+			return ([position.coords.latitude, position.coords.longitude])
+		}), function(error) {
+			switch(error.code){
+				case error.PERMISSION_DENIED :
+					byah.notify('Please turn on your geolocation')
+				break;
+				case error.POSITION_UNAVAILABLE :
+					byah.notify('Position unavailable');
+				break;
+				default :
+					byah.notify('Could not locate you')
+				break;
+			}
+			return false
+		});
+	},
+	/* Location lookup to name herd */
+	googleLocation: function(latlng){
+		var googleLat, geocoder;
+
+		latlng = byah.setDefault(latlng, byah.localRetrieve('position'))
+
+		geocoder = new google.maps.Geocoder();
+		googleLat = new google.maps.LatLng(latlng[0], latlng[1]);
+		geocoder.geocode({'latLng': googleLat}, function(results, status) {
+			if (status == google.maps.GeocoderStatus.OK) {
+				if (results[1] && results[1].address_components[0]) {
+					return results[1].address_components[0].long_name;
+				} else {
+					console.log('No results found');
+				}
+			} else {
+				console.log('Geocoder failed due to: ' + status);
+			}
+		});
+	},
+	/* Calculate distance between two points */
+	distanceBetween: function(point1, point2) {
+		var R, dLat, dLon, a, c, d
+		R = 3963.1676;
+		dLat = byah.deg2rad(point2[0]-point1[0]);
+		dLon = byah.deg2rad(point2[1]-point1[1]);
+		a =
+			Math.sin(dLat/2) * Math.sin(dLat/2) +
+			Math.cos(byah.deg2rad(point1[0])) * Math.cos(byah.deg2rad(point2[0])) *
+			Math.sin(dLon/2) * Math.sin(dLon/2)
+		;
+		c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+		d = R * c; // Distance in miles
+		//return Math.round(d) <= 0 ? 'You\'re at the center' : Math.round(d)
+		return Math.round(d)
+	},
+	/* Helper function for distanceBetween */
+	deg2rad: function(deg) {
+		return deg * (Math.PI/180)
+	},
+};
+
+/* Poll initially to determine if notifications supported by browser */
+if(window.webkitNotifications){
+	var havePermission = window.webkitNotifications.checkPermission();
+	if (havePermission !== 0) {
+ 		window.webkitNotifications.requestPermission();
+ 	}
+} else if (Notification && Notification !== "granted") {
+	Notification.requestPermission(function(status) {
+		if (Notification.permission !== status) {
+			return Notification.permission = status;
+		}
+	});
+}

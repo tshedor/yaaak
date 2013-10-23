@@ -36,7 +36,7 @@ $(document).ready(function() {
 			latest_grunt++;
 			$('#grunt_count').text(latest_grunt)
 			if(parseInt($.cookie('active_yak')) !== resp.data.user_id) {
-				yakfunc.notify((resp.data.user_name + ': ' + resp.data.message),$('#chat_list').attr('data-herdid'),'Yaaak', window.location.href)
+				byah.notify((resp.data.user_name + ': ' + resp.data.message),$('#chat_list').attr('data-herdid'),'Yaaak', window.location.href)
 			}
 		};
 		evtSource.onopen = function(e) {
@@ -54,8 +54,10 @@ $(document).ready(function() {
 		};
 		herd_epicenter = [parseFloat($('.herd').attr('data-lat')), parseFloat($('.herd').attr('data-long'))];
 
-		yakfunc.googleLocation(herd_epicenter);
-		$('#distanceFromCenter').text(yakfunc.distanceBetween(yakfunc.localRetrieve('position'), herd_epicenter));
+		var location_name = 'Roamin\' around ' + byah.googleLocation(herd_epicenter);
+		$('title').text(location_name)
+		$('#nameOfHerd').text(location_name)
+		$('#distanceFromCenter').text(byah.distanceBetween(byah.localRetrieve('position'), herd_epicenter));
 	}
 
 	$('#chat_list').on('click', '.yak', function(e) {
@@ -85,16 +87,16 @@ $(document).ready(function() {
 		if(window.confirm('Are you sure you want to never grunt with this yak again?')){
 			user_id = parseInt($(this).attr('data-userid'));
 			if(parseInt($.cookie('active_yak')) === user_id){
-				yakfunc.notify('You can\'t block yourself, numnuts');
+				byah.notify('You can\'t block yourself, numnuts');
 				return
 			}
-			blockedUsers = yakfunc.localRetrieve('blockedUsers');
+			blockedUsers = byah.localRetrieve('blockedUsers');
 			blockedUsers.push(user_id);
-			yakfunc.localStore('blockedUsers', blockedUsers);
+			byah.localStore('blockedUsers', blockedUsers);
 			$('.yak[data-userid="' + user_id + '"]').parent().parent().each(function(){
 				$(this).remove();
 			});
-			yakfunc.notify('That upsetting yak left the herd!')
+			byah.notify('That upsetting yak left the herd!')
 		}
 	});
 
@@ -143,7 +145,7 @@ $(document).ready(function() {
 			success: function(msg) {
 					$('#show-hdr').toggleClass('i-close-active').toggleClass('i-settings');
 					$('.hdr').toggleClass('hdr-out');
-					yakfunc.notify('Name successfully updated','yaaakname','Yaaak', window.location.href)
+					byah.notify('Name successfully updated','yaaakname','Yaaak', window.location.href)
 					return $('.hdr-controls').toggle().toggleClass('flipInY animated');
 			},
 			error: function(xhr, status) {
