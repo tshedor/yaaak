@@ -82,13 +82,20 @@ $(document).ready(function() {
 	/* Block user function */
 	$('#chat_list').on('click', '.block-user', function(e){
 		var blockedUsers, userid;
-		user_id = $(this).attr('data-userid');
-		blockedUsers = yakfunc.localRetrieve('blockedUsers');
-		blockedUsers.push(parseInt(user_id));
-		yakfunc.localStore('blockedUsers', blockedUsers);
-		$('.yak[data-userid="' + user_id + '"]').parent().parent().each(function(){
-			$(this).remove();
-		})
+		if(window.confirm('Are you sure you want to never grunt with this yak again?')){
+			user_id = parseInt($(this).attr('data-userid'));
+			if(parseInt($.cookie('active_yak')) === user_id){
+				yakfunc.notify('You can\'t block yourself, numnuts');
+				return
+			}
+			blockedUsers = yakfunc.localRetrieve('blockedUsers');
+			blockedUsers.push(user_id);
+			yakfunc.localStore('blockedUsers', blockedUsers);
+			$('.yak[data-userid="' + user_id + '"]').parent().parent().each(function(){
+				$(this).remove();
+			});
+			yakfunc.notify('That upsetting yak left the herd!')
+		}
 	});
 
 	var pagination = 2;

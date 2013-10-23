@@ -13,6 +13,12 @@ yakapp = {
 yakfunc = {
 	/* Displays browser notification */
 	notify: function(content,tags,title, url){
+
+		content = yakfunc.setDefault(content, 'Yaaak notification')
+		tags = yakfunc.setDefault(tags, 'yaaakapp')
+		title = yakfunc.setDefault(title, 'Yaaak')
+		url = yakfunc.setDefault(url, window.location.href)
+
 		if(window.webkitNotifications){
 			var havePermission = window.webkitNotifications.checkPermission();
 			if (havePermission == 0) {
@@ -24,7 +30,7 @@ yakfunc = {
 				notification.show();
 				setTimeout(function() {
 					notification.cancel();
-				}, 2500)
+				}, 3500)
 			} else {
 				window.webkitNotifications.requestPermission();
 			}
@@ -33,7 +39,7 @@ yakfunc = {
 				var notification = new Notification(content, {tag: tags });
 				setTimeout(function() {
 					notification.close();
-				}, 3000)
+				}, 3500)
 			} else if (Notification && Notification.permission !== 'denied') {
 				Notification.requestPermission(function (permission) {
 					if(!('permission' in Notification)) {
@@ -43,7 +49,7 @@ yakfunc = {
 						var notification = new Notification(content, {tag: tags});
 						setTimeout(function() {
 							notification.close();
-						}, 3000)
+						}, 3500)
 					}
 				});
 			}
@@ -91,9 +97,17 @@ yakfunc = {
 			return false;
 		}
 	},
+	/* Set default values for JS functions */
+	setDefault: function(variable, value){
+		return (typeof variable === 'undefined') ? value : variable;
+	},
 	/* Average-joe marker with window */
 	customMarkerBubble: function(content, pos, map) {
 		var customLocationMarker;
+
+		content = yakfunc.setDefault(content, 'Yaaak');
+		map = yakfunc.setDefault(map, yakapp.rangemap);
+
 		yakapp.customLocationWindow = new google.maps.InfoWindow({
 			content: '<div class="hdr">' + '<div class="quick-view-hdr">' + '<strong>' + content + '</strong>' + '</div><!-- /hdr -->' + '<div class="grunts">' + '</div><!-- /grunts -->' + '<div class="quick-view-meta">' + '</div><!-- /meta -->' + '<button class="yak">Yaaak!</button>' + '</div><!-- /quick view -->'
 		});
@@ -111,6 +125,9 @@ yakfunc = {
 	/* Marker that has a herd quick display in its infoWindow. Also has radius */
 	customChatMarker: function(herddata, pos, map) {
 		var customChatMarker, herderstring, herd_radius;
+
+		map = yakfunc.setDefault(map, yakapp.rangemap)
+
 		herderstring = '<div class="quick-view">' + '<div class="quick-view-hdr">' + '<strong>Herd</strong>' + '</div><!-- /hdr -->'
 		herderstring += '<ul class="chat-list">'
 		$.each(herddata.grunts, function(key, val){
@@ -143,6 +160,9 @@ yakfunc = {
 	/* Add a marker for the current location */
 	currentLocationMarker: function(map) {
 		var currentPosition;
+
+		map = yakfunc.setDefault(map, yakapp.rangemap)
+
 		currentPosition = new google.maps.LatLng(yakapp.position[0], yakapp.position[1]);
 		return yakfunc.customMarkerBubble('Current Location', currentPosition, map);
 	},
@@ -170,9 +190,9 @@ yakfunc = {
 	/* Location lookup to name herd */
 	googleLocation: function(latlng){
 		var googleLat, geocoder;
-		if(typeof latlng === "undefined"){
-			latlng = yakapp.position
-		}
+
+		latlng = yakfunc.setDefault(latlng, yakapp.position)
+
 		geocoder = new google.maps.Geocoder();
 		googleLat = new google.maps.LatLng(latlng[0], latlng[1]);
 		geocoder.geocode({'latLng': googleLat}, function(results, status) {
@@ -210,6 +230,7 @@ yakfunc = {
 		return deg * (Math.PI/180)
 	},
 };
+
 if(!yakfunc.localRetrieve('blockedUsers')) yakfunc.localStore('blockedUsers', new Array());
 
 /* Poll initially to determine if notifications supported by browser */
