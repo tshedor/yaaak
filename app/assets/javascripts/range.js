@@ -21,18 +21,19 @@ jQuery(document).ready(function($) {
 		});
 		if (navigator.geolocation) {
 			yakapp.rangemap.setZoom(12);
-		} else {
-			alert('Find your herd and turn on your geolocation.');
 		}
 	}
 	if (navigator.geolocation) {
-		yakfunc.updateLocation();
+		yakfunc.setLocation();
 		setInterval(function() {
-			yakfunc.updateLocation();
+			yakfunc.setLocation();
 		}, 25000);
+	} else {
+		byah.notify('Find your herd and use a browser that supports geolocation.');
 	}
+
 	$('.range-grunt').toggle().toggleClass('flipInY animated');
 
-	yakfunc.localStore('returningUser', true);
+	byah.localStore('returningUser', true);
 });
 

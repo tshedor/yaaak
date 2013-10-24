@@ -11,44 +11,6 @@ yakapp = {
 	position:[38,-94]
 };
 yakfunc = {
-	/* Displays browser notification */
-	notify: function(content,tags,title, url){
-		if(window.webkitNotifications){
-			var havePermission = window.webkitNotifications.checkPermission();
-			if (havePermission == 0) {
-				var notification = window.webkitNotifications.createNotification("<%= asset_url 'favicon.png' %>",title,content);
-				notification.onclick = function () {
-					window.open(url);
-					notification.close();
-				}
-				notification.show();
-				setTimeout(function() {
-					notification.cancel();
-				}, 2500)
-			} else {
-				window.webkitNotifications.requestPermission();
-			}
-		} else {
-			if (Notification && Notification.permission === "granted") {
-				var notification = new Notification(content, {tag: tags });
-				setTimeout(function() {
-					notification.close();
-				}, 3000)
-			} else if (Notification && Notification.permission !== 'denied') {
-				Notification.requestPermission(function (permission) {
-					if(!('permission' in Notification)) {
-						Notification.permission = permission;
-					}
-					if (permission === "granted") {
-						var notification = new Notification(content, {tag: tags});
-						setTimeout(function() {
-							notification.close();
-						}, 3000)
-					}
-				});
-			}
-		}
-	},
 	/* Default formating for grunt display; used in range infowindows, AJAXed grunts on herd#show, SSE render */
 	messageDisplay: function(info){
 		if(info.user_id !== yakapp.lastMessage){
@@ -59,58 +21,16 @@ yakfunc = {
 			}
 		}
 		yakapp.lastMessage = info.user_id;
-		if($.inArray(info.user_id, yakfunc.localRetrieve('blockedUsers')) < 0 ){
+		if($.inArray(info.user_id, byah.localRetrieve('blockedUsers')) < 0 ){
 			return '<li class="animated bounceInDown ' + yakapp.messageClass +'"><div class="message"><div class="yak" data-userid="' + info.user_id + '" data-date="' + info.created_at + '" style="background:' + info.user_color + '">' + info.user_name + '</div><div class="message-content"><p>' + info.message + '<span class="time-ago"> ' + info.time_ago +' ago</span></p><span class="tab"></span></div></div></li>';
 		}
-	},
-	/* Determines if browser supports SVG */
-	supportssvg: function() {
-		if (document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#Image", "1.1")) {
-			return true;
-		} else {
-			return false;
-		}
-	},
-	/* Pass image to use either .svg or fallback .png */
-	useSVG: function(item) {
-		if (!yakfunc.supportssvg) {
-			return item + '.png';
-		} else {
-			return item + '.svg';
-		}
-	},
-	/* Store variables in localStorage, like cookies */
-	localStore: function(key, obj) {
-		return localStorage[key] = JSON.stringify(obj);
-	},
-	/* Retrieve variables in localStorage, like cookies. Returns false if key does not exist */
-	localRetrieve: function(key) {
-		if (typeof localStorage[key] !== 'undefined') {
-			return JSON.parse(localStorage[key]);
-		} else {
-			return false;
-		}
-	},
-	/* Average-joe marker with window */
-	customMarkerBubble: function(content, pos, map) {
-		var customLocationMarker;
-		yakapp.customLocationWindow = new google.maps.InfoWindow({
-			content: '<div class="hdr">' + '<div class="quick-view-hdr">' + '<strong>' + content + '</strong>' + '</div><!-- /hdr -->' + '<div class="grunts">' + '</div><!-- /grunts -->' + '<div class="quick-view-meta">' + '</div><!-- /meta -->' + '<button class="yak">Yaaak!</button>' + '</div><!-- /quick view -->'
-		});
-		customLocationMarker = new google.maps.Marker({
-			position: pos,
-			map: map,
-			animation: google.maps.Animation.DROP,
-			title: content
-		});
-		google.maps.event.addListener(customLocationMarker, 'click', function() {
-			return yakapp.customLocationWindow.open(map, customLocationMarker);
-		});
-		return customLocationMarker;
 	},
 	/* Marker that has a herd quick display in its infoWindow. Also has radius */
 	customChatMarker: function(herddata, pos, map) {
 		var customChatMarker, herderstring, herd_radius;
+
+		map = byah.setDefault(map, yakapp.rangemap)
+
 		herderstring = '<div class="quick-view">' + '<div class="quick-view-hdr">' + '<strong>Herd</strong>' + '</div><!-- /hdr -->'
 		herderstring += '<ul class="chat-list">'
 		$.each(herddata.grunts, function(key, val){
@@ -140,18 +60,12 @@ yakfunc = {
 		herd_radius.bindTo('center', customChatMarker, 'position');
 		return customChatMarker;
 	},
-	/* Add a marker for the current location */
-	currentLocationMarker: function(map) {
-		var currentPosition;
-		currentPosition = new google.maps.LatLng(yakapp.position[0], yakapp.position[1]);
-		return yakfunc.customMarkerBubble('Current Location', currentPosition, map);
-	},
 	/* Retrieve and set location with HTML5 API. Stores in yakapp.position as lat/lng array; also sets value on grunt input for geo lat/lng */
-	updateLocation: function() {
+	setLocation: function() {
 		return navigator.geolocation.getCurrentPosition((function(position) {
 			var gmapsPosition, hasCentered;
 			yakapp.position = [position.coords.latitude, position.coords.longitude];
-			yakfunc.localStore('position',[position.coords.latitude, position.coords.longitude]);
+			byah.localStore('position',[position.coords.latitude, position.coords.longitude]);
 			$('#grunt_geo_long').val(position.coords.longitude)
 			$('#grunt_geo_lat').val(position.coords.latitude)
 			if($('body').hasClass('range')){
@@ -164,64 +78,9 @@ yakfunc = {
 				}
 			}
 		}), function(error) {
-			alert('Lone ranger, get back on the beaten trail. We can\'t locate you.');
+			byah.notify('Lone ranger, get back on the beaten trail. We can\'t locate you.');
 		});
-	},
-	/* Location lookup to name herd */
-	googleLocation: function(latlng){
-		var googleLat, geocoder;
-		if(typeof latlng === "undefined"){
-			latlng = yakapp.position
-		}
-		geocoder = new google.maps.Geocoder();
-		googleLat = new google.maps.LatLng(latlng[0], latlng[1]);
-		geocoder.geocode({'latLng': googleLat}, function(results, status) {
-			if (status == google.maps.GeocoderStatus.OK) {
-				if (results[1] && results[1].address_components[0]) {
-					var herd_title = 'Roamin\' around ' + results[1].address_components[0].long_name;
-					$('title').text(herd_title);
-					$('#nameOfHerd').text(herd_title);
-				} else {
-					console.log('No results found');
-				}
-			} else {
-				console.log('Geocoder failed due to: ' + status);
-			}
-		});
-	},
-	/* Calculate distance between two points */
-	distanceBetween: function(point1, point2) {
-		var R, dLat, dLon, a, c, d
-		R = 3963.1676;
-		dLat = yakfunc.deg2rad(point2[0]-point1[0]);
-		dLon = yakfunc.deg2rad(point2[1]-point1[1]);
-		a =
-			Math.sin(dLat/2) * Math.sin(dLat/2) +
-			Math.cos(yakfunc.deg2rad(point1[0])) * Math.cos(yakfunc.deg2rad(point2[0])) *
-			Math.sin(dLon/2) * Math.sin(dLon/2)
-		;
-		c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-		d = R * c; // Distance in miles
-		//return Math.round(d) <= 0 ? 'You\'re at the center' : Math.round(d)
-		return Math.round(d)
-	},
-	/* Helper function for distanceBetween */
-	deg2rad: function(deg) {
-		return deg * (Math.PI/180)
 	},
 };
-if(!yakfunc.localRetrieve('blockedUsers')) yakfunc.localStore('blockedUsers', new Array());
 
-/* Poll initially to determine if notifications supported by browser */
-if(window.webkitNotifications){
-	var havePermission = window.webkitNotifications.checkPermission();
-	if (havePermission !== 0) {
- 		window.webkitNotifications.requestPermission();
- 	}
-} else if (Notification && Notification !== "granted") {
-	Notification.requestPermission(function(status) {
-		if (Notification.permission !== status) {
-			return Notification.permission = status;
-		}
-	});
-}
+if(!byah.localRetrieve('blockedUsers')) byah.localStore('blockedUsers', new Array());
