@@ -29,7 +29,7 @@ jQuery(document).ready(function($) {
 			yakfunc.setLocation();
 		}, 25000);
 	} else {
-		byah.notify('Find your herd and use a browser that supports geolocation.');
+		byah.notify({content:'Find your herd and use a browser that supports geolocation.'});
 	}
 
 	$('.range-grunt').toggle().toggleClass('flipInY animated');

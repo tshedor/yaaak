@@ -1,11 +1,21 @@
 /*** Byah API
 
 	notify
-		content 	string 	'New notification'
-		tags		string 	'yaaakap'
-		title		string 	'Yaaak'
-		url 		string 	window.location.href
+		options		JSON
+			content 	string 	'New notification'
+			tags		string 	'yaaakap'
+			title		string 	'Yaaak'
+			url 		string 	window.location.href
 		returns notification
+
+	dropInAlert
+		options		JSON
+			title		string 	'Yo:'
+			content 	string 	''
+			severity	string 	'info'		'success | error | warn'
+			duration	int 	byahsettings.notification_delay
+			persistent	boolean	false
+		returns html alert
 
 	supportssvg
 		returns boolean
@@ -62,17 +72,17 @@ byahsettings = {
 };
 byah = {
 	/* Displays browser notification */
-	notify: function(content,tags,title, url){
-
-		content = byah.setDefault(content, 'New notification')
-		tags = byah.setDefault(tags, 'yaaakapp')
-		title = byah.setDefault(title, 'Yaaak')
-		url = byah.setDefault(url, window.location.href)
+	notify: function(options){
+		options.content = byah.setDefault(options.content, 'New notification')
+		options.tags = byah.setDefault(options.tags, 'yaaakapp')
+		options.title = byah.setDefault(options.title, 'Yaaak')
+		options.url = byah.setDefault(options.url, window.location.href)
+		options.duration = byah.setDefault(options.duration, byahsettings.notification_delay)
 
 		if(window.webkitNotifications){
 			var havePermission = window.webkitNotifications.checkPermission();
 			if (havePermission == 0) {
-				var notification = window.webkitNotifications.createNotification("<%= asset_url 'favicon.png' %>",title,content);
+				var notification = window.webkitNotifications.createNotification("<%= asset_url 'favicon.png' %>",options.title,options.content);
 				notification.onclick = function () {
 					window.open(url);
 					notification.close();
@@ -80,29 +90,49 @@ byah = {
 				notification.show();
 				setTimeout(function() {
 					notification.cancel();
-				}, byahsettings.notification_delay)
+				}, options.duration)
 			} else {
 				window.webkitNotifications.requestPermission();
 			}
 		} else {
 			if (Notification && Notification.permission === "granted") {
-				var notification = new Notification(content, {tag: tags });
+				var notification = new Notification(options.content, {tag: options.tags });
 				setTimeout(function() {
 					notification.close();
-				}, byahsettings.notification_delay)
+				}, options.duration)
 			} else if (Notification && Notification.permission !== 'denied') {
 				Notification.requestPermission(function (permission) {
 					if(!('permission' in Notification)) {
 						Notification.permission = permission;
 					}
 					if (permission === "granted") {
-						var notification = new Notification(content, {tag: tags});
+						var notification = new Notification(options.content, {tag: options.tags});
 						setTimeout(function() {
 							notification.close();
-						}, byahsettings.notification_delay)
+						}, options.duration)
 					}
 				});
 			}
+		}
+	},
+	/* Normal HTML alert */
+	dropInAlert: function(options){
+		var alert;
+		$('.alert').remove()
+
+		options.content = byah.setDefault(options.content, '')
+		options.title = byah.setDefault(options.title, 'Yo:')
+		options.severity = byah.setDefault(options.severity, 'info')
+		options.duration = byah.setDefault(options.duration, byahsettings.notification_delay)
+		options.persistent = byah.setDefault(options.persistent, false)
+
+		alert = '<div class="alert animated bounceInDown ' + options.severity + '"><strong>' + options.title + '</strong>' + options.content + '</div>';
+
+		$('body').append(alert)
+		if(!options.persistent){
+			setTimeout(function() {
+				$('.alert').fadeOut();
+			}, options.duration)
 		}
 	},
 	/* Determines if browser supports SVG */
@@ -184,13 +214,13 @@ byah = {
 		}), function(error) {
 			switch(error.code){
 				case error.PERMISSION_DENIED :
-					byah.notify('Please turn on your geolocation')
+					byah.notify({content:'Please turn on your geolocation'})
 				break;
 				case error.POSITION_UNAVAILABLE :
-					byah.notify('Position unavailable');
+					byah.notify({content:'Position unavailable'});
 				break;
 				default :
-					byah.notify('Could not locate you')
+					byah.notify({content:'Could not locate you'})
 				break;
 			}
 			return false

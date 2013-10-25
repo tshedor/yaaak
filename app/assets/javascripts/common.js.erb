@@ -36,7 +36,10 @@ $(document).ready(function() {
 			latest_grunt++;
 			$('#grunt_count').text(latest_grunt)
 			if(parseInt($.cookie('active_yak')) !== resp.data.user_id) {
-				byah.notify((resp.data.user_name + ': ' + resp.data.message),$('#chat_list').attr('data-herdid'),'Yaaak', window.location.href)
+				byah.notify({
+					content:(resp.data.user_name + ': ' + resp.data.message),
+					tags:$('#chat_list').attr('data-herdid'),
+				});
 			}
 		};
 		evtSource.onopen = function(e) {
@@ -66,7 +69,7 @@ $(document).ready(function() {
 		user_id = $(this).attr('data-userid');
 		retrieveYakData = $.getJSON('/yaks/' + user_id + '.json', function(data){
 			$('.popup .user_name').text(data.user_name)
-			$('.popup .grunt_count').text(data.grunt_count)
+			$('.popup .popup-header').css('background', data.grunt_count)
 			$('.popup .user_color').text(data.user_color)
 			$('.popup .short_user_name').text(data.short_user_name)
 			$('.popup .last_grunt').text(data.last_grunt)
@@ -87,7 +90,7 @@ $(document).ready(function() {
 		if(window.confirm('Are you sure you want to never grunt with this yak again?')){
 			user_id = parseInt($(this).attr('data-userid'));
 			if(parseInt($.cookie('active_yak')) === user_id){
-				byah.notify('You can\'t block yourself, numnuts');
+				byah.notify({content:'You can\'t block yourself, numnuts'});
 				return
 			}
 			blockedUsers = byah.localRetrieve('blockedUsers');
@@ -96,7 +99,7 @@ $(document).ready(function() {
 			$('.yak[data-userid="' + user_id + '"]').parent().parent().each(function(){
 				$(this).remove();
 			});
-			byah.notify('That upsetting yak left the herd!')
+			byah.notify({content:'That upsetting yak left the herd!'})
 		}
 	});
 
@@ -145,7 +148,12 @@ $(document).ready(function() {
 			success: function(msg) {
 					$('#show-hdr').toggleClass('i-close-active').toggleClass('i-settings');
 					$('.hdr').toggleClass('hdr-out');
-					byah.notify('Name successfully updated','yaaakname','Yaaak', window.location.href)
+					byah.notify({
+						content:'Name successfully updated',
+						tags:'yaaakname',
+						title:'Yaaak',
+						url:window.location.href
+					});
 					return $('.hdr-controls').toggle().toggleClass('flipInY animated');
 			},
 			error: function(xhr, status) {
