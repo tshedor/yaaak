@@ -43,14 +43,13 @@ $(document).ready(function() {
 			}
 		};
 		evtSource.onopen = function(e) {
-			return console.log('open');
+
 		};
 		evtSource.onerror = function(e) {
-			console.log('error');
-			//return evtSource.close();
+
 		};
 		evtSource.onclose = function(e) {
-			return console.log('close');
+
 		};
 		window.onbeforeunload = function() {
 			evtSource.close()
