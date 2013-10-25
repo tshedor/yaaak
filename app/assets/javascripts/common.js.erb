@@ -31,6 +31,7 @@ $(document).ready(function() {
 		evtSource.onmessage = function(e) {
 			var resp, latest_grunt;
 			resp = JSON.parse(e.data);
+            console.log(resp);
 			$('#chat_list').prepend(yakfunc.messageDisplay(resp.data));
 			latest_grunt = parseFloat($('#grunt_count').text())
 			latest_grunt++;
