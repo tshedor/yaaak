@@ -1,6 +1,11 @@
 /*** Byah API
 
 	notify
+		options
+			type 		string 	'fallback'		'notification | alert'
+			duration	int 	byahsettings.notification_delay
+
+	browserNotification
 		options		JSON
 			content 	string 	'New notification'
 			tags		string 	'yaaakap'
@@ -12,8 +17,7 @@
 		options		JSON
 			title		string 	'Yo:'
 			content 	string 	''
-			severity	string 	'info'		'success | error | warn'
-			duration	int 	byahsettings.notification_delay
+			severity	string 	'info'		'success | error | warn | info'
 			persistent	boolean	false
 		returns html alert
 
@@ -47,7 +51,7 @@
 
 	currentLocationMarker
 		map 		google maps object
-		latlng 		array(lat, lng)		byah.localRetrieve('position')
+		latlng 		array(lat, lng)		this.localRetrieve('position')
 		returns google maps marker object
 
 	updateLocation
@@ -71,13 +75,30 @@ byahsettings = {
 	notification_delay: 3500
 };
 byah = {
-	/* Displays browser notification */
+		/* Displays browser notification */
 	notify: function(options){
-		options.content = byah.setDefault(options.content, 'New notification')
-		options.tags = byah.setDefault(options.tags, 'yaaakapp')
-		options.title = byah.setDefault(options.title, 'Yaaak')
-		options.url = byah.setDefault(options.url, window.location.href)
-		options.duration = byah.setDefault(options.duration, byahsettings.notification_delay)
+
+		options.duration = this.setDefault(options.duration, byahsettings.notification_delay)
+		switch(options.type){
+			case "notification" :
+				this.browserNotification(options)
+			break;
+			case "alert" :
+				this.dropInAlert(options)
+			break;
+			default :
+				if(window.webkitNotifications || Notification) {
+					this.browserNotification(options)
+				} else {
+					this.dropInAlert(options)
+				}
+		};
+	},
+	browserNotification: function(options){
+		options.content = this.setDefault(options.content, 'New notification')
+		options.tags = this.setDefault(options.tags, 'yaaakapp')
+		options.title = this.setDefault(options.title, 'Yaaak')
+		options.url = this.setDefault(options.url, window.location.href)
 
 		if(window.webkitNotifications){
 			var havePermission = window.webkitNotifications.checkPermission();
@@ -120,11 +141,10 @@ byah = {
 		var alert;
 		$('.alert').remove()
 
-		options.content = byah.setDefault(options.content, '')
-		options.title = byah.setDefault(options.title, 'Yo:')
-		options.severity = byah.setDefault(options.severity, 'info')
-		options.duration = byah.setDefault(options.duration, byahsettings.notification_delay)
-		options.persistent = byah.setDefault(options.persistent, false)
+		options.content = this.setDefault(options.content, '')
+		options.title = this.setDefault(options.title, 'Yo:')
+		options.severity = this.setDefault(options.severity, 'info')
+		options.persistent = this.setDefault(options.persistent, false)
 
 		alert = '<div class="alert animated bounceInDown ' + options.severity + '"><strong>' + options.title + '</strong>' + options.content + '</div>';
 
@@ -145,7 +165,7 @@ byah = {
 	},
 	/* Pass image to use either .svg or fallback .png */
 	useSVG: function(imagepath) {
-		if (!byah.supportssvg) {
+		if (!this.supportssvg) {
 			return imagepath + '.png';
 		} else {
 			return imagepath + '.svg';
@@ -171,8 +191,8 @@ byah = {
 	customMarkerBubble: function(content, pos, map, sep_window) {
 		var customLocationMarker, customMarkerBubble;
 
-		content = byah.setDefault(content, 'Location');
-		separate_window = byah.setDefault(separate_window, false)
+		content = this.setDefault(content, 'Location');
+		separate_window = this.setDefault(separate_window, false)
 
 		customLocationMarker = new google.maps.Marker({
 			position: pos,
@@ -188,11 +208,11 @@ byah = {
 				return customLocationWindow.open(map, customLocationMarker);
 			});
 		} else {
-			byah.customLocationWindow = new google.maps.InfoWindow({
+			this.customLocationWindow = new google.maps.InfoWindow({
 				content: content
 			});
 			google.maps.event.addListener(customLocationMarker, 'click', function() {
-				return byah.customLocationWindow.open(map, customLocationMarker);
+				return this.customLocationWindow.open(map, customLocationMarker);
 			});
 		}
 		return customLocationMarker;
@@ -201,26 +221,26 @@ byah = {
 	currentLocationMarker: function(map, latlng) {
 		var currentPosition;
 
-		latlng = location.setDefault(latlng, byah.localRetrieve('position'))
+		latlng = location.setDefault(latlng, this.localRetrieve('position'))
 
 		currentPosition = new google.maps.LatLng(latlng[0], latlng[1]);
-		return byah.customMarkerBubble('Current Location', currentPosition, map);
+		return this.customMarkerBubble('Current Location', currentPosition, map);
 	},
 	/* Retrieve and set location with HTML5 API. Stores in localStorage as position as lat/lng array; also sets value on grunt input for geo lat/lng */
 	updateLocation: function() {
 		return navigator.geolocation.getCurrentPosition((function(position) {
-			byah.localStore('position',[position.coords.latitude, position.coords.longitude]);
+			this.localStore('position',[position.coords.latitude, position.coords.longitude]);
 			return ([position.coords.latitude, position.coords.longitude])
 		}), function(error) {
 			switch(error.code){
 				case error.PERMISSION_DENIED :
-					byah.notify({content:'Please turn on your geolocation'})
+					this.notify({content:'Please turn on your geolocation'})
 				break;
 				case error.POSITION_UNAVAILABLE :
-					byah.notify({content:'Position unavailable'});
+					this.notify({content:'Position unavailable'});
 				break;
 				default :
-					byah.notify({content:'Could not locate you'})
+					this.notify({content:'Could not locate you'})
 				break;
 			}
 			return false
@@ -230,7 +250,7 @@ byah = {
 	googleLocation: function(latlng){
 		var googleLat, geocoder;
 
-		latlng = byah.setDefault(latlng, byah.localRetrieve('position'))
+		latlng = this.setDefault(latlng, this.localRetrieve('position'))
 
 		geocoder = new google.maps.Geocoder();
 		googleLat = new google.maps.LatLng(latlng[0], latlng[1]);
@@ -250,11 +270,11 @@ byah = {
 	distanceBetween: function(point1, point2) {
 		var R, dLat, dLon, a, c, d
 		R = 3963.1676;
-		dLat = byah.deg2rad(point2[0]-point1[0]);
-		dLon = byah.deg2rad(point2[1]-point1[1]);
+		dLat = this.deg2rad(point2[0]-point1[0]);
+		dLon = this.deg2rad(point2[1]-point1[1]);
 		a =
 			Math.sin(dLat/2) * Math.sin(dLat/2) +
-			Math.cos(byah.deg2rad(point1[0])) * Math.cos(byah.deg2rad(point2[0])) *
+			Math.cos(this.deg2rad(point1[0])) * Math.cos(this.deg2rad(point2[0])) *
 			Math.sin(dLon/2) * Math.sin(dLon/2)
 		;
 		c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));

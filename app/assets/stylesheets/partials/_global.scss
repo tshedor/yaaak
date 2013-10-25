@@ -79,3 +79,35 @@ input[type="submit"], .button {
 		outline-offset:none;
 	}
 }
+.alert {
+	@include box-shadow(0px 2px 8px -3px $gray);
+	padding:10px;
+	background:#F49B4A;
+	color:white;
+	position:absolute;
+	text-align:center;
+	top:40px;
+	width:100%;
+	&.no-shadow{
+		@include box-shadow(none);
+	}
+	a {
+		color:$lightest_gray;
+	}
+	.close {
+		@include text-shadow(none);
+		@include opacity(0.9);
+		position:relative;
+		top:-4px;
+		color:white;
+	}
+	&.success, &.bonus {
+		background:#4AC089;
+	}
+	&.info, &.tip {
+		background:#4487CE;
+	}
+	&.error, &.danger {
+		background:#B64040;
+	}
+}
