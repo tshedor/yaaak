@@ -7,6 +7,12 @@ class Grunt < ActiveRecord::Base
 
   profanity_filter! :message, :method => 'dictionary'
 
+  has_attached_file :photo, :styles => { :thumbnail => '150x150>', :medium => '550x550>' }
+
+  validates_attachment :photo,
+  :content_type => { :content_type => "image/jpg|image/jpeg|image/png|image/x-png|image/gif|image/pjpeg" },
+  :size => { :in => 0..4000.kilobytes }
+
   after_save :attach_or_create_herd
   after_destroy :last_yak_grunt_check
 

@@ -6,6 +6,8 @@ gem 'rails', '4.0.0'
 # Threaded server to handle ::Live
 gem 'puma'
 
+gem "paperclip", "~> 3.0"
+
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 

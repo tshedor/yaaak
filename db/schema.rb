@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131020050606) do
+ActiveRecord::Schema.define(version: 20131025154843) do
 
   create_table "grunts", force: true do |t|
     t.integer  "yak_id"
@@ -20,6 +20,10 @@ ActiveRecord::Schema.define(version: 20131020050606) do
     t.float    "geo_long"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "photo_updated_at"
   end
 
   create_table "herd_grunts", force: true do |t|
