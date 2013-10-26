@@ -37,6 +37,10 @@
 		key			string
 		returns obj; false on failure
 
+	localClear
+		key			string
+		returns undefined; deletes localStorage key/value pair if key is defined | deletes everything in localStorage if key is undefined
+
 	setDefault
 		variable 	var
 		value 		string/array/int/whatever
@@ -181,6 +185,14 @@ byah = {
 			return JSON.parse(localStorage[key]);
 		} else {
 			return false;
+		}
+	},
+	/* Delete localStorage key or clear everything in localStorage */
+	localClear: function(key){
+		if(typeof key === 'undefined'){
+			localStorage.clear()
+		} else {
+			localStorage.removeItem(key)
 		}
 	},
 	/* Set default values for JS functions */
