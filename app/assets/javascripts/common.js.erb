@@ -57,9 +57,8 @@ $(document).ready(function() {
 		};
 		herd_epicenter = [parseFloat($('.herd').attr('data-lat')), parseFloat($('.herd').attr('data-long'))];
 
-		var location_name = 'Roamin\' around ' + byah.googleLocation(herd_epicenter);
-		$('title').text(location_name)
-		$('#nameOfHerd').text(location_name)
+		yakfunc.googleLocation(herd_epicenter)
+
 		$('#distanceFromCenter').text(byah.distanceBetween(byah.localRetrieve('position'), herd_epicenter));
 	}
 

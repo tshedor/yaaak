@@ -81,6 +81,32 @@ yakfunc = {
 			byah.notify({content:'Lone ranger, get back on the beaten trail. We can\'t locate you.'});
 		});
 	},
+	/* Location lookup to name herd */
+	googleLocation: function(latlng){
+		var googleLat, geocoder;
+
+		latlng = byah.setDefault(latlng, byah.localRetrieve('position'))
+
+		geocoder = new google.maps.Geocoder();
+		googleLat = new google.maps.LatLng(latlng[0], latlng[1]);
+		geocoder.geocode({'latLng': googleLat}, function(results, status) {
+			if (status == google.maps.GeocoderStatus.OK) {
+				if (results[1] && results[1].address_components[0]) {
+					var formated_neighborhood = results[1].address_components[0].long_name
+					if(typeof formated_neighborhood !== "undefined"){
+						var location_name = 'Roamin\' around ' + formated_neighborhood;
+						$('title').text(location_name)
+						$('#nameOfHerd').text(location_name)
+					}
+				} else {
+					console.log('No results found');
+				}
+			} else {
+				console.log('Geocoder failed due to: ' + status);
+			}
+		});
+
+	},
 };
 
 if(!byah.localRetrieve('blockedUsers')) byah.localStore('blockedUsers', new Array());
