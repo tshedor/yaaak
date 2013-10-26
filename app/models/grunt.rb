@@ -10,7 +10,7 @@ class Grunt < ActiveRecord::Base
   has_attached_file :photo, :styles => { :thumbnail => '150x150>', :medium => '550x550>' }
 
   validates_attachment :photo,
-  :content_type => { :content_type => "image/jpg|image/jpeg|image/png|image/x-png|image/gif|image/pjpeg" },
+  :content_type => { :content_type => ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'] },
   :size => { :in => 0..4000.kilobytes }
 
   after_save :attach_or_create_herd

@@ -21,6 +21,9 @@ private
           user_color: grunt.yak.color,
           time_ago: time_ago_in_words(grunt.created_at)
       }
+      if grunt.photo.exists?
+      	payload['photo_url'] = grunt.photo.url
+      end
       ActiveSupport::Notifications.instrument("herd#{herd.id}", payload)
     end
   end

@@ -1,5 +1,5 @@
 <div class="range-grunt" id="range-grunt">
-	<%= form_for Grunt.new, :html => { :multipart => true } do |f| %>
+	<%= form_for Grunt.new do |f| %>
 		<%= f.text_field :message, :placeholder => "Start yaaakin' to join a herd or start your own" %>
 		<%= f.hidden_field :geo_lat %>
 		<%= f.hidden_field :geo_long %>

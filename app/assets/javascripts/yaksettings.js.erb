@@ -13,6 +13,7 @@ yakapp = {
 yakfunc = {
 	/* Default formating for grunt display; used in range infowindows, AJAXed grunts on herd#show, SSE render */
 	messageDisplay: function(info){
+		var yak_photo;
 		if(info.user_id !== yakapp.lastMessage){
 			if(yakapp.messageClass === 'odd'){
 				yakapp.messageClass = 'even';
@@ -21,8 +22,15 @@ yakfunc = {
 			}
 		}
 		yakapp.lastMessage = info.user_id;
+
+		if(info.photo_url){
+			yak_photo = '<img src="' + info.photo_url + '" alt="' + info.message + '" />'
+		} else {
+			yak_photo = ''
+		}
+
 		if($.inArray(info.user_id, byah.localRetrieve('blockedUsers')) < 0 ){
-			return '<li class="animated bounceInDown ' + yakapp.messageClass +'"><div class="message"><div class="yak" data-userid="' + info.user_id + '" data-date="' + info.created_at + '" style="background:' + info.user_color + '">' + info.user_name + '</div><div class="message-content"><p>' + info.message + '<span class="time-ago"> ' + info.time_ago +' ago</span></p><span class="tab"></span></div></div></li>';
+			return '<li class="animated bounceInDown ' + yakapp.messageClass +'"><div class="message"><div class="yak" data-userid="' + info.user_id + '" data-date="' + info.created_at + '" style="background:' + info.user_color + '">' + info.user_name + '</div><div class="message-content">' + yak_photo + '<p>' + info.message + '<span class="time-ago"> ' + info.time_ago +' ago</span></p><span class="tab"></span></div></div></li>';
 		}
 	},
 	/* Marker that has a herd quick display in its infoWindow. Also has radius */

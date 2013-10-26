@@ -124,22 +124,18 @@ $(document).ready(function() {
 /**********************/
 
 	$('#grunt_message').focus();
-	$("#new_grunt").submit(function(e) {
-		e.preventDefault();
-		$.ajax({
-			url: $('#new_grunt').attr('action'),
-			type: "POST",
-			dataType: "json",
-			data: $('#new_grunt').serialize(),
-			success: function(msg) {
-				$('#grunt_message').val('')
-					if(!$('body').hasClass('herds')) {
-						window.location = "/herds/" + msg.herd_id;
-					}
-			},
-			error: function(xhr, status) {
-				return $('body').html(xhr.responseText);
-			}
+	$('#new_grunt').bind("ajax:success", function(msg){
+		$('#grunt_message').val('')
+		if(!$('body').hasClass('herds')) {
+			window.location = "/herds/" + msg.herd_id;
+		}
+	});
+	$('#new_grunt').bind("ajax:error", function(xhr, status){
+		console.log(xhr);
+		byah.notify({
+			content: 'Easy there sport, you\'ve got to turn on your location first',
+			severity: 'error',
+			type: 'alert'
 		});
 	});
 
@@ -151,15 +147,15 @@ $(document).ready(function() {
 			dataType: "json",
 			data: 'name='+encodeURIComponent($('#newName').val()),
 			success: function(msg) {
-					$('#show-hdr').toggleClass('i-close-active').toggleClass('i-settings');
-					$('.hdr').toggleClass('hdr-out');
-					byah.notify({
-						content:'Name successfully updated',
-						tags:'yaaakname',
-						type:'alert',
-						severity:'success'
-					});
-					return $('.hdr-controls').toggle().toggleClass('flipInY animated');
+				$('#show-hdr').toggleClass('i-close-active').toggleClass('i-settings');
+				$('.hdr').toggleClass('hdr-out');
+				byah.notify({
+					content:'Name successfully updated',
+					tags:'yaaakname',
+					type:'alert',
+					severity:'success'
+				});
+				return $('.hdr-controls').toggle().toggleClass('flipInY animated');
 			},
 			error: function(xhr, status) {
 				return $('body').html(xhr.responseText);

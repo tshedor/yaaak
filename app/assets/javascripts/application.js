@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.remotipart
 //= require byahsettings
 //= require yaksettings
 //= require jquery.cookie

@@ -9,5 +9,8 @@ json.array! @herds do |herd|
     json.created_at grunt.created_at
     json.user_color grunt.yak.color
     json.time_ago time_ago_in_words(grunt.created_at)
+    if grunt.photo.exists?
+      json.photo_url grunt.photo.url
+  	end
   end
 end

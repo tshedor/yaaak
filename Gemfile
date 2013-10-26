@@ -14,6 +14,9 @@ gem 'sqlite3'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 
+# Allow AJAX file uploads
+gem 'remotipart', '~> 1.2'
+
 # Filter out the bad words
 gem 'profanity_filter'
 
