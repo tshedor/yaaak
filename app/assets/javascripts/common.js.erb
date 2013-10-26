@@ -157,7 +157,6 @@ $(document).ready(function() {
 			}
 			new_herd_id = xhr.responseJSON.herd_id
 		} else if(xhr.responseText && xhr.responseText.substr(2,7) === 'herd_id'){
-			console.log(xhr.responseText)
 			/* For some reason when sending an image it doesn't return a responseJSON, but the responseText is still the same. status also equals parsererror */
 			$('#grunt_message').val('')
 			$('#grunt_preview').attr('src', '')
