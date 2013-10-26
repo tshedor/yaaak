@@ -41,6 +41,10 @@
 		key			string
 		returns undefined; deletes localStorage key/value pair if key is defined | deletes everything in localStorage if key is undefined
 
+	readFile
+		input			JS element					Best practice: $('input').change(function(){ byah.readFile(this)})
+		preview_target	jQuery object or JS element	$(this).find('img').first()
+
 	setDefault
 		variable 	var
 		value 		string/array/int/whatever
@@ -69,6 +73,12 @@
 		point1 		array(lat, lng)
 		point2 		array(lat, lng)
 		returns distance in rounded miles
+
+	tour
+		tourTarget	jQuery object		$('.tour').first()
+		nextMessage string 				tourTarget.attr('data-next-message') 	'Next &raquo;'
+		tourOffset	int 				20
+		returns undefined; tour starts
 
 ***/
 
@@ -195,14 +205,15 @@ byah = {
 			localStorage.removeItem(key)
 		}
 	},
-	readFile: function(input, image_identifier){
+	/* Display file added to type="file" input before form submit */
+	readFile: function(input, preview_target){
 
-		this.setDefault(image_identifier, $(this).find('img').first())
+		this.setDefault(preview_target, $(this).find('img').first())
 
 		if (input.files && input.files[0]) {
 			var reader = new FileReader();
 			reader.onload = function (e) {
-				image_identifier.attr('src', e.target.result);
+				preview_target.attr('src', e.target.result);
 			}
 			reader.readAsDataURL(input.files[0]);
 		}
@@ -310,18 +321,20 @@ byah = {
 	deg2rad: function(deg) {
 		return deg * (Math.PI/180)
 	},
-	tour: function(tourtarget, nextMessage){
+	/* Show basic onboarding messages */
+	tour: function(tourTarget, nextMessage, tourOffset){
 
-		tourtarget = this.setDefault(tourtarget, $('.tour').first());
-		if(tourtarget.attr('data-next-message')){
-			nextMessage = this.setDefault(nextMessage, tourtarget.attr('data-next-message'));
+		tourTarget = this.setDefault(tourTarget, $('.tour').first());
+		if(tourTarget.attr('data-next-message')){
+			nextMessage = this.setDefault(nextMessage, tourTarget.attr('data-next-message'));
 		} else {
 			nextMessage = this.setDefault(nextMessage, "Next &raquo;");
 		}
+		tourOffset = this.setDefault(tourOffset, 20);
 
-		tourtarget.children('li').each(function(i){
+		tourTarget.children('li').each(function(i){
 			var dataTarget, dataPosition;
-			if(i !== (tourtarget.children('li').length - 1)){
+			if(i !== (tourTarget.children('li').length - 1)){
 				$(this).append('<a href="#" class="byah-tour">' + nextMessage + '</a>')
 			} else {
 				$(this).append('<a href="#" class="byah-tour">Close</a>')
@@ -329,8 +342,8 @@ byah = {
 			dataTarget = $(this).attr('data-target');
 			dataPosition = $(dataTarget).offset()
 
-			dataPosition.top = dataPosition.top + 20
-			dataPosition.left = dataPosition.left + 20
+			dataPosition.top = dataPosition.top + tourOffset
+			dataPosition.left = dataPosition.left + tourOffset
 
 			if($(this).attr('data-position')){
 				switch($(this).attr('data-position')){
@@ -340,8 +353,8 @@ byah = {
 					break;
 					default :
 						var dp = $(this).attr('data-position').split(',')
-						dataPosition.top = dp[0];
-						dataPosition.left = dp[1];
+						dataPosition.top = parseFloat(dp[0]);
+						dataPosition.left = parseFloat(dp[1]);
 				}
 			}
 
@@ -352,14 +365,14 @@ byah = {
 
 		});
 
-		tourtarget.on('click', '.byah-tour', function(e){
+		tourTarget.on('click', '.byah-tour', function(e){
 			$(this).parent().removeClass('active');
 			$(this).parent().fadeOut();
 			$(this).parent().next().addClass('active');
 			$(this).parent().next().fadeIn();
 		});
 
-		tourtarget.children('li').first().addClass('active').fadeIn();
+		tourTarget.children('li').first().addClass('active').fadeIn();
 
 	}
 };

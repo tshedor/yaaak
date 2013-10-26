@@ -32,8 +32,13 @@ jQuery(document).ready(function($) {
 		byah.notify({content:'Find your herd and use a browser that supports geolocation.'});
 	}
 
-	$('.range-grunt').toggle().toggleClass('flipInY animated');
-
-	byah.localStore('returningUser', true);
 });
 
+
+$(window).load(function(){
+	if($('body').hasClass('range')) byah.tour($('.tour'));
+
+	byah.localStore('returningUser', true);
+
+	$('.range-grunt').toggle().toggleClass('flipInY animated');
+});
