@@ -124,19 +124,30 @@ $(document).ready(function() {
 /**********************/
 
 	$('#grunt_message').focus();
-	$('#new_grunt').bind("ajax:success", function(msg){
-		$('#grunt_message').val('')
-		if(!$('body').hasClass('herds')) {
-			window.location = "/herds/" + msg.herd_id;
+	$('#new_grunt').bind("ajax:complete", function(e, xhr, status){
+		if(xhr.responseJSON && xhr.responseJSON.grunt_error){
+			var error_message;
+			switch(xhr.responseJSON.grunt_error){
+				case 'message' :
+					error_message = 'Pal, you\'ve got to enter a message first'
+				break;
+				case 'geo' :
+					error_message = 'Easy there sport, you\'ve got to turn on your location first'
+				break;
+				default :
+					error_message = 'Something broke on our end. Try again in a minute if you don\'t mind.'
+			}
+			byah.notify({
+				content:error_message,
+				type:'alert',
+				severity:'error'
+			})
+		} else if(xhr.responseJSON) {
+			$('#grunt_message').val('')
+			if(!$('body').hasClass('herds')) {
+				window.location = "/herds/" + xhr.responseJSON.herd_id;
+			}
 		}
-	});
-	$('#new_grunt').bind("ajax:error", function(xhr, status){
-		console.log(xhr);
-		byah.notify({
-			content: 'Easy there sport, you\'ve got to turn on your location first',
-			severity: 'error',
-			type: 'alert'
-		});
 	});
 
 	$("#updateName").submit(function(e) {

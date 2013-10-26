@@ -17,10 +17,16 @@ class GruntsController < ApplicationController
   def create
     yak = current_or_create_yak(grunt_params[:geo_lat], grunt_params[:geo_long])
     @grunt = yak.grunts.new(grunt_params)
-    if @grunt.save
+    if @grunt.message.presence && @grunt.geo_lat.presence && @grunt.save
       render json: { herd_id: @grunt.herds.first.id }
     else
-      render json: @grunt.errors, status: :unprocessable_entity
+    	if !@grunt.message.presence
+    	  render json: { errors: @grunt.errors, status: :unprocessable_entity, grunt_error: 'message' }
+    	elsif !@grunt.geo_lat.presence
+    	  render json: { errors: @grunt.errors, status: :unprocessable_entity, grunt_error: 'geo' }
+    	else
+    	  render json: { errors: @grunt.errors, status: :unprocessable_entity, grunt_error: 'unknown' }
+    	end
     end
   end
 
