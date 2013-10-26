@@ -310,6 +310,58 @@ byah = {
 	deg2rad: function(deg) {
 		return deg * (Math.PI/180)
 	},
+	tour: function(tourtarget, nextMessage){
+
+		tourtarget = this.setDefault(tourtarget, $('.tour').first());
+		if(tourtarget.attr('data-next-message')){
+			nextMessage = this.setDefault(nextMessage, tourtarget.attr('data-next-message'));
+		} else {
+			nextMessage = this.setDefault(nextMessage, "Next &raquo;");
+		}
+
+		tourtarget.children('li').each(function(i){
+			var dataTarget, dataPosition;
+			if(i !== (tourtarget.children('li').length - 1)){
+				$(this).append('<a href="#" class="byah-tour">' + nextMessage + '</a>')
+			} else {
+				$(this).append('<a href="#" class="byah-tour">Close</a>')
+			}
+			dataTarget = $(this).attr('data-target');
+			dataPosition = $(dataTarget).offset()
+
+			dataPosition.top = dataPosition.top + 20
+			dataPosition.left = dataPosition.left + 20
+
+			if($(this).attr('data-position')){
+				switch($(this).attr('data-position')){
+					case 'center' :
+						dataPosition.top = ($(window).height() / 2)
+						dataPosition.left = ($(window).width() / 2)
+					break;
+					default :
+						var dp = $(this).attr('data-position').split(',')
+						dataPosition.top = dp[0];
+						dataPosition.left = dp[1];
+				}
+			}
+
+			$(this).css({
+				'top': dataPosition.top,
+				'left': dataPosition.left
+			});
+
+		});
+
+		tourtarget.on('click', '.byah-tour', function(e){
+			$(this).parent().removeClass('active');
+			$(this).parent().fadeOut();
+			$(this).parent().next().addClass('active');
+			$(this).parent().next().fadeIn();
+		});
+
+		tourtarget.children('li').first().addClass('active').fadeIn();
+
+	}
 };
 
 /* Poll initially to determine if notifications supported by browser */

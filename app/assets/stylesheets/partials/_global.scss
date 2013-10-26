@@ -114,3 +114,30 @@ input[type="file"]{
 		background:#B64040;
 	}
 }
+.tour {
+	position:absolute;
+	top:0;
+	left:0;
+	z-index:999999;
+	width:100%;
+	max-width:310px;
+	li {
+		display:none;
+		top:0;
+		left:0;
+		width:100%;
+		max-width:310px;
+		position:absolute;
+		background:white;
+		padding:15px;
+		line-height:1.4;
+		@include box-shadow(0 0 8px 0 rgba($gray, 0.7));
+		border-radius:4px;
+	}
+	a {
+		color:$domColor;
+		display:block;
+		@include hover($terColor);
+		text-align:right;
+	}
+}
