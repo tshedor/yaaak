@@ -195,6 +195,18 @@ byah = {
 			localStorage.removeItem(key)
 		}
 	},
+	readFile: function(input, image_identifier){
+
+		this.setDefault(image_identifier, $(this).find('img').first())
+
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			reader.onload = function (e) {
+				image_identifier.attr('src', e.target.result);
+			}
+			reader.readAsDataURL(input.files[0]);
+		}
+	},
 	/* Set default values for JS functions */
 	setDefault: function(variable, value){
 		return (typeof variable === 'undefined') ? value : variable;

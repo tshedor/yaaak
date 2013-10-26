@@ -6,8 +6,10 @@
 @media (max-width: 1199px) and (min-width: 768px) {
 
 }
-@media (max-width:959px) and (min-width:768px){
-
+@media (max-width:841px) and (min-width:768px){
+	.herd .new_grunt input[type="text"] {
+		width:70%;
+	}
 }
 @media (max-width:767px){
 	#rumble2013 { display: none; }
@@ -43,7 +45,7 @@
 			}
 		}
 	}
-	.herd-sb { width: 100%; margin-top: 20px; float: none; }
+	.herd-sb { width: 100%; margin-top: 20px; float: none; background-repeat:repeat;}
 	.chat-list {
 		.yak {
 			padding:12px 11px;
@@ -52,6 +54,9 @@
 	}
 	.form#updateName {
 		width:100%;
+	}
+	.herd .new_grunt input[type="text"] {
+		width:65%;
 	}
 }
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {

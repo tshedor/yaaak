@@ -60,6 +60,13 @@ $(document).ready(function() {
 		yakfunc.googleLocation(herd_epicenter)
 
 		$('#distanceFromCenter').text(byah.distanceBetween(byah.localRetrieve('position'), herd_epicenter));
+		$('#grunt_photo').change(function(){
+			byah.readFile(this, $('#grunt_preview'));
+		});
+		$('#trigger_grunt_photo').click(function(){
+			$('#grunt_photo').click();
+			return false;
+		});
 	}
 
 	$('#chat_list').on('click', '.yak', function(e) {
@@ -69,7 +76,6 @@ $(document).ready(function() {
 		retrieveYakData = $.getJSON('/yaks/' + user_id + '.json', function(data){
 			$('.popup .user_name').text(data.user_name)
 			$('.popup .popup-header').css('background', data.grunt_count)
-			$('.popup .user_color').text(data.user_color)
 			$('.popup .short_user_name').text(data.short_user_name)
 			$('.popup .last_grunt').text(data.last_grunt)
 			$('.popup .block-user').attr('data-userid', user_id);
@@ -125,6 +131,7 @@ $(document).ready(function() {
 
 	$('#grunt_message').focus();
 	$('#new_grunt').bind("ajax:complete", function(e, xhr, status){
+		var new_herd_id;
 		if(xhr.responseJSON && xhr.responseJSON.grunt_error){
 			var error_message;
 			switch(xhr.responseJSON.grunt_error){
@@ -144,9 +151,20 @@ $(document).ready(function() {
 			})
 		} else if(xhr.responseJSON) {
 			$('#grunt_message').val('')
+			$('#grunt_preview').attr('src', '')
 			if(!$('body').hasClass('herds')) {
 				window.location = "/herds/" + xhr.responseJSON.herd_id;
 			}
+			new_herd_id = xhr.responseJSON.herd_id
+		} else if(xhr.responseText && xhr.responseText.substr(2,7) === 'herd_id'){
+			console.log(xhr.responseText)
+			/* For some reason when sending an image it doesn't return a responseJSON, but the responseText is still the same. status also equals parsererror */
+			$('#grunt_message').val('')
+			$('#grunt_preview').attr('src', '')
+			new_herd_id = xhr.responseText.slice(11,-1)
+		}
+		if($('.herd').attr('data-yakinherd') === 'false' && typeof new_herd_id !== "undefined"){
+			window.location = "/herds/" + new_herd_id
 		}
 	});
 
@@ -158,6 +176,13 @@ $(document).ready(function() {
 			dataType: "json",
 			data: 'name='+encodeURIComponent($('#newName').val()),
 			success: function(msg) {
+				var short_user_name;
+				n = msg.name.split(' ')
+				short_user_name = n[1] ? n[0][0] + n[1][0] : n[0][0]
+				$('.yak[data-userid="' + msg.id + '"]').each(function(){
+					$(this).text(short_user_name);
+				});
+
 				$('#show-hdr').toggleClass('i-close-active').toggleClass('i-settings');
 				$('.hdr').toggleClass('hdr-out');
 				byah.notify({
@@ -172,5 +197,8 @@ $(document).ready(function() {
 				return $('body').html(xhr.responseText);
 			}
 		});
+	});
+	$('#unblockAll').click(function(){
+		byah.localStore('blockedUsers', new Array());
 	});
 });

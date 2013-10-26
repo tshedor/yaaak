@@ -25,8 +25,12 @@
 	.yak, .message-content {
 		@include inline-block;
 	}
+	img {
+		display:block;
+	}
 	.yak {
-		padding:23px;
+		padding:22px 21px;
+		text-align:center;
 		border-radius: 100%;
 		background:$terColor;
 		color:white;
@@ -75,6 +79,11 @@
 		}
 	}
 }
+#new_grunt {
+	img {
+		display:block;
+	}
+}
 .herd {
 	width: 64.70588%;
 	float: left;
@@ -84,15 +93,13 @@
 		@include border-bottom-radius(5px);
 		box-shadow: 0 3px 4px 0 rgba($gray, 0.4);
 	}
-
-
 	.new_grunt {
 		padding: 20px;
 		background:$domColor;
 		overflow:hidden;
 		border-radius: 5px 5px 0 0;
 		input[type="text"] {
-			width:80%;
+			width:73%;
 			@include inline-block;
 			border:0;
 			padding:10px;
