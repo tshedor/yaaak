@@ -5,7 +5,7 @@
 		<div class="herd-hdr">
 			<%= link_to 'Mozy back to the range', root_path, {:class => 'i-leftarrow'} %>
 		</div><!-- /herd hdr -->
-		<div class="herd" data-lat="<%= @herd.geo_lat %>" data-long="<%= @herd.geo_long %>" data-yakinherd="<%= yak_in_herd %>" data-herdid="<%= @herd.id %>" data-radius="<%= @herd.herd_radius %>">
+		<div class="herd" data-lat="<%= @herd.geo_lat %>" data-long="<%= @herd.geo_long %>" data-yakinherd="" data-herdid="<%= @herd.id %>" data-radius="<%= @herd.herd_radius %>">
 			<%= form_for Grunt.new, :html => { :multipart => true }, :remote => true do |f| %>
 				<%= f.text_field :message, :placeholder => ["But seriously, how can yaks see through all that hair?", "What noise does the yak make?", "Did you know that yak polo is a real thing?", "Did you know that the reclusive yakalo exists?", "Did you know that wild yaks are so chill, they only have one natural predator?", "Did you know that babe yaks are called Naks?"].sample %>
 				<input type="hidden" name="herd_id" value="<%= @herd.id %>" />
