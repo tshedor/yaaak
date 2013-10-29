@@ -30,6 +30,28 @@ class Grunt < ActiveRecord::Base
     herds.first.master_herd if herds.any?
   end
 
+  #find all grunts within a 5 mile radius and grunt to all of them? no master herd?
+
+  #all grunts within a 5 mile radius - and all the herds associated with those grunts
+
+  #when there are multiple herds make sure they are connected
+
+  def connect_nearby_herds
+
+  end
+
+  def nearby_herds
+    self.all_near_grunts.collect { |grunt| grunt.herds }.flatten.uniq
+  end
+
+  def all_near_grunts(mile_radius = 5)
+    Grunt.find_by_sql("
+      SELECT id, geo_lat, geo_long, created_at,
+      ( 3959 * acos( cos( radians( #{geo_lat} ) ) * cos( radians( geo_lat ) ) * cos( radians( geo_long ) - radians( #{geo_long} ) ) + sin( radians( #{geo_lat} ) ) * sin( radians( geo_lat ) ) ) ) AS distance
+      FROM grunts HAVING distance < #{mile_radius} AND id <> #{id} ORDER BY distance
+    ")
+  end
+
   def nearest_grunt(lat, long, mile_radius = 5)
     Grunt.find_by_sql("
       SELECT id, geo_lat, geo_long, created_at,
@@ -51,6 +73,7 @@ private
     else
       herd = Herd.create(geo_lat: geo_lat, geo_long: geo_long)
     end
+    # herd.attach_yak(self)
     herd.grunts << self
     yak.update_attributes(herd_id: herd.id, geo_lat: geo_lat, geo_long: geo_long) if yak
   end
