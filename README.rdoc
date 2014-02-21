@@ -1,28 +1,27 @@
-== README
+== What is Yaaak?
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+It's a proximity-based chat app born out of a RailsRumble 2013 submission. The gimmick here is that uses Rails 4's Live Stream feature.
 
-Things you may want to cover:
+== Come again?
 
-* Ruby version
+When you, a yak, send out a “grunt” from the home page, you automatically join the nearest herd within a five mile radius. As more yaks nearby grunt, the herd radius grows bigger and bigger. And if no one is within that five mile radius, a new herd is created for you.
 
-* System dependencies
+For example, if I grunt from New York City and no one is around, a five mile radius is created around me. If another yak grunts from three miles away, he joins my herd and then our herd radius becomes seven miles wide. If another yak grunts from two miles away from him, the herd radius grows to 10 miles wide. So, in theory, I could talk to someone in Vermont if there were enough yaks simultaneously grunting through New England.
 
-* Configuration
+== I need a glossary.
 
-* Database creation
+* Yak - a person chatting
+* Grunt - the message a yak sends
+* Herd - a group of yaks
 
-* Database initialization
+== What do I need to Yaaak on my own?
 
-* How to run the test suite
+* Patience.
+* Rails 4
+* nginx (this might work on Apache, if you're feeling adventurous)
+* MySQL with 20 < threads
+* Ruby 1.9.3 <
 
-* Services (job queues, cache servers, search engines, etc.)
+== So what's planned the future?
 
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+More documentation and code comments, for sure. But we're probably not going to be adding any more features. Open-sourcing this project was simply to help anyone who's been struggling with Live Stream, or to springboard anyone who needs a Ruby live chat setup in a pinch.
