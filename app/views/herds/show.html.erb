@@ -12,7 +12,7 @@
 				<%= f.hidden_field :geo_lat %>
 				<%= f.hidden_field :geo_long %>
 				<%= f.file_field :photo, :capture => "camera", :accept => "image/*" %>
-				<a href="#" class="button" id="trigger_grunt_photo">Ph</a>
+				<a href="#" class="button" id="trigger_grunt_photo"><i class="i-photo"></i></a>
 				<%= f.submit "Yaaak" %>
 				<img id="grunt_preview" />
 			<% end %>
@@ -28,7 +28,7 @@
 					<div class="message">
 						<span class="last_grunt"></span>
 					</div>
-					<div class="button block-user" data-userid="0">Block User</div>
+					<div class="button block-user" data-userid="0"><i class="i-delte"></i> Block User</div>
 				</div>
 			</div>
 		</div><!-- /herd -->
