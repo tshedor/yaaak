@@ -12,6 +12,10 @@ class Herd < ActiveRecord::Base
     Yak.joins(:herd).where(herds: { id: id })
   end
 
+  def attach_yak(grunt)
+
+  end
+
   def furthest_grunt
     Grunt.find_by_sql("
       SELECT grunts.*,
