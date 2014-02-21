@@ -16,7 +16,7 @@ class Grunt < ActiveRecord::Base
   after_save :attach_or_create_herd
   after_destroy :last_yak_grunt_check
 
-  self.default_scope { order('created_at DESC') }
+  #self.default_scope { order('created_at DESC') }
 
   def display_name
     if yak && yak.name
@@ -61,7 +61,7 @@ class Grunt < ActiveRecord::Base
   end
 
   def self.delete_old_grunts
-    Grunt.where('created_at < ?', Time.zone.now - 1.day).destroy_all
+    Grunt.where('grunts.created_at < ?', Time.zone.now - 1.day).destroy_all
   end
 
 private
